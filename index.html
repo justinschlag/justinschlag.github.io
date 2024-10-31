@@ -1,22 +1,35 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSCE 190: Justin Schlag</title>
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
+</head>
+<body>
     <h1>Justin Schlag</h1>
 
-    <h2>About me</h2>
-    <div class="about"></div>
+<!-- About Me Section with LinkedIn Link on Profile Picture -->
+<h2> About Me </h2>
+<div class="about">
+    <a href="https://www.linkedin.com/in/justinschlag" target="_blank">
+        <img src="images/grad pic.jpg" alt="Justin Schlag's Profile Picture">
+    </a>
+    <p>
+        Hi! I'm Justin Schlag, a freshman Computer Engineering student at the University of South Carolina, with the South Carolina Honors College. 
+        My focus over the past year has been research and gaining technical experience outside of academics. My main goal is to contribute to DoD work in engineering.
+    </p>
+</div>
+
 
     <h2>Skills</h2>
-    <div class="skills"></div>
+    <div class="skills">
+        <p>Coding Languages: Java, HTML/CSS, Python</p>
+    </div>
 
     <h2>Highlighted projects</h2>
     <div class="projects">
-      
-      <!-- Problem Statement Assignment -->
+      <!-- Project sections as you already have them -->
       <section class="project">
         <a href="files/problem_statement.pdf">
           <h3>Problem Statement</h3>
@@ -25,10 +38,12 @@
           <img src="images/ProblemStatement 190.png" />
         </a>
         <p>
-          The Strom Thurmond Fitness Center at USC experiences significant
-          overcrowding during various hours of the day, creating an inconsistent
-          experience for students and discouraging some from using the facility
-          during these busy times.
+          The Strom Thurmond Fitness Center at USC faces significant
+          overcrowding during peak hours, resulting in inconsistent experiences
+          for students. To address this challenge, I developed an affinity
+          diagram to organize potential solutions and outline necessary steps
+          prior to launching the new app.
+
         </p>
       </section>
 
@@ -94,7 +109,28 @@
     </div>
 
     <h2>Contact me</h2>
-    <div class="contact"></div>
-  </body>
+    <div class="contact">
+      <a href="www.linkedin.com/in/justinschlag">Linkedin</a>
+        <a href="jschlag@email.sc.edu">Email</a>
+    </div>
+
+    <!-- Modal and Overlay Structure -->
+     <!--Made with help of ChatGPT-->
+    <div class="modal">
+        <div class="modal-content">
+        </div>
+        <button class="modal-close">Close</button>
+    </div>
+    <div class="overlay"></div>
+
+    <script src="script.js"></script>
+</body>
 </html>
+<button id="darkModeToggle">Dark Mode</button>
+<script>
+  document.getElementById("darkModeToggle").onclick = function() {
+      document.body.classList.toggle("dark-mode");
+  }
+  </script>
+  
 
