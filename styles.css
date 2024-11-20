@@ -167,12 +167,129 @@ p {
     color: #343a40;
 }
 
-/* Skills Section Styling */
+/* Professional Skills Section */
 .skills {
     margin: 40px auto;
     text-align: center;
+    background: linear-gradient(to bottom, #f7f7f7, #ffffff);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+}
+
+.skills p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.skill-item {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.skill-item:hover {
+    transform: scale(1.03);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.skill-item h3 {
     color: #2c3e50;
-    animation: fadeIn 1.5s ease-in;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.skill-item ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+}
+
+.skill-item ul li {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 8px;
+    color: #555;
+    position: relative;
+    padding-left: 20px;
+}
+
+.skill-item ul li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #3498db;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Dark Mode for Skills Section */
+body.dark-mode .skills {
+    background: linear-gradient(to bottom, #2e2e2e, #1c1c1c);
+    color: #f0f0f0;
+}
+
+body.dark-mode .skill-item {
+    background-color: #333333;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .skill-item h3 {
+    color: #ff6b6b;
+    border-bottom-color: #ff6b6b;
+}
+
+body.dark-mode .skill-item ul li {
+    color: #ccc;
+}
+
+/* Skills Section with 4 Items in a Row */
+.skills-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Force 4 columns */
+    gap: 20px;
+}
+
+/* Responsive Adjustment for Smaller Screens */
+@media (max-width: 1200px) {
+    .skills-container {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .skills-container {
+        grid-template-columns: 1fr; /* Stack items vertically on small screens */
+    }
+}
+/* Skill Item Title Styling with Fixed Height */
+.skill-item h3 {
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 600;
+    border-bottom: 2px solid #3498db;
+    margin-bottom: 15px;
+    text-align: left;
+    height: 60px; /* Fixed height to ensure uniformity */
+    line-height: 1.2; /* Adjusted for multi-line titles */
+    display: flex;
+    align-items: flex-end; /* Ensures text aligns to the bottom */
+    padding-bottom: 5px; /* Adds consistent spacing above the border */
 }
 
 /* Contact Section Styling */
