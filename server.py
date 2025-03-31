@@ -23,6 +23,6 @@ def ask():
         return jsonify({"answer": answer})
     except Exception as e:
         return jsonify({"answer": f"Error: {str(e)}"})
-
+    
 if __name__ == "__main__":
     app.run(debug=True)
