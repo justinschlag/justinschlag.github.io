@@ -136,8 +136,10 @@
         responseDiv.innerHTML = `<b>You:</b> ${question}<br/><b>JustinBot:</b> ${data.answer}`;
         input.value = "";
       } catch (err) {
-        responseDiv.innerHTML = "Sorry, something went wrong.";
-      }
+  console.error("Chatbox error:", err);  // ← ADD THIS LINE
+  responseDiv.innerHTML = "Sorry, something went wrong.";
+}
+
     };
   </script>
 </body>
