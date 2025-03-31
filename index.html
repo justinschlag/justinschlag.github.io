@@ -25,45 +25,63 @@
     </div>
   </section>
 
+  <!-- Chatbox -->
+  <section class="chatbox-section">
+    <h2>💬 Don't want to reach out? Just Ask JustinBot</h2>
+    <div class="chatbox-container">
+      <form id="chat-form">
+        <input type="text" id="user-input" placeholder="Ask anything..." required />
+        <button type="submit">Send</button>
+      </form>
+      <div id="chat-response"></div>
+    </div>
+  </section>
+
   <!-- Projects Section -->
-  <section class="projects">
-    <h2>Research & Projects</h2>
+  <!-- Projects Section -->
+<section class="projects">
+  <h2>Research & Projects</h2>
+  <div class="project-grid">
+
+    <!-- Project 1: Computer Vision Research -->
     <div class="project">
       <a href="research/index.html">
         <img src="images/research.png" alt="Research Preview" class="hover-img" />
         <h3>Computer Vision Research</h3>
       </a>
-      <p>Explore my applied research in raindrop segmentation, prompt engineering, and fast labeling tools for real-world datasets.</p>
+      <p>
+        Explore my applied research in raindrop segmentation, prompt engineering, and fast labeling tools for real-world datasets.
+      </p>
+      <a href="research/index.html" class="project-button">Click here to learn more</a>
     </div>
-  </section>
 
-  <!-- JustinBot Project Tile -->
-<section class="projects">
-  <h2>JustinBot – Ask Me Anything</h2>
-  <div class="project">
-    <a href="justinbot/index.html">
-      <img src="images/JustinBot.png" alt="JustinBot Preview" class="hover-img" />
-      <h3>JustinBot Chat Assistant</h3>
-    </a>
-    <p>
-      Chat with my personal AI bot! Built using OpenAI and Render, JustinBot can answer questions about my work, research, and projects.
-    </p>
-  </div>
-</section>
+    <!-- Project 2: JustinBot -->
+    <div class="project">
+      <a href="justinbot/index.html">
+        <img src="images/JustinBot.png" alt="JustinBot Preview" class="hover-img" />
+        <h3>JustinBot Chat Assistant</h3>
+      </a>
+      <p>
+        Chat with my personal AI bot! Built using OpenAI and Render, JustinBot can answer questions about my work, research, and projects.
+      </p>
+      <a href="justinbot/index.html" class="project-button">Click here to learn more</a>
+    </div>
 
-
-  <!-- CSCE 190 Section -->
-  <section class="projects">
-    <h2>CSCE 190 Website</h2>
+    <!-- Project 3: CSCE 190 -->
     <div class="project">
       <a href="csce190/index.html">
         <img src="images/csce190.png" alt="CSCE 190 Screenshot" class="hover-img">
+        <h3>CSCE 190 Website</h3>
       </a>
       <p>
-        Coursework and group project archive from CSCE 190. Learn about our brainstorming, wireframes, and prototype builds.
+        Coursework final website project archive from CSCE 190. Learn about our brainstorming, wireframes, and prototype builds.
       </p>
+      <a href="csce190/index.html" class="project-button">Click here to learn more</a>
     </div>
-  </section>
+
+  </div>
+</section>
+
 
   <!-- Skills -->
   <section class="skills">
@@ -72,40 +90,19 @@
     <div class="skills-container">
       <div class="skill-item">
         <h3>Languages</h3>
-        <ul>
-          <li>Java</li>
-          <li>JavaScript</li>
-          <li>Python</li>
-          <li>HTML</li>
-          <li>CSS</li>
-        </ul>
+        <ul><li>Java</li><li>JavaScript</li><li>Python</li><li>HTML</li><li>CSS</li></ul>
       </div>
       <div class="skill-item">
         <h3>Frameworks & Tools</h3>
-        <ul>
-          <li>React.js</li>
-          <li>React Native</li>
-          <li>PyTorch</li>
-          <li>Node.js</li>
-        </ul>
+        <ul><li>React.js</li><li>React Native</li><li>PyTorch</li><li>Node.js</li></ul>
       </div>
       <div class="skill-item">
         <h3>Development</h3>
-        <ul>
-          <li>Unix/Linux</li>
-          <li>Git & GitHub</li>
-          <li>SCRUM</li>
-        </ul>
+        <ul><li>Unix/Linux</li><li>Git & GitHub</li><li>SCRUM</li></ul>
       </div>
       <div class="skill-item">
         <h3>Hardware & Tools</h3>
-        <ul>
-          <li>CAD Design</li>
-          <li>Wire Splicing</li>
-          <li>Server Rack Setup</li>
-          <li>Laptop Configuration</li>
-          <li>Electronics Diagnostics</li>
-        </ul>
+        <ul><li>CAD Design</li><li>Wire Splicing</li><li>Server Rack Setup</li><li>Laptop Configuration</li><li>Electronics Diagnostics</li></ul>
       </div>
     </div>
   </section>
@@ -113,33 +110,26 @@
   <!-- Contact -->
   <section class="contact">
     <h2>Contact Me</h2>
-    <a href="https://www.linkedin.com/in/justinschlag" target="_blank">LinkedIn</a>
-    <a href="mailto:jschlag@email.sc.edu">Email</a>
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/justinschlag" target="_blank">LinkedIn</a>
+      <a href="mailto:jschlag@email.sc.edu">Email</a>
+    </div>
   </section>
+  
 
-  <!-- Chatbox -->
-  <div id="chatbox" class="chatbox-container">
-    <h2>Don't want to reach out? Just ask Justin Bot.</h2>
-    <form id="chat-form">
-      <input type="text" id="user-input" placeholder="Ask anything..." required />
-      <button type="submit">Send</button>
-    </form>
-    <div id="chat-response"></div>
-  </div>
-
-  <!-- Scripts -->
+  <!-- Chatbot Script -->
   <script>
     const form = document.getElementById("chat-form");
     const input = document.getElementById("user-input");
     const responseDiv = document.getElementById("chat-response");
-  
+
     let firstMessage = true;
-  
+
     form.onsubmit = async (e) => {
       e.preventDefault();
       const question = input.value.trim();
       if (!question) return;
-  
+
       // First message lighthearted loading
       if (firstMessage) {
         responseDiv.innerHTML = `
@@ -150,24 +140,23 @@
       } else {
         responseDiv.innerHTML = "Thinking...";
       }
-  
+
       try {
         const res = await fetch("https://justin-bot-ujmo.onrender.com/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ question })
         });
-  
+
         const data = await res.json();
         responseDiv.innerHTML = `<b>You:</b> ${question}<br/><b>JustinBot:</b> ${data.answer}`;
         input.value = "";
-        firstMessage = false; // Turn off after first response
+        firstMessage = false;
       } catch (err) {
         console.error("Chatbox error:", err);
         responseDiv.innerHTML = "Sorry, something went wrong.";
       }
     };
   </script>
-  
 </body>
 </html>
