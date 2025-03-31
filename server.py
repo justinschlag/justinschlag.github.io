@@ -7,7 +7,7 @@ import openai
 import os
 
 app = Flask(__name__)
-CORS(app)  # Enables cross-origin requests
+CORS(app)
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route("/ask", methods=["POST"])
@@ -19,7 +19,7 @@ def ask():
         return jsonify({"answer": "Please ask a question."})
 
     try:
-        response = openai.ChatCompletion.create(
+        response = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": question}]
         )
