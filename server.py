@@ -1,41 +1,28 @@
-# File: server.py
-
+# server.py
 from flask import Flask, request, jsonify
 import openai
 import os
 
 app = Flask(__name__)
-
-# 🔒 Store your API key securely as an environment variable
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Replace this with your real Assistant ID from OpenAI
-ASSISTANT_ID = os.getenv("OPENAI_ASSISTANT_ID")
-
-@app.route("/chat", methods=["POST"])
-def chat():
+@app.route("/ask", methods=["POST"])
+def ask():
     data = request.get_json()
-    user_message = data.get("message", "")
+    question = data.get("question", "")
 
-    if not user_message:
-        return jsonify({"error": "Missing message"}), 400
+    if not question:
+        return jsonify({"answer": "Please ask a question."})
 
     try:
-        response = openai.beta.threads.create_and_run(
-            assistant_id=ASSISTANT_ID,
-            thread={"messages": [{"role": "user", "content": user_message}]},
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": question}]
         )
-        thread_id = response.thread_id
-
-        # Wait for completion (simplified; ideally poll status)
-        run = openai.beta.threads.runs.retrieve(thread_id=thread_id, run_id=response.id)
-        messages = openai.beta.threads.messages.list(thread_id=thread_id)
-
-        last_message = messages.data[0]
-        return jsonify({"reply": last_message.content[0].text.value})
-
+        answer = response.choices[0].message.content.strip()
+        return jsonify({"answer": answer})
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        return jsonify({"answer": f"Error: {str(e)}"})
 
 if __name__ == "__main__":
     app.run(debug=True)
