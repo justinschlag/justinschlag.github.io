@@ -5,10 +5,14 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
 import os
+import time
 
 app = Flask(__name__)
 CORS(app)
-openai.api_key = os.getenv("OPENAI_API_KEY")
+
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+ASSISTANT_ID = "asst_8miFBlNM4n4G7OBQzZ412FcB"  # Your Assistant ID here
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -19,12 +23,35 @@ def ask():
         return jsonify({"answer": "Please ask a question."})
 
     try:
-        response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": question}]
+        # Create a new thread
+        thread = client.beta.threads.create()
+
+        # Add user's message to the thread
+        client.beta.threads.messages.create(
+            thread_id=thread.id,
+            role="user",
+            content=question
         )
-        answer = response.choices[0].message.content.strip()
-        return jsonify({"answer": answer})
+
+        # Run the assistant
+        run = client.beta.threads.runs.create(
+            thread_id=thread.id,
+            assistant_id=ASSISTANT_ID
+        )
+
+        # Wait for the assistant to complete processing
+        while run.status in ["queued", "in_progress"]:
+            run = client.beta.threads.runs.retrieve(
+                thread_id=thread.id,
+                run_id=run.id
+            )
+            time.sleep(0.5)
+
+        # Retrieve the assistant's response
+        messages = client.beta.threads.messages.list(thread_id=thread.id)
+        response = messages.data[0].content[0].text.value
+
+        return jsonify({"answer": response})
 
     except Exception as e:
         return jsonify({"answer": f"Error: {str(e)}"})
