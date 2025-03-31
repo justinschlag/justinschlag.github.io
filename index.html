@@ -117,29 +117,42 @@
     const form = document.getElementById("chat-form");
     const input = document.getElementById("user-input");
     const responseDiv = document.getElementById("chat-response");
-
+  
+    let firstMessage = true;
+  
     form.onsubmit = async (e) => {
       e.preventDefault();
       const question = input.value.trim();
       if (!question) return;
-
-      responseDiv.innerHTML = "Thinking...";
-
+  
+      // First message lighthearted loading
+      if (firstMessage) {
+        responseDiv.innerHTML = `
+          <div style="font-style: italic; color: gray;">
+            JustinBot is sleeping... please allow up to thirty seconds while he wakes up 💤
+          </div>
+        `;
+      } else {
+        responseDiv.innerHTML = "Thinking...";
+      }
+  
       try {
         const res = await fetch("https://justin-bot-ujmo.onrender.com/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ question })
         });
-
+  
         const data = await res.json();
         responseDiv.innerHTML = `<b>You:</b> ${question}<br/><b>JustinBot:</b> ${data.answer}`;
         input.value = "";
+        firstMessage = false; // Turn off after first response
       } catch (err) {
         console.error("Chatbox error:", err);
         responseDiv.innerHTML = "Sorry, something went wrong.";
       }
     };
   </script>
+  
 </body>
 </html>
