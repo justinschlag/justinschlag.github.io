@@ -232,51 +232,46 @@ body.dark-mode #darkModeToggle:hover {
   object-position: center;
 }
 
-.chatbox {
-  margin-top: 3rem;
+.chatbox-container {
   background: #fff;
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  max-width: 700px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#chat-window {
-  max-height: 300px;
-  overflow-y: auto;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background: #f4f4f4;
-  border-radius: 8px;
-}
-
-.user-msg, .bot-msg {
-  margin-bottom: 1rem;
+  box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  margin-top: 4rem;
+  text-align: center;
 }
 
 #chat-form {
   display: flex;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 #user-input {
-  flex-grow: 1;
-  padding: 0.5rem;
-  border-radius: 6px;
+  width: 60%;
+  padding: 0.75rem;
   border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
 }
 
 #chat-form button {
-  padding: 0.5rem 1rem;
-  border: none;
-  background-color: #0077cc;
+  padding: 0.75rem 1.25rem;
+  background: #0077cc;
   color: white;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
 #chat-form button:hover {
-  background-color: #005fa3;
+  background: #005fa3;
+}
+
+#chat-response {
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #333;
+  white-space: pre-wrap;
 }
