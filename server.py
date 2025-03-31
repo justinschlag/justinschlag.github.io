@@ -1,10 +1,15 @@
-# server.py
+# server.py (add at the top)
+from dotenv import load_dotenv
+load_dotenv()
+
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import openai
 import os
 
 app = Flask(__name__)
-client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+CORS(app)  # ← Enables cross-origin requests
+openai.api_key = os.getenv("OPENAI_API_KEY")  # Correct API key setup
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -15,7 +20,7 @@ def ask():
         return jsonify({"answer": "Please ask a question."})
 
     try:
-        response = client.chat.completions.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "user", "content": question}]
         )
