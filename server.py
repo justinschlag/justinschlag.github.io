@@ -1,4 +1,3 @@
-# server.py (add at the top)
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -8,8 +7,8 @@ import openai
 import os
 
 app = Flask(__name__)
-CORS(app)  # ← Enables cross-origin requests
-openai.api_key = os.getenv("OPENAI_API_KEY")  # Correct API key setup
+CORS(app)  # Enables cross-origin requests
+openai.api_key = os.getenv("OPENAI_API_KEY")
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -26,6 +25,7 @@ def ask():
         )
         answer = response.choices[0].message.content.strip()
         return jsonify({"answer": answer})
+
     except Exception as e:
         return jsonify({"answer": f"Error: {str(e)}"})
 
