@@ -126,7 +126,7 @@
       responseDiv.innerHTML = "Thinking...";
 
       try {
-        const res = await fetch("http://127.0.0.1:5000/ask", {
+        const res = await fetch("https://justin-bot-ujmo.onrender.com/ask", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ question })
@@ -136,10 +136,9 @@
         responseDiv.innerHTML = `<b>You:</b> ${question}<br/><b>JustinBot:</b> ${data.answer}`;
         input.value = "";
       } catch (err) {
-  console.error("Chatbox error:", err);  // ← ADD THIS LINE
-  responseDiv.innerHTML = "Sorry, something went wrong.";
-}
-
+        console.error("Chatbox error:", err);
+        responseDiv.innerHTML = "Sorry, something went wrong.";
+      }
     };
   </script>
 </body>
