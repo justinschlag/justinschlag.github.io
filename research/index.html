@@ -5,50 +5,237 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Research & Projects – Justin Schlag</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .site-header {
+      background: #002855;
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .site-header p {
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .intro {
+      max-width: 800px;
+      margin: 2rem auto;
+      text-align: center;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+      display: block;
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .img-formal {
+      object-position: center 35%;
+    }
+
+    .img-presentation {
+      object-position: center 15%;
+    }
+
+    .card-content {
+      padding: 1rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-content h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    .card-content p {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      flex-grow: 1;
+      margin: 0 0 1rem;
+    }
+
+    .project-summary {
+  max-width: 1000px;           /* ⬅️ wider layout */
+  margin: 3rem auto 1rem auto;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  padding: 0 2rem;
+  color: #333;
+}
+
+.project-summary p {
+  margin-bottom: 1.5rem;
+}
+
+
+    .contact {
+      text-align: center;
+      padding: 2rem 0;
+    }
+
+    .contact a {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #002855;
+      border: 2px solid #002855;
+      padding: 0.5rem 1.25rem;
+      border-radius: 8px;
+      transition: 0.3s ease;
+      display: inline-block;
+      margin-top: 1rem;
+    }
+
+    .contact a:hover {
+      background: #002855;
+      color: #fff;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      padding-top: 100px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: auto;
+      padding: 2rem;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+    }
+  </style>
+
+  <script>
+    function openModal() {
+      document.getElementById("cuiModal").style.display = "block";
+    }
+    function closeModal() {
+      document.getElementById("cuiModal").style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == document.getElementById("cuiModal")) {
+        closeModal();
+      }
+    }
+  </script>
 </head>
+
 <body>
   <header class="site-header">
-    <h1>Undergraduate Research Assistant with the Office of Naval Research and the University of South Carolina</h1>
+    <h1>Research Deliverables</h1>
+    <p>Undergraduate Research Assistant, ONR &amp; USC — Spring 2025</p>
   </header>
 
   <section class="intro">
+    <p>This page summarizes my work developing a raindrop segmentation pipeline, from manual image labeling to training a custom U-Net model for automated detection. Some deliverables are currently restricted due to research confidentiality.</p>
+  </section>
+
+  <section class="cards-grid">
+    <div class="card" onclick="openModal()">
+      <img class="img-formal" src="images/Raindrop Formal Report.png" alt="Formal Report Thumbnail">
+      <div class="card-content">
+        <h3>Formal Research Report</h3>
+        <p>A detailed report on the development of a manual labeling tool with SAM2 integration, the construction of a mask dataset, and the first stages of automated model training for raindrop detection.</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="openModal()">
+      <img class="img-presentation" src="images/Raindrop Segmentation Presentation.png" alt="Presentation Thumbnail">
+      <div class="card-content">
+        <h3>Research Presentation</h3>
+        <p>A visual walkthrough of my project’s evolution, highlighting technical decisions, segmentation performance, and ongoing improvements like horizon-based data sampling.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="project-summary">
     <p>
-      These are some of the research projects and apps I’ve built based on real-world challenges in computer vision, labeling tools, and prompt engineering. Click each card to learn more or view the source.
+      These deliverables summarize my undergraduate research conducted under the guidance of Dr. Yan Tong at the University of South Carolina and supported by the Office of Naval Research. The <strong>formal research report</strong> outlines the complete development of a custom raindrop segmentation pipeline — beginning with a Python-based image labeling application enhanced by OpenCV and SAM2 model integration to generate precise segmentation masks.
+    </p>
+    <p>
+      The report documents the construction of a ground truth dataset from over 50 real-world images and describes the transition to automated segmentation using a U-Net-based model architecture. It includes implementation details, data preprocessing strategies, and refinements introduced based on evaluation feedback. Notably, the report discusses the use of horizon-line detection to support targeted data sampling — a strategy that improved model performance in distinguishing between similar visual features across sky and water surfaces.
+    </p>
+    <p>
+      The accompanying <strong>presentation slides</strong> visually trace this evolution using annotated architecture diagrams, mask overlay examples, training process screenshots, and performance benchmarking. It highlights technical challenges such as annotation efficiency, mask consistency, and robustness under varying lighting and scene conditions. Both deliverables emphasize the iterative development process and a forward-looking approach toward scalable, real-time segmentation pipelines for vision systems operating in dynamic environments.
+    </p>
+    <p>
+      Due to internal review protocols and data classification policies, these materials are currently designated as Controlled Unclassified Information (CUI). They will be made publicly available upon completion of the project and final approval.
     </p>
   </section>
 
-  <div class="projects">
-
-    <section class="project">
-      <a href="image-segmentation.html">
-        <h3>Raindrop Image Segmentation</h3>
-        <img src="images/raindrop_segmentation_thumb.jpg" alt="Raindrop Detection"> <!-- put your image here -->
-      </a>
-      <p>Uses OpenCV and YOLOv7 to improve detection in rainy/foggy scenes by masking water droplets on lenses.</p>
-    </section>
-
-    <section class="project">
-      <a href="negative-prompt-app.html">
-        <h3>Negative Prompt Generator</h3>
-        <img src="images/negative_prompt_thumb.jpg" alt="Negative Prompt App"> <!-- put your image here -->
-      </a>
-      <p>Helps refine AI image generation by generating negative prompts to exclude unwanted features from results.</p>
-    </section>
-
-    <section class="project">
-      <a href="image-labeling-tool.html">
-        <h3>Image Labeling Tool (SAM2)</h3>
-        <img src="images/image_label_tool_thumb.jpg" alt="Image Labeling Tool"> <!-- put your image here -->
-      </a>
-      <p>A GUI that generates masks using SAM2 and allows fast annotation with point-based input and preview options.</p>
-    </section>
-
-  </div>
-
   <div class="contact">
-    <a href="index.html">← Back to Home</a>
+    <a href="../index.html">&larr; Back to Home</a>
   </div>
 
-  <script src="script.js"></script>
+  <!-- Modal -->
+  <div id="cuiModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2>Controlled Unclassified Information (CUI)</h2>
+      <p>This project material is currently restricted and will be available after project completion and approval.</p>
+    </div>
+  </div>
 </body>
 </html>

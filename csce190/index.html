@@ -1,190 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSCE 190: Justin Schlag</title>
-    <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSCE 190: Justin Schlag</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <header class="site-header">
     <h1>Justin Schlag</h1>
+  </header>
 
-    <!-- About Me Section with LinkedIn Link on Profile Picture -->
-    <h2> About Me </h2>
-    <div class="about">
-        <a href="https://www.linkedin.com/in/justinschlag" target="_blank">
-            <img src="images/grad pic.jpg" alt="Justin Schlag's Profile Picture">
-        </a>
-        <p>
-            Hi! I'm Justin Schlag, a freshman Computer Engineering student at the University of South Carolina, with the South Carolina Honors College. 
-            My focus over the past year has been research and gaining technical experience outside of academics. My main goal is to contribute to DoD work in engineering.
-        </p>
+  <!-- About Me Section -->
+  <section class="intro about">
+    <h2>About Me</h2>
+    <div class="about-content">
+      <a href="https://www.linkedin.com/in/justinschlag" target="_blank">
+        <img src="images/grad pic.jpg" alt="Justin Schlag's Profile Picture" class="profile-pic">
+      </a>
+      <p>
+        Hi! I'm Justin Schlag, a freshman Computer Engineering student at the University of South Carolina, within the South Carolina Honors College. My focus over the past year has been research and gaining technical experience outside of academics. My main goal is to contribute to DoD work in engineering.
+      </p>
     </div>
+  </section>
 
+  <!-- Skills Section -->
+  <section class="intro skills">
     <h2>Skills</h2>
-    <div class="skills">
-      <p><b>Resume:</b> <a href="files/Resume (Nov 19).pdf">Download here</a></p>
-      <div class="skills-container">
-        <div class="skill-item">
-          <h3>Languages</h3>
-          <ul>
-            <li>Java</li>
-            <li>JavaScript</li>
-            <li>Python</li>
-            <li>HTML</li>
-            <li>CSS</li>
-          </ul>
-        </div>
-        <div class="skill-item">
-          <h3>Frameworks & Tools</h3>
-          <ul>
-            <li>React.js</li>
-            <li>React Native</li>
-            <li>PyTorch</li>
-            <li>Node.js</li>
-          </ul>
-        </div>
-        <div class="skill-item">
-          <h3>Development</h3>
-          <ul>
-            <li>Unix/Linux</li>
-            <li>Git & GitHub</li>
-            <li>SCRUM</li>
-          </ul>
-        </div>
-        <div class="skill-item">
-          <h3>Hardware & Tools</h3>
-          <ul>
-            <li>CAD Design</li>
-            <li>Wire Splicing</li>
-            <li>Server Rack Setup</li>
-            <li>Laptop Configuration</li>
-            <li>Basic Electronics Diagnostics</li>
-          </ul>
-        </div>
+    <p><strong>Resume:</strong> <a href="files/Resume (Nov 19).pdf" target="_blank">Download here</a></p>
+    <div class="skills-container">
+      <div class="skill-item">
+        <h3>Languages</h3>
+        <ul>
+          <li>Java</li>
+          <li>JavaScript</li>
+          <li>Python</li>
+          <li>HTML</li>
+          <li>CSS</li>
+        </ul>
+      </div>
+      <div class="skill-item">
+        <h3>Frameworks & Tools</h3>
+        <ul>
+          <li>React.js</li>
+          <li>React Native</li>
+          <li>PyTorch</li>
+          <li>Node.js</li>
+        </ul>
+      </div>
+      <div class="skill-item">
+        <h3>Development</h3>
+        <ul>
+          <li>Unix/Linux</li>
+          <li>Git & GitHub</li>
+          <li>SCRUM</li>
+        </ul>
+      </div>
+      <div class="skill-item">
+        <h3>Hardware & Tools</h3>
+        <ul>
+          <li>CAD Design</li>
+          <li>Wire Splicing</li>
+          <li>Server Rack Setup</li>
+          <li>Laptop Configuration</li>
+          <li>Basic Electronics Diagnostics</li>
+        </ul>
       </div>
     </div>
-    
+  </section>
 
-
-    <h2>Highlighted projects</h2>
-    <div class="projects">
-      <!-- Project sections as you already have them -->
-      <section class="project">
-        <a href="files/problem_statement.pdf">
-          <h3>Problem Statement</h3>
-        </a>
-        <a href="files/problem_statement.pdf">
-          <img src="images/ProblemStatement 190.png" alt="Problem Statement Image"/>
-        </a>
+  <!-- Highlighted Projects -->
+  <section class="intro">
+    <h2>Highlighted Projects</h2>
+  </section>
+  <section class="cards-grid">
+    <!-- Problem Statement -->
+    <a class="card" href="files/problem_statement.pdf" target="_blank">
+      <div class="card-image">
+        <img src="images/ProblemStatement 190.png" alt="Problem Statement Image">
+      </div>
+      <div class="card-content">
+        <h3>Problem Statement</h3>
         <p>
-          The Strom Thurmond Fitness Center at USC faces significant
-          overcrowding during peak hours, resulting in inconsistent experiences
-          for students. To address this challenge, I developed an affinity
-          diagram to organize potential solutions and outline necessary steps
-          prior to launching the new app.
+          Developed an affinity diagram to address overcrowding at USC's Strom Thurmond Fitness Center by organizing solution ideas and outlining pre-launch steps for a new scheduling app.
         </p>
-      </section>
-
-      <!-- Affinity Diagram Assignment -->
-      <section class="project">
-        <a href="files/affinity.pdf">
-          <h3>Affinity Diagram</h3>
-        </a>
-        <a href="files/affinity.pdf">
-          <img src="images/affinity.png" alt="Affinity Diagram Image"/>
-        </a>
+      </div>
+    </a>
+    <!-- Affinity Diagram -->
+    <a class="card" href="files/affinity.pdf" target="_blank">
+      <div class="card-image">
+        <img src="images/affinity.png" alt="Affinity Diagram Image">
+      </div>
+      <div class="card-content">
+        <h3>Affinity Diagram</h3>
         <p>
-          The Strom Thurmond Fitness Center at USC faces significant
-          overcrowding during peak hours, resulting in inconsistent experiences
-          for students. To address this challenge, I developed an affinity
-          diagram to organize potential solutions and outline necessary steps
-          prior to launching the new app.
+          Organized user research findings into thematic clusters to identify key pain points and solution pathways for gym crowd management at the Strom Thurmond Fitness Center.
         </p>
-      </section>
-
-      <!-- Sketches Assignment -->
-      <section class="project">
-        <a href="files/sketch.pdf">
-          <h3>Sketches</h3>
-        </a>
-        <a href="files/sketch.pdf">
-          <img src="images/thumbnail_image2.jpg" alt="Sketches Image"/>
-        </a>
+      </div>
+    </a>
+    <!-- Sketches -->
+    <a class="card" href="files/sketch.pdf" target="_blank">
+      <div class="card-image">
+        <img src="images/thumbnail_image2.jpg" alt="Sketches Image">
+      </div>
+      <div class="card-content">
+        <h3>Sketches</h3>
         <p>
-          I created sketches to showcase the app's core functionality and
-          design, focusing on intuitive user interactions and smooth screen
-          transitions to present a visually appealing, marketable interface.
+          Illustrated core app features and screen flows focusing on intuitive user interactions and smooth transitions for a streamlined fitness center scheduling experience.
         </p>
-      </section>
-
-      <!-- Storyboard Assignment  -->
-      <section class="project">
-        <a href="files/storyboard.pdf">
-          <h3>Storyboard</h3>
-        </a>
-        <a href="files/storyboard.pdf">
-          <img src="images/storyboard.png" alt="Storyboard Image"/>
-        </a>
+      </div>
+    </a>
+    <!-- Storyboard -->
+    <a class="card" href="files/storyboard.pdf" target="_blank">
+      <div class="card-image">
+        <img src="images/storyboard.png" alt="Storyboard Image">
+      </div>
+      <div class="card-content">
+        <h3>Storyboard</h3>
         <p>
-          I brainstormed ways in which the persona could integrate the app into
-          their daily life, focusing on practical use cases and meaningful
-          interactions.   
-          Image content and some ideas generated with assistance from ChatGPT by OpenAI: https://openai.com
+          Mapped user journeys and daily-use scenarios to visualize app integration into routines, highlighting meaningful interactions and practical use cases.<br>
+          <small>Content assisted by ChatGPT</small>
         </p>
-      </section>
-
-      <!-- Paper Prototype Assignment -->
-      <section class="project">
-        <a href="https://youtu.be/vNXtNccxhqM?si=CaRyYZbrYov-5YhZ">
-          <h3>Paper Prototype</h3>
-        </a>
-        <a href="https://youtu.be/vNXtNccxhqM?si=CaRyYZbrYov-5YhZ">
-          <img src="images/paper prototype.png" alt="Paper Prototype Image"/>
-        </a>
+      </div>
+    </a>
+    <!-- Paper Prototype -->
+    <a class="card" href="https://youtu.be/vNXtNccxhqM?si=CaRyYZbrYov-5YhZ" target="_blank">
+      <div class="card-image">
+        <img src="images/paper prototype.png" alt="Paper Prototype Image">
+      </div>
+      <div class="card-content">
+        <h3>Paper Prototype</h3>
         <p>
-          My paper prototype is a visual representation of my app, aimed at solving overcrowding at the Strom Thurmond Fitness Center. It features three main screens: the Crowdmeter home screen, which shows current gym occupancy, a graph screen displaying gym capacity trends; and a user profile screen for tracking fitness goals and adjusting settings.
+          A three-screen prototype demonstrating the Crowdmeter home screen, trend graphs, and user profile for tracking gym occupancy and goals.
         </p>
-      </section>
-    </div>
-    <section class="project">
-      <a href="https://github.com/justinschlag/CSCE145/tree/main">
-      <h3>Algorithmic Design 1</h3>
-      </a>
-      <a href="https://github.com/justinschlag/CSCE145/tree/main">
-      <img src="images/photo-1515879218367-8466d910aaa4.jpg">
-      </a>
-      <p>This is the code for CSCE 145, Algorithmic Design 1</p>
-      </section>
-      
-      <h2>Contact me</h2>
-    <div class="contact">
-        <a href="https://www.linkedin.com/in/justinschlag" target="_blank">
-            LinkedIn
-        </a>
-        <a href="mailto:jschlag@email.sc.edu">Email</a>
-    </div>
+      </div>
+    </a>
+    <!-- Algorithmic Design 1 -->
+    <a class="card" href="https://github.com/justinschlag/CSCE145/tree/main" target="_blank">
+      <div class="card-image">
+        <img src="images/photo-1515879218367-8466d910aaa4.jpg" alt="Algorithmic Design Image">
+      </div>
+      <div class="card-content">
+        <h3>Algorithmic Design 1</h3>
+        <p>
+          Repository for CSCE 145 assignments, showcasing solutions to core algorithmic problems using C++ and data structures.
+        </p>
+      </div>
+    </a>
+  </section>
 
-    <!-- Back to Home link -->
-    <div class="contact">
-        <a href="../index.html">← Back to Home</a>
-    </div>
+  <!-- Contact -->
+  <section class="contact">
+    <h2>Contact Me</h2>
+    <p>
+      <a href="https://www.linkedin.com/in/justinschlag" target="_blank">LinkedIn</a> &nbsp;|&nbsp;
+      <a href="mailto:jschlag@email.sc.edu">Email</a>
+    </p>
+    <p><a href="../index.html">← Back to Home</a></p>
+  </section>
 
-    <!-- Modal and Overlay Structure -->
-    <div class="modal">
-        <div class="modal-content">
-            <!-- Add content here if needed -->
-        </div>
-    </div>
-    <div class="overlay"></div>
-
-    <button id="darkModeToggle">Dark Mode</button>
-
-    <script src="script.js"></script>
-    <script>
-        document.getElementById("darkModeToggle").onclick = function() {
-            document.body.classList.toggle("dark-mode");
-        }
-    </script>
+  <!-- Dark Mode Toggle -->
+  <button id="darkModeToggle">Dark Mode</button>
+  <script src="script.js"></script>
+  <script>
+    document.getElementById("darkModeToggle").onclick = function() {
+      document.body.classList.toggle("dark-mode");
+    }
+  </script>
 </body>
 </html>

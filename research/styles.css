@@ -1,96 +1,140 @@
-/* research/styles.css */
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:wght@500;700&display=swap');
 
+/* CSS Variables */
+:root {
+  --color-primary: #0d1b2a;
+  --color-secondary: #1b263b;
+  --color-accent: #e76f51;
+  --color-light: #f5f5f5;
+  --color-dark: #303841;
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Fraunces', serif;
+  --transition: 0.3s ease;
+}
+
+/* Global Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9f9f9;
-  color: #222;
-  padding: 2rem;
-  margin: auto;
-  max-width: 900px;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-h1 {
-  font-size: 2.5rem;
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #333;
-}
-
-p {
-  font-size: 1.1rem;
-  text-align: center;
-  margin-bottom: 2rem;
+  font-family: var(--font-sans);
+  background: var(--color-light);
+  color: var(--color-dark);
   line-height: 1.6;
 }
-
-.projects {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  padding: 1rem;
-}
-
-.project {
-  background: #fff;
-  border-radius: 10px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.project:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-}
-
-.project a {
-  color: inherit;
+a {
   text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+a:hover {
+  color: var(--color-accent);
 }
 
-.project h3 {
-  margin-bottom: 0.5rem;
-  color: #0077cc;
-  font-size: 1.5rem;
+/* Header */
+.site-header {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: #fff;
+  text-align: center;
+  padding: 4rem 1rem;
+}
+.site-header h1 {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+.site-header p {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: 0.9;
 }
 
-.project img {
+/* Introduction */
+.intro {
+  max-width: 720px;
+  margin: 2rem auto;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+/* Cards Grid */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 0 2rem 4rem;
+}
+
+/* Card */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+}
+.card img {
+  display: block;
   width: 100%;
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
+  aspect-ratio: 16/9;    /* or whatever ratio your thumbnails are */
+  object-fit: cover;
+}
+.card:hover img {
+  transform: scale(1.05);
+}
+.card-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.card-content h3 {
+  font-size: 1.5rem;
   margin-bottom: 0.75rem;
-  transition: transform 0.3s ease;
+  color: var(--color-primary);
+  font-family: var(--font-serif);
 }
-
-.project img:hover {
-  transform: scale(1.02);
-}
-
-.project p {
-  text-align: left;
+.card-content p {
+  flex-grow: 1;
   font-size: 1rem;
-  line-height: 1.5;
+  color: var(--color-dark);
 }
 
+/* Back Link */
 .contact {
   text-align: center;
-  margin-top: 2rem;
+  padding: 2rem 0;
 }
-
 .contact a {
-  color: #0077cc;
-  font-size: 1.1rem;
-  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: var(--transition);
 }
-
 .contact a:hover {
-  text-decoration: underline;
+  background: var(--color-primary);
+  color: #fff;
 }
 
-@media (min-width: 700px) {
-  .projects {
-    grid-template-columns: repeat(2, 1fr);
+/* Responsive */
+@media (max-width: 480px) {
+  .site-header h1 {
+    font-size: 2rem;
+  }
+  .cards-grid {
+    padding: 0 1rem 2rem;
   }
 }
