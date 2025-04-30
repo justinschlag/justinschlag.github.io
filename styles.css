@@ -239,3 +239,50 @@ section:hover {
 .footer-contact a:hover {
   color: rgba(79,209,197,0.8);
 }
+.project {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.project:hover {
+  transform: translateY(-5px);
+  border: 2px solid var(--accent-color);
+  box-shadow: 0 6px 20px rgba(79,209,197,0.2);
+}
+.experience-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.experience-card {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experience-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
+}
+
+.experience-card img {
+  width: 100%;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+.experience-img {
+  width: 100%;
+  height: 180px; /* Adjust this height as needed */
+  object-fit: contain;
+  object-position: center;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+  background-color: #111;
+}
