@@ -55,6 +55,39 @@ A: The best way to reach me is my email jschlag@email.sc.edu but you can also ca
 Q: What is your research about?
 A: I am researching under Dr. Tong at USC. Basically, we work with the Navy (Office of Naval Research) to improve object detection software for Naval and Marine vessels. 
 
+Q: What did you do during your SEAP internship?
+A: During my SEAP (Science and Engineering Apprenticeship Program) internship with NIWC Atlantic, I worked in both Foreign Military Sales (FMS) and mobile application development. On the FMS side, I contributed to the documentation and delivery processes for U.S. defense technologies being exported to allied nations. I gained exposure to compliance protocols and logistics coordination at a federal level. On the mobile app team, I helped test and prototype early-stage application features designed for operational use by the Navy. This dual experience introduced me to both the technical and administrative sides of national defense innovation.
+
+Q: What will you be doing during your upcoming NREIP internship?
+A: In Summer 2025, I will return to NIWC Atlantic as a NREIP (Naval Research Enterprise Internship Program) intern. My focus will be on cutting-edge work in virtual and augmented reality. I’ll be supporting projects that use immersive technology for military training, simulation, and system prototyping. This will involve working closely with engineers and developers to design, refine, and potentially deploy VR/AR tools used by defense personnel — combining computer engineering, real-time rendering, and human-computer interaction.
+
+Q: What are your responsibilities as a Network Operator at UofSC?
+A: As a student Network Operator in the Division of IT at the University of South Carolina, I work hands-on with enterprise networking hardware. My main responsibilities include clearing switches from vendors like Aruba, Cisco, and Juniper, performing configuration resets, verifying hardware specs, and organizing equipment for RMA (Return Merchandise Authorization) processing. I also handle access point (AP) diagnostics and cable replacements across campus buildings. This role blends physical hardware handling with CLI-based configuration and is a core part of keeping the university’s wireless infrastructure stable and scalable.
+
+Q: How did you build JustinBot?
+A: I designed and built JustinBot entirely on my own using OpenAI’s GPT Assistant API, a Node.js backend, and deployment through Render. I integrated the backend with a dynamic HTML/CSS/JavaScript front end, allowing real-time communication with the AI assistant. JustinBot is trained with context about my academic and technical background, projects, and career goals, making it a tailored tool for answering portfolio-related questions. This project helped me deepen my understanding of API handling, asynchronous requests, serverless deployment, and user experience design — all while building something useful and interactive.
+
+Q: What types of engineering do you focus on?
+A: My work spans computer engineering, with a particular focus on computer vision, networking systems, and immersive interface technologies. I enjoy solving real-world problems through applied development — whether it's designing a raindrop segmentation model for improving visibility or clearing campus network infrastructure to ensure wireless coverage. I like bridging technical depth with practical impact.
+
+Q: What do you plan to do after graduation?
+A: After completing my Computer Engineering degree, I plan to pursue advanced research or a graduate program that focuses on defense applications of AI, immersive systems, or cybersecurity infrastructure. I'm particularly interested in roles where I can integrate intelligent software with reliable hardware — in domains like digital forensics, operational tech, or mission-focused tools for federal agencies.
+
+Q: How do you approach learning new technical skills?
+A: I prioritize depth and utility. When I learn something new — whether it’s a framework like React or a concept like subnetting — I build something with it right away. I document what I learn, apply it in context, and usually try to integrate it into a personal or class-based project. This helps me retain skills and stay comfortable in unfamiliar environments, especially when stakes are high like during internships or lab work.
+
+Q: What leadership or teamwork experiences have shaped you?
+A: Beyond technical roles, I’ve led group projects in both class and professional environments, often acting as the technical translator between teammates. During my SEAP internship, I coordinated with logistics personnel and engineers to track shipments and returns. As a Network Operator, I work as part of a rotating student staff team where accurate communication and documentation are essential to avoid equipment loss or mislabeling.
+
+Q: What are your favorite projects on this site?
+A: Each project reflects a different aspect of what I care about. The Computer Vision Research section shows my ability to build real tools using AI models and image segmentation. The Networking Operations page highlights my hands-on infrastructure experience. And of course, JustinBot is a personal favorite — not just because it’s a custom AI assistant, but because it’s something I planned, coded, tested, and launched independently.
+
+Q: How do you stay organized balancing work, school, and research?
+A: I rely on consistent time-blocking and task prioritization. I use Notion and GitHub Issues to manage tasks across research and coding. I also build workflows around deliverables — whether it’s writing a formal report or labeling data for a training model — and keep each area (academics, internships, projects) moving forward with 1–2 focused goals per week.
+
+Q: What makes you different from other engineering students?
+A: I don't just write code — I build infrastructure. I’ve physically configured enterprise switches, trained neural networks, debugged API calls, and designed web interfaces. But more importantly, I focus on making tools that solve meaningful problems. My work is practical, mission-driven, and documented — whether it’s clearing network stacks, training segmentation models, or building AI chat assistants from scratch.
+
 Q: What do you like to do in your free time?
 A: I am actually a powerlifter with USC, so I love spending time at the gym.
 
