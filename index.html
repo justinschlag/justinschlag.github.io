@@ -117,26 +117,108 @@
     <section class="work-experience">
       <h2>Work Experience</h2>
       <div class="work-grid">
+        <!-- Network Operator @ UofSC -->
         <div class="work-card">
           <img src="images/Network-Operator.png" alt="Networking Operations at UofSC">
           <h3>Network Operator @ UofSC</h3>
-          <p>As a student employee in the Division of IT, I clear and process enterprise switches (Aruba, Cisco, Juniper), manage RMA tracking, organize inventory stacks, and perform AP diagnostics and cable fixes across campus environments.</p>
+          <p>
+            As a student employee in the Division of IT, I clear and process enterprise switches (Aruba, Cisco, Juniper), manage RMA tracking, organize inventory stacks, and perform AP diagnostics and cable fixes across campus environments.
+          </p>
           <a href="network-operator/index.html" class="project-button">Learn More</a>
         </div>
+    
+        <!-- SEAP Internship -->
         <div class="work-card">
           <img src="images/seap.png" alt="SEAP Internship">
           <h3>SEAP Intern @ NIWC Atlantic</h3>
-          <p>[Add a brief summary here about your high school SEAP experience at NIWC Atlantic — what you contributed to, learned, or built.]</p>
+          <p>
+            [Add a brief summary here about your high school SEAP experience at NIWC Atlantic — what you contributed to, learned, or built.]
+          </p>
           <a href="seap/index.html" class="project-button">Learn More</a>
         </div>
+    
+        <!-- NREIP Internship -->
         <div class="work-card">
           <img src="images/nreip.png" alt="NREIP Internship">
           <h3>NREIP Intern @ NIWC Atlantic</h3>
-          <p>[Describe your summer research or projects from your NREIP internship at NIWC Atlantic, especially any work involving AI, cybersecurity, or DoD-related development.]</p>
+          <p>
+            [Describe your summer research or projects from your NREIP internship at NIWC Atlantic, especially any work involving AI, cybersecurity, or DoD-related development.]
+          </p>
           <a href="nreip_2025/index.html" class="project-button">Learn More</a>
         </div>
       </div>
     </section>
+    
+    <section class="timeline-section">
+      <h2>Career Timeline</h2>
+      <div class="timeline">
+    
+        <!-- NREIP Internship — Most Recent -->
+        <div class="timeline-item right">
+          <div class="timeline-bundle">
+            <div class="timeline-date">Summer 2025</div>
+            <div class="timeline-content">
+              <img src="images/nreip.png" alt="NREIP Internship">
+              <p>Research in VR &amp; AR technology at NIWC Atlantic for the NREIP summer program.</p>
+            </div>
+            <div class="timeline-stats">
+              <span class="stat">🕶️ AR/VR</span>
+              <span class="stat">🔬 R&amp;D</span>
+              <span class="stat">📅 DoD</span>
+            </div>
+          </div>
+        </div>
+    
+        <!-- Network Operator @ UofSC -->
+        <div class="timeline-item left">
+          <div class="timeline-bundle">
+            <div class="timeline-date">Apr 2025 – Present</div>
+            <div class="timeline-content">
+              <img src="images/Network-Operator.png" alt="Network Operator">
+              <p>Clear &amp; process Aruba, Cisco, and Juniper switches; manage RMA inventory; perform campus-wide AP diagnostics.</p>
+            </div>
+            <div class="timeline-stats">
+              <span class="stat">🧠 50+ switches</span>
+              <span class="stat">🔌 AP servicing</span>
+              <span class="stat">📦 Inventory logistics</span>
+            </div>
+          </div>
+        </div>
+    
+        <!-- USC Undergraduate Research -->
+        <div class="timeline-item right">
+          <div class="timeline-bundle">
+            <div class="timeline-date">Aug 2024 – Present</div>
+            <div class="timeline-content">
+              <img src="images/research.png" alt="Undergraduate Research">
+              <p>ONR-funded computer vision work at USC: raindrop segmentation pipeline, SAM2 labeling tool, U-Net model training.</p>
+            </div>
+            <div class="timeline-stats">
+              <span class="stat">🔍 Research</span>
+              <span class="stat">📊 Modeling</span>
+              <span class="stat">💾 Data</span>
+            </div>
+          </div>
+        </div>
+    
+        <!-- SEAP Internship — Oldest -->
+        <div class="timeline-item left">
+          <div class="timeline-bundle">
+            <div class="timeline-date">Summer 2024</div>
+            <div class="timeline-content">
+              <img src="images/seap.png" alt="SEAP Internship">
+              <p>Supported Foreign Military Sales and mobile app development at NIWC Atlantic after high school.</p>
+            </div>
+            <div class="timeline-stats">
+              <span class="stat">🪙 FMS</span>
+              <span class="stat">📱 Mobile App</span>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+    </section>
+    
 
     <div class="back-link">
       <a href="#">↑ Back to Top</a>
@@ -187,3 +269,14 @@
   </script>
 </body>
 </html>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const items = document.querySelectorAll(".timeline-item");
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("show");
+      });
+    }, { threshold: 0.2 });
+    items.forEach(item => observer.observe(item));
+  });
+</script>
