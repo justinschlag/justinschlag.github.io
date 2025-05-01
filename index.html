@@ -4,147 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Justin Schlag – Portfolio</title>
-
-  <!-- Google Fonts: Poppins & Open Sans -->
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
-
-  <style>
-    :root {
-      --card-bg: rgba(15, 17, 25, 0.75);
-      --accent-color: #4fd1c5;
-      --text-color: #e0e0e0;
-      --radius: 16px;
-      --transition: 0.3s ease;
-    }
-    /* Enhanced Skills Grid */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-    .skill-card {
-      background: var(--card-bg);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      text-align: left;
-      transition: transform var(--transition), box-shadow var(--transition);
-    }
-    .skill-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 20px rgba(79,209,197,0.2);
-    }
-    .skill-card h4 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 1.2rem;
-      margin-bottom: 0.75rem;
-      color: var(--accent-color);
-    }
-    .skill-card ul {
-      list-style: disc inside;
-      padding-left: 1rem;
-      color: var(--text-color);
-      font-family: 'Open Sans', sans-serif;
-      font-size: 1rem;
-    }
-  </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Justin Schlag</h1>
+<body class="gamecock-theme">
+  <header class="usc-hero">
+    <div class="usc-header-text">
+      <h1>Justin Schlag</h1>
+      <p>Computer Engineering • Honors College • USC</p>
+    </div>
+  </header>
 
-    <div class="top-section">
-      <!-- About Me -->
-      <section class="about-container">
-        <h2>About Me</h2>
-        <img src="images/grad pic.jpg" alt="Profile Picture">
-        <p>Hi! I'm Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College. I focus on computer vision, image segmentation, and defense research through hands-on development. I’m passionate about building impactful tools and advancing Department of Defense engineering work.</p>
-      </section>
-
-      <!-- JustinBot Chat -->
-      <section class="chatbox-section">
-        <h2>Just Ask JustinBot</h2>
-        <div class="justinbot-explainer">Don't want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained by me to explain my projects, research, and experiences. </div>
-        <form id="chat-form" class="chatbox-container">
-          <input type="text" id="user-input" placeholder="Ask me anything..." required>
-          <button type="submit">Send</button>
-        </form>
-        <div id="chat-response" class="chat-response">
-          <p class="placeholder">Try asking:</p>
-          <ul class="examples">
-            <li>“What are your skills?”</li>
-            <li>“Tell me about your research.”</li>
-            <li>“How did you build JustinBot?”</li>
-          </ul>
-        </div>
-      </section>
+  <main class="usc-main">
+    <div class="logo-banner">
+      <img src="images/USC_1801.png" alt="USC 1801 Logo">
     </div>
 
-    <!-- Research & Projects -->
-    <section>
-      <h2>Research & Projects</h2>
-      <div class="project-grid">
-        <div class="project">
-          <a href="research/index.html"><img src="images/research.png" alt="Research"></a>
-          <h3>Computer Vision Research</h3>
-          <p>Dive into my end-to-end raindrop segmentation pipeline: manual SAM2 labeling, horizon-based sampling strategies, and U-Net training with performance benchmarks across diverse environments.</p>
-          <a href="research/index.html" class="project-button">Learn More</a>
-        </div>
-        <div class="project">
-          <a href="JustinBot/index.html"><img src="images/JustinBot.png" alt="JustinBot"></a>
-          <h3>JustinBot Chat Assistant</h3>
-          <p>Interact with JustinBot, my AI assistant built on OpenAI’s GPT models and deployed via Render. Ask about my work, coding projects, or academic journey.</p>
-          <a href="JustinBot/index.html" class="project-button">Learn More</a>
-        </div>
-        <div class="project">
-          <a href="csce190/index.html"><img src="images/csce190.png" alt="CSCE 190"></a>
-          <h3>CSCE 190 Website</h3>
-          <p>Review my CSCE 190 final site project: from brainstorming and wireframing to interactive prototypes and production-ready builds.</p>
-          <a href="csce190/index.html" class="project-button">Learn More</a>
-        </div>
+    <section class="intro">
+      <h2>About Me</h2>
+      <div class="top-section">
+        <section class="about-container">
+          <img src="images/grad pic.jpg" alt="Profile Picture">
+          <p>
+            Hi! I'm Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College. I focus on computer vision, image segmentation, and defense research through hands-on development. I’m passionate about building impactful tools and advancing Department of Defense engineering work.
+          </p>
+        </section>
+
+        <section class="chatbox-section">
+          <h2>Just Ask JustinBot</h2>
+          <div class="justinbot-explainer">Don't want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained by me to explain my projects, research, and experiences. </div>
+          <form id="chat-form" class="chatbox-container">
+            <input type="text" id="user-input" placeholder="Ask me anything..." required>
+            <button type="submit">Send</button>
+          </form>
+          <div id="chat-response" class="chat-response">
+            <p class="placeholder">Try asking:</p>
+            <ul class="examples">
+              <li>“What are your skills?”</li>
+              <li>“Tell me about your research.”</li>
+              <li>“How did you build JustinBot?”</li>
+            </ul>
+          </div>
+        </section>
       </div>
     </section>
 
-    <section class="work-experience">
-      <h2>Work Experience</h2>
-      <div class="work-grid">
-    
-        <!-- Network Operator @ UofSC -->
-        <div class="work-card">
-          <img src="images/Network-Operator.png" alt="Networking Operations at UofSC">
-          <h3>Network Operator @ UofSC</h3>
-          <p>
-            As a student employee in the Division of IT, I clear and process enterprise switches (Aruba, Cisco, Juniper), manage RMA tracking, organize inventory stacks, and perform AP diagnostics and cable fixes across campus environments.
-          </p>
-          <a href="network-operator/index.html" class="project-button">Learn More</a>
-        </div>
-    
-        <!-- SEAP Internship -->
-        <div class="work-card">
-          <img src="images/seap.png" alt="SEAP Internship">
-          <h3>SEAP Intern @ NIWC Atlantic</h3>
-          <p>
-            [Add a brief summary here about your high school SEAP experience at NIWC Atlantic — what you contributed to, learned, or built.]
-          </p>
-          <a href="seap/index.html" class="project-button">Learn More</a>
-        </div>
-    
-        <!-- NREIP Internship -->
-        <div class="work-card">
-          <img src="images/nreip.png" alt="NREIP Internship">
-          <h3>NREIP Intern @ NIWC Atlantic</h3>
-          <p>
-            [Describe your summer research or projects from your NREIP internship at NIWC Atlantic, especially any work involving AI, cybersecurity, or DoD-related development.]
-          </p>
-          <a href="nreip_2025/index.html" class="project-button">Learn More</a>
-        </div>
-    
-      </div>
-    </section>
-
-    <!-- Enhanced Skills & Resume -->
     <section class="skills">
       <h2>Skills & Resume</h2>
       <p><strong>Resume:</strong> <a href="files/Resume (Nov 19).pdf" target="_blank">Download here</a></p>
@@ -186,16 +89,66 @@
         </div>
       </div>
     </section>
-  </div>
 
-  <!-- Footer Contact -->
-  <div class="footer-contact">
+    <section class="project-section">
+      <h2>Research & Projects</h2>
+      <div class="project-grid">
+        <div class="project">
+          <a href="research/index.html"><img src="images/research.png" alt="Research"></a>
+          <h3>Computer Vision Research</h3>
+          <p>Dive into my end-to-end raindrop segmentation pipeline: manual SAM2 labeling, horizon-based sampling strategies, and U-Net training with performance benchmarks across diverse environments.</p>
+          <a href="research/index.html" class="project-button">Learn More</a>
+        </div>
+        <div class="project">
+          <a href="JustinBot/index.html"><img src="images/JustinBot.png" alt="JustinBot"></a>
+          <h3>JustinBot Chat Assistant</h3>
+          <p>Interact with JustinBot, my AI assistant built on OpenAI’s GPT models and deployed via Render. Ask about my work, coding projects, or academic journey.</p>
+          <a href="JustinBot/index.html" class="project-button">Learn More</a>
+        </div>
+        <div class="project">
+          <a href="csce190/index.html"><img src="images/csce190.png" alt="CSCE 190"></a>
+          <h3>CSCE 190 Website</h3>
+          <p>Review my CSCE 190 final site project: from brainstorming and wireframing to interactive prototypes and production-ready builds.</p>
+          <a href="csce190/index.html" class="project-button">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="work-experience">
+      <h2>Work Experience</h2>
+      <div class="work-grid">
+        <div class="work-card">
+          <img src="images/Network-Operator.png" alt="Networking Operations at UofSC">
+          <h3>Network Operator @ UofSC</h3>
+          <p>As a student employee in the Division of IT, I clear and process enterprise switches (Aruba, Cisco, Juniper), manage RMA tracking, organize inventory stacks, and perform AP diagnostics and cable fixes across campus environments.</p>
+          <a href="network-operator/index.html" class="project-button">Learn More</a>
+        </div>
+        <div class="work-card">
+          <img src="images/seap.png" alt="SEAP Internship">
+          <h3>SEAP Intern @ NIWC Atlantic</h3>
+          <p>[Add a brief summary here about your high school SEAP experience at NIWC Atlantic — what you contributed to, learned, or built.]</p>
+          <a href="seap/index.html" class="project-button">Learn More</a>
+        </div>
+        <div class="work-card">
+          <img src="images/nreip.png" alt="NREIP Internship">
+          <h3>NREIP Intern @ NIWC Atlantic</h3>
+          <p>[Describe your summer research or projects from your NREIP internship at NIWC Atlantic, especially any work involving AI, cybersecurity, or DoD-related development.]</p>
+          <a href="nreip_2025/index.html" class="project-button">Learn More</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="back-link">
+      <a href="#">↑ Back to Top</a>
+    </div>
+  </main>
+
+  <footer class="footer-contact">
     <a href="https://www.linkedin.com/in/justinschlag" target="_blank">LinkedIn</a>
     <a href="mailto:jschlag@email.sc.edu">jschlag@email.sc.edu</a>
     <span>(843) 408-7027</span>
-  </div>
+  </footer>
 
-  <!-- Chatbot Script -->
   <script>
     const form = document.getElementById("chat-form");
     const input = document.getElementById("user-input");
@@ -207,7 +160,6 @@
       const question = input.value.trim();
       if (!question) return;
 
-      // Show first-load sleeping message, then Thinking...
       responseDiv.classList.add("filled");
       if (firstMessage) {
         responseDiv.innerHTML = `<div style="font-style: italic; color: gray;">JustinBot is sleeping... please allow up to thirty seconds while he wakes up 💤</div>`;
