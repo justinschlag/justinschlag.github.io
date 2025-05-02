@@ -91,7 +91,6 @@ body::before {
   font-size: 1.8rem;
   color: var(--garnet);
   margin-bottom: 1rem;
-  position: sticky;
   top: 0;
   background: var(--card-bg);
   padding: 0.75rem 1.5rem;
@@ -424,5 +423,51 @@ section h2 {
 
   .timeline-stats {
     margin-left: 1.5rem;
+  }
+}
+/* === Mobile Navigation === */
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(255,255,255,0.9);
+  z-index: 1000;
+  display: none;            /* hidden on desktop */
+  padding: 0.5rem 1rem;
+}
+.mobile-nav .hamburger {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+}
+.mobile-nav ul {
+  list-style: none;
+  display: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+.mobile-nav ul li + li {
+  margin-top: 0.5rem;
+}
+.mobile-nav ul a {
+  color: var(--garnet);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* Toggle menu open/closed with a tiny script */
+.mobile-nav.open ul {
+  display: block;
+}
+
+/* Only show on small screens */
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: block;
+  }
+  /* push main content down so it’s not hidden under the nav */
+  .usc-main {
+    margin-top: 3.5rem;
   }
 }
