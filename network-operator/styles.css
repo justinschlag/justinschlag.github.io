@@ -1,164 +1,181 @@
+/* ─────────────────────────────────────────────────────
+   Gamecock Theme Variables
+───────────────────────────────────────────────────── */
 :root {
-    --garnet: #73000a;
-    --gray: #f9fafb;
-    --card-bg: rgba(255, 255, 255, 0.85);
-    --text-dark: #111;
-    --accent-shadow: rgba(115, 0, 10, 0.15);
-    --radius: 16px;
+  --garnet: #73000a;
+  --cream: #f7f3f0;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --text-dark: #111;
+  --accent-shadow: rgba(115, 0, 10, 0.15);
+  --radius: 16px;
+  --transition: 0.3s ease;
+}
+
+/* ─────────────────────────────────────────────────────
+   Base & Background
+───────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.gamecock-theme {
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  line-height: 1.6;
+  color: var(--text-dark);
+  background:
+    linear-gradient(rgba(115,0,10,0.06), rgba(115,0,10,0.06)),
+    linear-gradient(rgba(253,246,240,0.92), rgba(253,246,240,0.92)),
+    url('../images/tailfeathers.png') no-repeat right center fixed;
+  background-blend-mode: multiply, lighten;
+  background-color: var(--cream);
+  background-size: 80%;
+}
+
+/* ─────────────────────────────────────────────────────
+   Hero Header
+───────────────────────────────────────────────────── */
+.usc-hero {
+  background-color: rgba(115, 0, 10, 0.85);
+  color: white;
+  text-align: center;
+  padding: 4rem 2rem;
+}
+.usc-header-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.usc-header-text p {
+  font-size: 1.15rem;
+  opacity: 0.9;
+}
+
+/* ─────────────────────────────────────────────────────
+   Main Content Wrapper
+───────────────────────────────────────────────────── */
+.usc-main {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+/* ─────────────────────────────────────────────────────
+   Logo Banner
+───────────────────────────────────────────────────── */
+.logo-banner {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 0 auto 2rem;
+  max-width: 300px;
+  box-shadow: 0 4px 16px var(--accent-shadow);
+  backdrop-filter: blur(5px);
+  text-align: center;
+}
+.logo-banner img {
+  max-width: 200px;
+  opacity: 0.95;
+  transition: transform var(--transition);
+}
+.logo-banner img:hover {
+  transform: scale(1.05);
+}
+
+/* ─────────────────────────────────────────────────────
+   Intro Section (“Overview”)
+───────────────────────────────────────────────────── */
+.intro {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
+  backdrop-filter: blur(5px);
+  margin-bottom: 2rem;
+}
+.intro h2 {
+  display: inline-block;
+  background: var(--card-bg);
+  color: var(--garnet);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+}
+.intro p {
+  color: #222;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+/* ─────────────────────────────────────────────────────
+   Skills Grid
+───────────────────────────────────────────────────── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+.skill-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
+  backdrop-filter: blur(6px);
+  transition: transform var(--transition), border-left var(--transition);
+  border-left: 5px solid transparent;
+}
+.skill-card:hover {
+  transform: translateY(-5px);
+  border-left: 5px solid var(--garnet);
+}
+.skill-card h4 {
+  color: var(--garnet);
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+.skill-card ul {
+  list-style: disc inside;
+  padding-left: 1rem;
+}
+.skill-card li {
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+/* ─────────────────────────────────────────────────────
+   Back Link
+───────────────────────────────────────────────────── */
+.back-link {
+  text-align: center;
+  margin: 3rem 0;
+}
+.back-link a {
+  display: inline-block;
+  background: var(--card-bg);
+  padding: 1rem 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
+  backdrop-filter: blur(5px);
+  color: var(--garnet);
+  font-weight: bold;
+  text-decoration: none;
+  transition: background var(--transition);
+}
+.back-link a:hover {
+  background: rgba(255,255,255,0.9);
+}
+
+/* ─────────────────────────────────────────────────────
+   Responsive Tweaks
+───────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .logo-banner, .intro, .skills-grid, .back-link {
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
-  
-  body.gamecock-theme {
-    background: url('../images/tailfeathers.png') no-repeat center center fixed;
-    background-size: cover;
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    color: var(--text-dark);
-  }
-  
-  /* Hero Header */
-  .usc-hero {
-    text-align: center;
-    padding: 4rem 2rem;
-    background-color: rgba(115, 0, 10, 0.85);
-    color: white;
-  }
-  
-  .usc-header-text h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-  }
-  
-  .usc-header-text p {
-    font-size: 1.15rem;
-    opacity: 0.95;
-  }
-  
-  /* Main Content */
-  .usc-main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 2rem;
-  }
-  
-  .logo-banner {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  
-  .logo-banner img {
-    max-width: 200px;
-    opacity: 0.95;
-    transition: transform 0.3s ease;
-  }
-  
-  .logo-banner img:hover {
-    transform: scale(1.05);
-  }
-  
-  .intro h2 {
-    font-size: 1.8rem;
-    color: var(--garnet);
-    margin-bottom: 1rem;
-  }
-  
-  .intro p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 1rem;
-    color: #222;
-  }
-  
-  /* Grid of Skill Cards */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  
-  .skill-card {
-    background: var(--card-bg);
-    padding: 1.5rem;
-    border-left: 5px solid var(--garnet);
-    border-radius: var(--radius);
-    backdrop-filter: blur(6px);
-    transition: transform 0.2s ease;
-    box-shadow: 0 4px 16px var(--accent-shadow);
-  }
-  
-  .skill-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .skill-card h4 {
-    color: var(--garnet);
-    margin-bottom: 0.75rem;
-    font-size: 1.2rem;
-  }
-  
-  .skill-card ul {
-    list-style: disc;
-    padding-left: 1.2rem;
-  }
-  
-  .skill-card li {
-    margin-bottom: 0.75rem;
-    font-size: 1rem;
-  }
-  
-  /* Back Button */
-  .back-link {
-    text-align: center;
-    margin: 3rem 0 1rem;
-  }
-  
-  .back-link a {
-    color: var(--garnet);
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1.05rem;
-  }
-  
-  .back-link a:hover {
-    text-decoration: underline;
-  }
-  .intro {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(115, 0, 10, 0.1);
-    backdrop-filter: blur(5px);
-    margin-bottom: 2rem;
-  }
-  .logo-banner {
-    background: rgba(255, 255, 255, 0.85);
-    border-radius: 16px;
-    padding: 1.5rem;
-    margin: 0 auto 2rem;
-    max-width: 300px;
-    box-shadow: 0 4px 16px rgba(115, 0, 10, 0.1);
-    backdrop-filter: blur(5px);
-    text-align: center;
-  }
-  
-  .back-link {
-    background: rgba(255, 255, 255, 0.85);
-    padding: 1rem 2rem;
-    border-radius: 16px;
-    max-width: fit-content;
-    margin: 3rem auto 1rem;
-    box-shadow: 0 4px 16px rgba(115, 0, 10, 0.1);
-    backdrop-filter: blur(5px);
-  }
-  
-  .back-link a {
-    color: #73000a;
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1.05rem;
-  }
-  
-  .back-link a:hover {
-    text-decoration: underline;
-  }
-  
+}
