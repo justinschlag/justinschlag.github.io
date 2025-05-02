@@ -3,49 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>JustinBot – AI Assistant Overview</title>
-
-  <!-- Google Fonts: Inter & Merriweather -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+  <title>JustinBot – My AI Assistant</title>
   <link rel="stylesheet" href="styles.css" />
-
-  <style>
-    .bot-avatar {
-      display: block;
-      margin: 1.5rem auto;
-      width: 200px;
-      border-radius: 50%;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-  </style>
 </head>
-<body>
-  <header class="site-header">
-    <h1>JustinBot – My AI Assistant</h1>
-    <p class="subtitle">Fast, friendly answers about my work, research, and experience</p>
+<body class="gamecock-theme">
+  <!-- Hero Header -->
+  <header class="usc-hero">
+    <div class="usc-header-text">
+      <h1>JustinBot – My AI Assistant</h1>
+      <p>Fast, friendly answers about my work, research, and experience</p>
+    </div>
   </header>
 
-  <main class="content" style="max-width:1200px;">
-    <section class="intro">
+  <main class="usc-main">
+    <!-- Welcome Section -->
+    <section>
       <h2>Welcome to JustinBot</h2>
       <p>
-        JustinBot is a conversational AI assistant designed to answer questions about my experience, projects, and research in an approachable and informative way. Whether you're a recruiter, a student, or someone simply curious about my work, JustinBot is here to help.
+        JustinBot is your personal guide to everything I do. Whether you’re hiring, interning, or just curious, JustinBot will answer questions about my projects, research, and career—no technical background required.
       </p>
       <p>
-        No technical skills are needed—just type your question and JustinBot will generate a response using natural language. This makes it perfect for anyone who prefers quick summaries over reading pages of documentation or portfolios.
+        Simply type a question and watch JustinBot craft a clear, conversational response. No jargon, no long manuals—just bite-size explanations in everyday language.
       </p>
     </section>
 
+    <!-- Chat Section -->
     <section class="chat-section">
       <h2>Start the Conversation</h2>
-      <img src="../images/JustinBot.png" alt="JustinBot Avatar" class="bot-avatar" />
+      <img src="../images/JustinBot.png" alt="JustinBot Avatar" class="bot-avatar">
+
       <form id="chat-form" class="chat-form">
-        <input type="text" id="user-input" placeholder="Type your question here..." aria-label="Your question" required />
+        <input type="text" id="user-input" placeholder="Type your question here…" required>
         <button type="submit">Submit</button>
       </form>
+
       <div id="chat-response" class="chat-response">
         <p class="notice">Example questions:</p>
-        <ul>
+        <ul class="example-list">
           <li>What is Justin’s background in computer vision?</li>
           <li>How does the raindrop segmentation project work?</li>
           <li>Where can I find Justin’s resume?</li>
@@ -53,39 +47,105 @@
       </div>
     </section>
 
+    <!-- Deep-Dive Explanation -->
     <section class="info-section">
-      <h2>How JustinBot Works – A Deep Dive</h2>
-      <p>
-        JustinBot isn’t just a chatbot—it's a full-stack, interactive application combining real-world deployment, machine learning, and dynamic frontend development. Here’s how the system comes together:
-      </p>
-      <ol>
+      <h2>How JustinBot Works</h2>
+       <!--  “why I built it” paragraph -->
+
+  <p class="jb-intro">
+    I wanted a fun, interactive way to connect with people, so I trained my own AI to answer questions about myself - JustinBot. It works by securely linking to the OpenAI API with my private key, all hosted on Render’s on-demand server platform. I gradually fed it a diverse set of materials: scholarship applications, up-to-date resumes, project write-ups, miscellaneous documents, and even a giant FAQ I assembled, until it knew all about me. Through iterative prompt-engineering and fine-tuning, I polished JustinBot until it could answer any question exactly as I would. To keep JustinBot updated, every time I land a new job, finish a project, or rack up another accomplishment, I update the server code and refresh my training data—so JustinBot always knows the very latest about me.
+
+    Below are the exact steps that power JustinBot:
+  </p>
+    
+      <ol class="jb-steps">
         <li>
-          <strong>Assistant API (the AI Brain):</strong>
-          JustinBot leverages OpenAI’s Assistant API, which provides responses based on a finely tuned language model. This model has been trained on a wide variety of topics and is further specialized to represent my background and experiences.
+          <h3>You Ask a Question (Client Side)</h3>
+          <p><strong>What happens:</strong> When you type into the chat box and hit “Submit,” your question is encrypted in your browser and sent over the internet.</p>
+          <p><strong>Analogy:</strong> Imagine placing your question in a sealed envelope and dropping it in a secure postbox.</p>
         </li>
+    
         <li>
-          <strong>Node.js Server (the Middleman):</strong>
-          The frontend doesn’t connect directly to OpenAI. Instead, a Node.js server acts as a secure intermediary. When you ask a question, the request is sent to my backend, which reformats it, sends it to the Assistant API, then returns the result as a clean reply.
+          <h3>Secure Gatekeeper (Authentication &amp; Encryption)</h3>
+          <p><strong>What happens:</strong> Before leaving your browser, your question is wrapped in an extra layer of security (OAuth tokens &amp; HTTPS).</p>
+          <p><strong>Why it matters:</strong> Ensures only JustinBot (and no eavesdroppers) can read it.</p>
         </li>
+    
         <li>
-          <strong>Hosted on Render:</strong>
-          This server is hosted on Render, a scalable platform that keeps the service low-cost but always available. Because it scales dynamically, the first request may take up to 30 seconds—hence the sleeping message.
+          <h3>Node.js Middleman (The “Post Office”)</h3>
+          <p><strong>What happens:</strong> A lightweight Node.js server picks up your sealed envelope, checks the packaging, and prepares it for the AI.</p>
+          <p><strong>Key jobs:</strong>
+            <ul>
+              <li><strong>Validation:</strong> Confirms the request is truly coming from your site.</li>
+              <li><strong>Error handling:</strong> Sends friendly errors back if something’s malformed.</li>
+            </ul>
+          </p>
+          <p><strong>Analogy:</strong> Think of this as the sorting facility that routes mail and makes sure it’s stamped correctly.</p>
         </li>
+    
         <li>
-          <strong>Frontend Chat Interface (the Presentation Layer):</strong>
-          Built using HTML, CSS, and JavaScript, the UI is responsive, styled professionally, and dynamically updates content without page reloads. It’s designed to be fast, accessible, and mobile-friendly.
+          <h3>OpenAI Assistant API (The “Brain”)</h3>
+          <p><strong>What happens:</strong> Your question arrives at a giant neural network trained on books, articles, and code.</p>
+          <p><strong>Customization:</strong> I’ve supplied a “system prompt” containing my résumé, project notes, and writing style, plus extra prompt-engineering rules (e.g. “Cite sources,” “Keep replies under 100 words”).</p>
+        </li>
+    
+        <li>
+          <h3>Answer Delivery (Back to You)</h3>
+          <p><strong>What happens:</strong> The AI crafts its reply, sends it back to my Node.js server, which unwraps the secure package and forwards the answer to your browser.</p>
+          <p><strong>Privacy:</strong> End-to-end encryption means no intermediate service can read your question or the answer.</p>
+        </li>
+    
+        <li>
+          <h3>Render Hosting (Cold Starts &amp; Scaling)</h3>
+          <p><strong>How it runs:</strong> I host on Render, which spins up containers on demand.</p>
+          <p><strong>Cold start:</strong> If idle, the first request takes ~30 s (“JustinBot is waking up 💤”).</p>
+          <p><strong>Warm instances:</strong> Subsequent replies return in under 1 s.</p>
+          <p><strong>Why Render:</strong> Pay-as-you-go pricing, automatic SSL, GitHub integration for CI/CD.</p>
+        </li>
+    
+        <li>
+          <h3>Frontend Chat Interface (What You See)</h3>
+          <p><strong>Tech stack:</strong> Pure HTML, CSS and vanilla JavaScript.</p>
+          <p><strong>UX tricks:</strong>
+            <ul>
+              <li>AJAX updates – new messages appear instantly without reloading.</li>
+              <li>Responsive – adapts to phones and tablets.</li>
+              <li>Accessible – ARIA labels and full keyboard navigation.</li>
+            </ul>
+          </p>
         </li>
       </ol>
-      <p>
-        <strong>Why this matters:</strong> JustinBot demonstrates both the ability to deploy real-world AI solutions and to explain technical work clearly. It combines backend logic, frontend engineering, deployment infrastructure, and conversational UX—key skills in modern engineering.
-      </p>
+    
+      <h3 class="jb-takeaway">Why This Matters</h3>
+      <ul class="jb-takeaway-list">
+        <li><strong>Backend Engineering:</strong> Secure request handling &amp; error recovery.</li>
+        <li><strong>Cloud DevOps:</strong> On-demand hosting &amp; cost control.</li>
+        <li><strong>AI/ML Integration:</strong> Fine-tuned models &amp; prompt engineering.</li>
+        <li><strong>UX &amp; Accessibility:</strong> Snappy, inclusive chat UI.</li>
+      </ul>
+    
+      <!-- Flowchart Diagram -->
+      <div class="flowchart">
+        <div class="flow-step">Browser</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Node.js</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">OpenAI</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Node.js</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Browser</div>
+      </div>
     </section>
+    
 
+    <!-- Return Link -->
     <section class="back-link">
       <a href="../index.html">← Return to Home</a>
     </section>
   </main>
 
+  <!-- Chat Script (unchanged) -->
   <script>
     const form = document.getElementById('chat-form');
     const input = document.getElementById('user-input');
@@ -108,15 +168,14 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ question })
         });
-        const data = await res.json();
+        const { answer } = await res.json();
         responseDiv.innerHTML = `
           <p><strong>You:</strong> ${question}</p>
-          <p><strong>JustinBot:</strong> ${data.answer}</p>
+          <p><strong>JustinBot:</strong> ${answer}</p>
         `;
       } catch {
         responseDiv.innerHTML = '<p class="error">Sorry, something went wrong. Please try again.</p>';
       }
-
       input.value = '';
     });
   </script>

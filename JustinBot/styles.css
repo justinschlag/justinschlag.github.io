@@ -1,159 +1,380 @@
-:root {
-  --bg-light: #f0f4f8;
-  --bg-content: #ffffff;
-  --text-dark: #1f2937;
-  --text-light: #4b5563;
-  --accent: #2a9d8f;
-  --border: #e5e7eb;
-  --radius: 12px;
-  --transition: 0.3s ease;
+/* =================================
+   Root & Reset
+   ================================= */
+   :root {
+    --garnet: #73000a;
+    --cream: #f7f3f0;
+    --card-bg: rgba(255,255,255,0.85);
+    --text-dark: #111;
+    --text-light: #555;
+    --radius: 16px;
+    --shadow: rgba(115,0,10,0.15);
+  }
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+  
+  /* =================================
+     Body & Background
+     ================================= */
+  body {
+    background: 
+      linear-gradient(rgba(115,0,10,0.06),rgba(115,0,10,0.06)),
+      linear-gradient(rgba(253,246,240,0.92),rgba(253,246,240,0.92)),
+      url('../images/tailfeathers.png') no-repeat right center fixed;
+    background-blend-mode: multiply, lighten;
+    background-color: var(--cream);
+    background-size: 80%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    padding: 0; margin: 0;
+  }
+  
+  /* =================================
+     Header
+     ================================= */
+  .site-header {
+    background-color: var(--garnet);
+    color: #fff;
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+  .site-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: .5rem;
+  }
+  .site-header .subtitle {
+    font-size: 1.1rem;
+    opacity: .9;
+  }
+  
+  /* =================================
+     Main Container & Sections
+     ================================= */
+  .content {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+  section {
+    background: var(--card-bg);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: var(--radius);
+    box-shadow: 0 4px 16px var(--shadow);
+    backdrop-filter: blur(5px);
+  }
+  /* Remove the white pill behind titles */
+section h2 {
+  background: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
 }
 
-* {
-  box-sizing: border-box;
+/* Add the same garnet underline as on the main page */
+/* Remove the white pill behind titles */
+section h2 {
+  background: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Add the same garnet underline as on the main page */
+section h2 {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+section h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 50px;
+  height: 4px;
+  background: var(--garnet);
+  border-radius: 2px;
+}
+/* -------------- Hero Header (shared) -------------- */
+.usc-hero {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: rgba(115, 0, 10, 0.85);
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.usc-header-text h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.usc-header-text p {
+  font-size: 1.15rem;
+  opacity: 0.95;
+}
+
+
+  
+  /* =================================
+     Intro
+     ================================= */
+  .intro p {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+  }
+  
+/* =================================
+   Chat Section (transparent style)
+   ================================= */
+   .chat-section {
+    /* strip away the old white card */
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 2rem 0;           /* optional vertical spacing */
+    text-align: center;
+  }
+  
+  .chat-section h2 {
+    /* mimic the garnet underline pill from your main page */
+    display: inline-block;
+    background: var(--card-bg);
+    color: var(--garnet);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .chat-section h2::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background: var(--garnet);
+    border-radius: 2px;
+  }
+  
+  /* avatar stays the same */
+  .bot-avatar {
+    display: block;
+    margin: 2rem auto;
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid var(--garnet);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    transition: transform var(--transition);
+  }
+  .bot-avatar:hover {
+    transform: scale(1.05);
+  }
+  
+  /* form */
+  .chat-form {
+    display: flex;
+    gap: .75rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .chat-form input {
+    flex: 1;
+    max-width: 400px;
+    padding: .75rem;
+    border: 1px solid rgba(115,0,10,.3);
+    border-radius: var(--radius);
+    font-size: 1rem;
+  }
+  .chat-form button {
+    padding: .75rem 1.5rem;
+    background: var(--garnet);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background var(--transition);
+  }
+  .chat-form button:hover {
+    background: #570008;
+  }
+  
+  /* response box */
+  .chat-response {
+    /* transparent/frosted look */
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(115,0,10,.2);
+    border-radius: var(--radius);
+    padding: 1rem;
+    min-height: 120px;
+    font-style: italic;
+    color: var(--text-dark);
+  }
+  .chat-response .notice {
+    color: var(--text-light);
+  }
+  .chat-response .error {
+    color: #b91c1c;
+  }
+  .example-list {
+    margin-top: .5rem;
+    list-style: disc inside var(--garnet);
+    color: var(--text-dark);
+  }
+  
+  
+  /* =================================
+     Info Section
+     ================================= */
+  .info-section ol,
+  .info-section ul {
+    margin-left: 1.5rem;
+    color: var(--text-light);
+  }
+  .info-section li {
+    margin-bottom: .75rem;
+  }
+  /* 7-step list styling */
+.jb-steps {
+  counter-reset: step;
   margin: 0;
   padding: 0;
 }
-
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: var(--bg-light);
+.jb-steps li {
+  list-style: none;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-left: 3rem;
+}
+.jb-steps li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem; height: 2rem;
+  background: var(--garnet);
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 2rem;
+  font-weight: bold;
+}
+.jb-steps h3 {
+  margin: 0.5rem 0;
+  color: var(--garnet);
+  font-size: 1.2rem;
+}
+.jb-steps p {
+  margin: 0.5rem 0 0.75rem;
   color: var(--text-dark);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-.site-header {
-  background-color: var(--bg-content);
-  border-bottom: 1px solid var(--border);
-  padding: 2rem 1rem;
+/* Takeaway list */
+.jb-takeaway {
+  margin-top: 2rem;
+  font-size: 1.15rem;
+  color: var(--garnet);
+}
+.jb-takeaway-list {
+  margin: 0.5rem 0 2rem 1.5rem;
+  color: var(--text-dark);
+}
+
+/* Flowchart styling */
+.flowchart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+.flow-step {
+  background: var(--card-bg);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px var(--accent-shadow);
+  font-weight: bold;
+  color: var(--garnet);
+  min-width: 100px;
   text-align: center;
 }
-
-.site-header h1 {
-  font-family: 'Merriweather', serif;
-  font-size: 2.75rem;
-  color: var(--accent);
+.flow-arrow {
+  font-size: 1.5rem;
+  color: var(--garnet);
+  margin: 0 0.5rem;
 }
 
-.site-header .subtitle {
-  margin-top: 0.5rem;
-  font-size: 1.1rem;
-  color: var(--text-light);
+/* Responsive shrink */
+@media (max-width: 600px) {
+  .flowchart { flex-direction: column; }
+  .flow-arrow { transform: rotate(90deg); margin: 0.25rem 0; }
 }
-
-.content {
-  max-width: 1200px;
-  margin: 2rem auto;
-  padding: 1rem 2rem;
-  background-color: var(--bg-content);
-  border: 1px solid var(--border);
+/* Intro paragraph under “How JustinBot Works” */
+.jb-intro {
+  margin: 1rem 0 2rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255,255,255,0.9);
+  border-left: 4px solid var(--garnet);
+  line-height: 1.6;
+  color: var(--text-dark);
   border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-/* Sections */
-.content section {
-  padding: 1.5rem 0;
-  border-bottom: 1px solid var(--border);
+  
+  /* =================================
+     Back Link
+     ================================= */
+  .back-link {
+    text-align: center;
+  }
+  .back-link a {
+    display: inline-block;
+    margin: 2rem 0;
+    color: var(--garnet);
+    font-weight: bold;
+    text-decoration: none;
+    padding: .5rem 1rem;
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background .3s ease;
+  }
+  .back-link a:hover {
+    background: rgba(255,255,255,0.9);
+  }
+  /* Strip the white “card” off the Return link */
+.back-link {
+  background: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  padding: 0 !important;
+  margin: 2rem auto !important; /* keep some breathing room */
 }
 
-.content section:last-child {
-  border-bottom: none;
-}
-
-.content h2 {
-  font-family: 'Merriweather', serif;
-  font-size: 1.875rem;
-  color: var(--accent);
-  margin-bottom: 1rem;
-}
-
-/* Intro */
-.intro p {
-  color: var(--text-light);
-  font-size: 1rem;
-}
-
-/* Chat Section */
-.chat-section .bot-avatar {
-  display: block;
-  margin: 1rem auto;
-  width: 120px;
-  border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.chat-form {
-  display: flex;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.chat-form input {
-  flex: 1;
-  padding: 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  font-size: 1rem;
-}
-
-.chat-form button {
-  padding: 0.75rem 1.5rem;
-  background-color: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: background-color var(--transition);
-}
-
-.chat-form button:hover {
-  background-color: #238a7b;
-}
-
-/* Chat Response */
-.chat-response {
-  padding: 1rem;
-  background-color: var(--bg-content);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  min-height: 140px;
-}
-
-.chat-response p.notice {
-  font-style: italic;
-  color: var(--text-light);
-}
-
-.chat-response p.error {
-  color: #b91c1c;
-}
-
-.chat-response ul {
-  list-style: disc inside;
-  color: var(--text-light);
-}
-
-/* Info Section */
-.info-section ol,
-.info-section ul {
-  margin-left: 1.5rem;
-  color: var(--text-light);
-}
-
-.info-section li {
-  margin-bottom: 0.75rem;
-}
-
-/* Back Link */
 .back-link a {
+  /* keep the button styling, but no card behind it */
   display: inline-block;
-  margin: 2rem 0;
-  color: var(--accent);
+  background: var(--garnet);
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
   text-decoration: none;
-  font-weight: 600;
-  transition: color var(--transition);
+  font-weight: bold;
+  transition: background var(--transition);
 }
 
 .back-link a:hover {
-  color: #238a7b;
+  background: #570008;
 }
