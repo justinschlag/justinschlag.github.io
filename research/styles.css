@@ -1,140 +1,196 @@
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:wght@500;700&display=swap');
-
-/* CSS Variables */
 :root {
-  --color-primary: #0d1b2a;
-  --color-secondary: #1b263b;
-  --color-accent: #e76f51;
-  --color-light: #f5f5f5;
-  --color-dark: #303841;
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Fraunces', serif;
-  --transition: 0.3s ease;
+  --garnet: #73000a;
+  --cream: #fdf6f0;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --radius: 16px;
+  --shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Global Reset */
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 body {
-  font-family: var(--font-sans);
-  background: var(--color-light);
-  color: var(--color-dark);
-  line-height: 1.6;
-}
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: var(--transition);
-}
-a:hover {
-  color: var(--color-accent);
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--cream);
+  margin: 0;
+  color: #222;
 }
 
 /* Header */
 .site-header {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  color: #fff;
+  background-color: var(--garnet);
+  color: white;
+  padding: 3rem 1rem 2rem;
   text-align: center;
-  padding: 4rem 1rem;
 }
-.site-header h1 {
-  font-family: var(--font-serif);
-  font-size: 2.5rem;
-  line-height: 1.2;
-}
+/* =============================
+   USC Header Banner (Consistent w/ Main Page)
+   ============================= */
+   .usc-hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: rgba(115, 0, 10, 0.85); /* garnet tone */
+    color: white;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .usc-header-text h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .usc-header-text p {
+    font-size: 1.15rem;
+    opacity: 0.95;
+  }
+  
+
 .site-header p {
-  margin-top: 1rem;
-  font-size: 1.2rem;
-  font-weight: 400;
-  opacity: 0.9;
+  font-size: 1.1rem;
+  opacity: 0.95;
 }
 
-/* Introduction */
+/* Intro */
 .intro {
-  max-width: 720px;
+  max-width: 800px;
   margin: 2rem auto;
   text-align: center;
   font-size: 1.1rem;
+  line-height: 1.7;
+  padding: 0 1rem;
 }
 
-/* Cards Grid */
+/* Cards */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
-  padding: 0 2rem 4rem;
+  padding: 2rem;
+  max-width: 1100px;
+  margin: auto;
 }
 
-/* Card */
 .card {
-  background: #fff;
-  border-radius: 16px;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  transition: transform var(--transition), box-shadow var(--transition);
 }
+
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
 }
+
 .card img {
-  display: block;
   width: 100%;
-  aspect-ratio: 16/9;    /* or whatever ratio your thumbnails are */
+  height: 260px;
   object-fit: cover;
+  border-bottom: 2px solid #ddd;
 }
-.card:hover img {
-  transform: scale(1.05);
-}
+
 .card-content {
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  padding: 1.25rem;
 }
+
 .card-content h3 {
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
-  color: var(--color-primary);
-  font-family: var(--font-serif);
+  margin-top: 0;
+  font-size: 1.3rem;
+  color: var(--garnet);
 }
+
 .card-content p {
-  flex-grow: 1;
-  font-size: 1rem;
-  color: var(--color-dark);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Summary Section */
+.project-summary {
+  max-width: 1000px;
+  margin: 2rem auto;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  padding: 0 2rem;
+  color: #333;
+}
+
+.project-summary p {
+  margin-bottom: 1.5rem;
 }
 
 /* Back Link */
-.contact {
+.back-link {
   text-align: center;
-  padding: 2rem 0;
-}
-.contact a {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  border: 2px solid var(--color-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  transition: var(--transition);
-}
-.contact a:hover {
-  background: var(--color-primary);
-  color: #fff;
+  margin: 3rem 0 2rem;
 }
 
-/* Responsive */
-@media (max-width: 480px) {
-  .site-header h1 {
-    font-size: 2rem;
-  }
-  .cards-grid {
-    padding: 0 1rem 2rem;
-  }
+.back-link a {
+  color: var(--garnet);
+  font-weight: bold;
+  font-size: 1.05rem;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background-color: var(--card-bg);
+  box-shadow: var(--shadow);
+  transition: background 0.3s ease;
+}
+
+.back-link a:hover {
+  background-color: #f1e8e6;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background: white;
+  margin: 8% auto;
+  padding: 2rem;
+  border-radius: var(--radius);
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.modal-content h2 {
+  color: var(--garnet);
+  margin-bottom: 1rem;
+}
+
+.modal-content p {
+  font-size: 1rem;
+  color: #444;
+}
+
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+}
+
+.img-formal {
+  object-position: center 25%;  /* was 35% */
+}
+
+.img-presentation {
+  object-position: center 15%;  /* was 15% */
 }
