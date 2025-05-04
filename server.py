@@ -166,7 +166,7 @@ Use these answers when responding to related questions.
 
 
     try:
-        resp = openai.ChatCompletion.create(
+        resp = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": instructions},
