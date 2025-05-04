@@ -169,13 +169,14 @@ Use these answers when responding to related questions.
 
     try:
         # 1) Call OpenAI
-        resp = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": instructions},
-                {"role": "user",   "content": question}
-            ]
-        )
+        resp = openai.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+      {"role": "system", "content": instructions},
+      {"role": "user",   "content": question}
+    ]
+)
+
         answer = resp.choices[0].message.content.strip()
 
         # 2) Send a Discord log
