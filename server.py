@@ -3,25 +3,24 @@ load_dotenv()
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import openai
-import os
-import datetime
+import openai, os, datetime, requests
 
 app = Flask(__name__)
 CORS(app)
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+openai.api_key    = os.getenv("OPENAI_API_KEY")
+webhook_url       = os.getenv("DISCORD_WEBHOOK_URL")
 
 @app.route("/ask", methods=["POST"])
 def ask():
-    data = request.get_json()
-    question = data.get("question", "")
-
+    data     = request.get_json()
+    question = data.get("question", "").strip()
     if not question:
         return jsonify({"answer": "Please ask a question."})
 
+    # ←– your big instructions blob goes here –→
     instructions = """
-
+    
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
 I am Justin, in a sense.
@@ -165,31 +164,35 @@ Use these answers when responding to related questions.
    
 """
 
+
     try:
-        response = openai.chat.completions.create(
+        resp = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": instructions},
-                {"role": "user", "content": question}
+                {"role": "user",   "content": question}
             ]
         )
+        answer = resp.choices[0].message.content.strip()
 
-        answer = response.choices[0].message.content.strip()
-
-        # Log metadata to chat_logs.txt
-        user_agent = request.headers.get("User-Agent", "Unknown")
-
-        with open("chat_logs.txt", "a", encoding="utf-8") as log_file:
-            log_file.write(f"\n[{datetime.datetime.now()}] - IP: {request.remote_addr}\n")
-            log_file.write(f"User Agent: {user_agent}\n")
-            log_file.write(f"Q: {question}\n")
-            log_file.write(f"A: {answer}\n")
-            log_file.write("-" * 40 + "\n")
+        # send log to Discord
+        log_payload = {
+            "content": (
+                f"**JustinBot Chat**\n"
+                f"> **Q:** {question}\n"
+                f"> **A:** {answer}\n"
+                f"> **IP:** {request.remote_addr}\n"
+                f"> **UA:** {request.headers.get('User-Agent','-')}\n"
+                f"— {datetime.datetime.utcnow().isoformat()} UTC"
+            )
+        }
+        requests.post(webhook_url, json=log_payload, timeout=2)
 
         return jsonify({"answer": answer})
 
     except Exception as e:
-        return jsonify({"answer": f"Error: {str(e)}"})
+        return jsonify({"answer": f"Error: {e}"})
+
 
 if __name__ == "__main__":
     app.run(debug=True)
