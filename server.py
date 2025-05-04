@@ -3,24 +3,28 @@ load_dotenv()
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import openai, os, datetime
+import openai
+import os
+import datetime
+import requests   # for Discord webhook
 
 app = Flask(__name__)
 CORS(app)
 
-openai.api_key    = os.getenv("OPENAI_API_KEY")
-webhook_url       = os.getenv("DISCORD_WEBHOOK_URL")
+openai.api_key  = os.getenv("OPENAI_API_KEY")
+webhook_url     = os.getenv("DISCORD_WEBHOOK_URL")
 
 @app.route("/ask", methods=["POST"])
 def ask():
     data     = request.get_json()
     question = data.get("question", "").strip()
+
     if not question:
         return jsonify({"answer": "Please ask a question."})
 
-    
+    # ─── Copy & paste your full multi-line instructions here ───
     instructions = """
-    
+        
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
 I am Justin, in a sense.
@@ -161,12 +165,11 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 Use these answers when responding to related questions.
 
-   
-"""
-
+    """
 
     try:
-        resp = openai.chat.completions.create(
+        # 1) Call OpenAI
+        resp = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": instructions},
@@ -175,7 +178,7 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        # send log to Discord
+        # 2) Send a Discord log
         log_payload = {
             "content": (
                 f"**JustinBot Chat**\n"
@@ -186,14 +189,22 @@ Use these answers when responding to related questions.
                 f"— {datetime.datetime.utcnow().isoformat()} UTC"
             )
         }
+        # fire-and-forget (timeout short to avoid blocking)
         requests.post(webhook_url, json=log_payload, timeout=2)
+
+        # 3) Persist locally
+        with open("chat_logs.txt", "a", encoding="utf-8") as log_file:
+            log_file.write(f"\n[{datetime.datetime.now()}] IP:{request.remote_addr}\n")
+            log_file.write(f"UA: {request.headers.get('User-Agent','-')}\n")
+            log_file.write(f"Q: {question}\nA: {answer}\n")
+            log_file.write("-" * 40 + "\n")
 
         return jsonify({"answer": answer})
 
     except Exception as e:
         return jsonify({"answer": f"Error: {e}"})
 
-
 if __name__ == "__main__":
     app.run(debug=True)
+
 
