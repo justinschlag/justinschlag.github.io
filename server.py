@@ -3,7 +3,7 @@ load_dotenv()
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import openai, os, datetime, requests
+import openai, os, datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -18,7 +18,7 @@ def ask():
     if not question:
         return jsonify({"answer": "Please ask a question."})
 
-    # ←– your big instructions blob goes here –→
+    
     instructions = """
     
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
