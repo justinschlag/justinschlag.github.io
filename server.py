@@ -5,6 +5,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
 import os
+import datetime
 
 app = Flask(__name__)
 CORS(app)
@@ -19,7 +20,6 @@ def ask():
     if not question:
         return jsonify({"answer": "Please ask a question."})
 
-    # Add your updated instructions here:
     instructions = """
 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
@@ -162,7 +162,8 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 Use these answers when responding to related questions.
 
-    """
+   
+"""
 
     try:
         response = openai.chat.completions.create(
@@ -174,6 +175,17 @@ Use these answers when responding to related questions.
         )
 
         answer = response.choices[0].message.content.strip()
+
+        # Log metadata to chat_logs.txt
+        user_agent = request.headers.get("User-Agent", "Unknown")
+
+        with open("chat_logs.txt", "a", encoding="utf-8") as log_file:
+            log_file.write(f"\n[{datetime.datetime.now()}] - IP: {request.remote_addr}\n")
+            log_file.write(f"User Agent: {user_agent}\n")
+            log_file.write(f"Q: {question}\n")
+            log_file.write(f"A: {answer}\n")
+            log_file.write("-" * 40 + "\n")
+
         return jsonify({"answer": answer})
 
     except Exception as e:
@@ -181,3 +193,4 @@ Use these answers when responding to related questions.
 
 if __name__ == "__main__":
     app.run(debug=True)
+
