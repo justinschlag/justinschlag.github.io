@@ -9,21 +9,16 @@ import os
 import datetime
 import gspread
 from google.oauth2.service_account import Credentials
-import json
 
 app = Flask(__name__)
 CORS(app)
 
+# ─── OpenAI Config ───
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# ─── Google Sheets Setup ───
-SERVICE_ACCOUNT_FILE = "/etc/secrets/justinbot-sheets.json"
-SCOPES = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
-]
-
-
+# ─── Google Sheets Config ───
+SERVICE_ACCOUNT_FILE = "/etc/secrets/justinbot-sheets.json"  # Path to Render-mounted secret
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
 creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 gc = gspread.authorize(creds)
 sheet = gc.open("JustinBot Chat Logs").worksheet("Logs")
@@ -36,8 +31,8 @@ def ask():
     if not question:
         return jsonify({"answer": "Please ask a question."})
 
-    instructions = """ 
-
+    instructions = """
+    
 You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
@@ -178,10 +173,11 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
-  """
+ 
+    """
 
     try:
-        # Get AI response
+        # Get OpenAI response
         resp = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -191,18 +187,17 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        # Save to Google Sheets
-        timestamp = datetime.datetime.utcnow().isoformat()
+        # Log to Google Sheets
+        now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         ip = request.remote_addr
         ua = request.headers.get("User-Agent", "-")
-        sheet.append_row([timestamp, ip, ua, question, answer])
+        sheet.append_row([now, ip, ua, question, answer])
 
         return jsonify({"answer": answer})
 
     except Exception as e:
-        return jsonify({"answer": f"Error: {e}"})
+        return jsonify({"answer": f"Error: {str(e)}"})
 
 if __name__ == "__main__":
     app.run(debug=True)
 
-    
