@@ -8,21 +8,23 @@ import openai
 import os
 import datetime
 import csv
+from user_agents import parse
+import pytz
 
 app = Flask(__name__)
 CORS(app)
 
-# ─── OpenAI API Key ───
+# ─── OpenAI Config ───
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# ─── Local CSV Log Path ───
+# ─── CSV File Path ───
 CSV_PATH = "chat_logs.csv"
 
 # ─── Ensure CSV Exists ───
 if not os.path.exists(CSV_PATH):
     with open(CSV_PATH, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow(["timestamp", "ip", "user_agent", "question", "answer"])
+        writer.writerow(["timestamp", "ip", "device", "question", "answer"])
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -33,8 +35,7 @@ def ask():
         return jsonify({"answer": "Please ask a question."})
 
     instructions = """
-
-    You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
+     You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
@@ -178,7 +179,6 @@ Use these answers when responding to related questions.
     """
 
     try:
-        # ─── Get OpenAI Response ───
         resp = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -188,24 +188,21 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        # ─── Log to CSV ───
-        timestamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%Y-%m-%d %H:%M:%S")
         ip = request.remote_addr
-        ua = request.headers.get("User-Agent", "-")
+
+        ua_string = request.headers.get("User-Agent", "-")
+        user_agent = parse(ua_string)
+        ua_summary = f"{user_agent.device.family} / {user_agent.os.family} / {user_agent.browser.family}"
+
         with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow([timestamp, ip, ua, question, answer])
+            writer.writerow([timestamp, ip, ua_summary, question, answer])
 
         return jsonify({"answer": answer})
 
     except Exception as e:
         return jsonify({"answer": f"Error: {str(e)}"})
-
-from flask import send_file
-
-@app.route("/logs", methods=["GET"])
-def download_logs():
-    return send_file(CSV_PATH, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
