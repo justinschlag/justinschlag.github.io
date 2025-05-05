@@ -39,8 +39,15 @@ def discord_logger():
                 print("[ERROR] Discord webhook failed:", e)
         time.sleep(10)
 
-# Start background logger thread
-threading.Thread(target=discord_logger, daemon=True).start()
+# ─── Ensure Background Thread Starts ───
+def start_discord_logger_once():
+    if not getattr(app, "_discord_logger_started", False):
+        threading.Thread(target=discord_logger, daemon=True).start()
+        app._discord_logger_started = True
+
+@app.before_first_request
+def activate_logger():
+    start_discord_logger_once()
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -50,7 +57,7 @@ def ask():
     if not question:
         return jsonify({"answer": "Please ask a question."})
 
-    instructions = """      
+    instructions = """ 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
 I am Justin, in a sense.
@@ -190,7 +197,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
- """
+  """
 
     try:
         # 1) Call OpenAI
@@ -230,5 +237,3 @@ Use these answers when responding to related questions.
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-   
