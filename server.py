@@ -167,7 +167,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
- """
+  """
 
     try:
         # 1) Call OpenAI
@@ -179,10 +179,13 @@ Use these answers when responding to related questions.
             ]
         )
         answer = resp.choices[0].message.content.strip()
+        print("[DEBUG] Answer generated:", answer)
 
         # 2) Save chat to CSV log
         log_path = "chat_logs.csv"
         is_new_file = not os.path.isfile(log_path)
+        print("[DEBUG] Logging to CSV at:", os.path.abspath(log_path))
+
         with open(log_path, "a", newline="", encoding="utf-8") as csvfile:
             writer = csv.writer(csvfile)
             if is_new_file:
@@ -198,6 +201,7 @@ Use these answers when responding to related questions.
         return jsonify({"answer": answer})
 
     except Exception as e:
+        print("[ERROR] Failed:", e)
         return jsonify({"answer": f"Error: {e}"})
 
 if __name__ == "__main__":
