@@ -18,7 +18,11 @@ openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # ─── Google Sheets Setup ───
 SERVICE_ACCOUNT_FILE = "/etc/secrets/justinbot-sheets.json"
-SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+
 
 creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
 gc = gspread.authorize(creds)
