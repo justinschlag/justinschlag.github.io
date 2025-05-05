@@ -47,7 +47,9 @@ def start_discord_logger_once():
 
 @app.before_first_request
 def activate_logger():
+    print("[INIT] Starting Discord logger thread...")
     start_discord_logger_once()
+
 
 @app.route("/ask", methods=["POST"])
 def ask():
