@@ -23,6 +23,7 @@ discord_log_queue = []
 # ─── Background Thread: Sends 1 Discord log every 10 seconds ───
 def discord_logger():
     while True:
+        print(f"[LOOP] Queue size: {len(discord_log_queue)}")
         if discord_log_queue:
             payload = discord_log_queue.pop(0)
             try:
@@ -194,7 +195,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
-  """
+ """
 
     try:
         # 1) Call OpenAI
@@ -219,6 +220,7 @@ Use these answers when responding to related questions.
             )
         }
         discord_log_queue.append(log_payload)
+        print(f"[DEBUG] Log queued. Queue size: {len(discord_log_queue)}")
 
         # 3) Persist locally
         with open("chat_logs.txt", "a", encoding="utf-8") as log_file:
@@ -239,3 +241,4 @@ if __name__ != "__main__":
 
 if __name__ == "__main__":
     app.run(debug=True)
+
