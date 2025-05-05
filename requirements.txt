@@ -4,5 +4,3 @@ openai>=1.13.3
 python-dotenv
 gunicorn
 requests
-gspread
-google-auth

@@ -7,24 +7,22 @@ from flask_cors import CORS
 import openai
 import os
 import datetime
-import gspread
-from google.oauth2.service_account import Credentials
+import csv
 
 app = Flask(__name__)
 CORS(app)
 
-# OpenAI Config
+# ─── OpenAI API Key ───
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-# Google Sheets Config
-SERVICE_ACCOUNT_FILE = "/etc/secrets/justinbot-sheets.json"
-SCOPES = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    "https://www.googleapis.com/auth/drive"
-]
-creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
-gc = gspread.authorize(creds)
-sheet = gc.open("JustinBot Chat Logs").worksheet("Logs")
+# ─── Local CSV Log Path ───
+CSV_PATH = "chat_logs.csv"
+
+# ─── Ensure CSV Exists ───
+if not os.path.exists(CSV_PATH):
+    with open(CSV_PATH, mode="w", newline="", encoding="utf-8") as file:
+        writer = csv.writer(file)
+        writer.writerow(["timestamp", "ip", "user_agent", "question", "answer"])
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -35,6 +33,7 @@ def ask():
         return jsonify({"answer": "Please ask a question."})
 
     instructions = """
+
     You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
@@ -179,6 +178,7 @@ Use these answers when responding to related questions.
     """
 
     try:
+        # ─── Get OpenAI Response ───
         resp = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -188,11 +188,13 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        # ─── Log to CSV ───
+        timestamp = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
         ip = request.remote_addr
         ua = request.headers.get("User-Agent", "-")
-
-        sheet.append_row([now, ip, ua, question, answer])
+        with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            writer.writerow([timestamp, ip, ua, question, answer])
 
         return jsonify({"answer": answer})
 
@@ -201,6 +203,3 @@ Use these answers when responding to related questions.
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-    
-
