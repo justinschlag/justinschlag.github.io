@@ -2,7 +2,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import openai
 import os
@@ -203,6 +203,13 @@ Use these answers when responding to related questions.
     except Exception as e:
         print("[ERROR] Failed:", e)
         return jsonify({"answer": f"Error: {e}"})
+
+@app.route("/logs", methods=["GET"])
+def get_logs():
+    log_path = "chat_logs.csv"
+    if not os.path.exists(log_path):
+        return "Log file not found", 404
+    return send_file(log_path, as_attachment=True)
 
 if __name__ == "__main__":
     app.run(debug=True)
