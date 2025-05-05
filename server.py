@@ -201,5 +201,11 @@ Use these answers when responding to related questions.
     except Exception as e:
         return jsonify({"answer": f"Error: {str(e)}"})
 
+from flask import send_file
+
+@app.route("/logs", methods=["GET"])
+def download_logs():
+    return send_file(CSV_PATH, as_attachment=True)
+
 if __name__ == "__main__":
     app.run(debug=True)
