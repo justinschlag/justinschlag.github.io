@@ -179,7 +179,7 @@ Use these answers when responding to related questions.
 
         answer = resp.choices[0].message.content.strip()
 
-        # 2) Send a Discord log
+               # 2) Send a Discord log
         log_payload = {
             "content": (
                 f"**JustinBot Chat**\n"
@@ -190,8 +190,13 @@ Use these answers when responding to related questions.
                 f"— {datetime.datetime.utcnow().isoformat()} UTC"
             )
         }
-        # fire-and-forget (timeout short to avoid blocking)
-        requests.post(webhook_url, json=log_payload, timeout=2)
+
+        print("[DEBUG] Sending Discord webhook...")
+        try:
+            resp = requests.post(webhook_url, json=log_payload, timeout=5)
+            print("[DEBUG] Discord response:", resp.status_code, resp.text)
+        except Exception as e:
+            print("[ERROR] Discord webhook failed:", e)
 
         # 3) Persist locally
         with open("chat_logs.txt", "a", encoding="utf-8") as log_file:
