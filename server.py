@@ -46,6 +46,10 @@ def start_discord_logger_once():
         threading.Thread(target=discord_logger, daemon=True).start()
         app._discord_logger_started = True
 
+@app.before_request
+def ensure_logger_is_running():
+    start_discord_logger_once()
+
 @app.route("/ask", methods=["POST"])
 def ask():
     data = request.get_json()
@@ -195,7 +199,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
- """
+  """
 
     try:
         # 1) Call OpenAI
@@ -234,11 +238,5 @@ Use these answers when responding to related questions.
     except Exception as e:
         return jsonify({"answer": f"Error: {e}"})
 
-# ─── For Gunicorn or any WSGI server ───
-if __name__ != "__main__":
-    print("[INIT] Starting Discord logger for production...")
-    start_discord_logger_once()
-
 if __name__ == "__main__":
     app.run(debug=True)
-
