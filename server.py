@@ -2,7 +2,7 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
 import os
@@ -10,10 +10,9 @@ import datetime
 import csv
 from user_agents import parse
 import pytz
-import uuid
 
 app = Flask(__name__)
-CORS(app, supports_credentials=True)
+CORS(app)
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 CSV_PATH = "chat_logs.csv"
@@ -21,7 +20,7 @@ CSV_PATH = "chat_logs.csv"
 if not os.path.exists(CSV_PATH):
     with open(CSV_PATH, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow(["timestamp", "session_id", "device", "question", "answer"])
+        writer.writerow(["timestamp", "device", "question", "answer"])
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -185,10 +184,9 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        now = datetime.datetime.now(pytz.timezone("US/Eastern"))
-        timestamp = now.strftime("%b %d, %Y - %I:%M %p")
-
+        timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%b %d, %Y - %-I:%M %p")
         ua_string = request.headers.get("User-Agent", "-")
+
         device_type = (
             "iPhone" if "iPhone" in ua_string else
             "Android" if "Android" in ua_string else
@@ -197,19 +195,11 @@ Use these answers when responding to related questions.
             "Other"
         )
 
-        session_id = request.cookies.get("session_id")
-        if not session_id:
-            session_id = str(uuid.uuid4())
-            response = make_response(jsonify({"answer": answer}))
-            response.set_cookie("session_id", session_id, httponly=True, samesite='None', secure=True)
-        else:
-            response = make_response(jsonify({"answer": answer}))
-
         with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow([timestamp, session_id, device_type, question, answer])
+            writer.writerow([timestamp, device_type, question, answer])
 
-        return response
+        return jsonify({"answer": answer})
 
     except Exception as e:
         return jsonify({"answer": f"Error: {str(e)}"})
@@ -235,3 +225,5 @@ def logs():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+    
