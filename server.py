@@ -2,20 +2,29 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
 import os
 import datetime
-import requests
-import csv
-import os.path
+import gspread
+from google.oauth2.service_account import Credentials
 
 app = Flask(__name__)
 CORS(app)
 
+# OpenAI Config
 openai.api_key = os.getenv("OPENAI_API_KEY")
-webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
+
+# Google Sheets Config
+SERVICE_ACCOUNT_FILE = "/etc/secrets/justinbot-sheets.json"
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+creds = Credentials.from_service_account_file(SERVICE_ACCOUNT_FILE, scopes=SCOPES)
+gc = gspread.authorize(creds)
+sheet = gc.open("JustinBot Chat Logs").worksheet("Logs")
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -25,9 +34,8 @@ def ask():
     if not question:
         return jsonify({"answer": "Please ask a question."})
 
-    instructions = """ 
-
-You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
+    instructions = """
+    You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
@@ -167,10 +175,10 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
-  """
+ 
+    """
 
     try:
-        # 1) Call OpenAI
         resp = openai.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -179,37 +187,20 @@ Use these answers when responding to related questions.
             ]
         )
         answer = resp.choices[0].message.content.strip()
-        print("[DEBUG] Answer generated:", answer)
 
-        # 2) Save chat to CSV log
-        log_path = "chat_logs.csv"
-        is_new_file = not os.path.isfile(log_path)
-        print("[DEBUG] Logging to CSV at:", os.path.abspath(log_path))
+        now = datetime.datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S")
+        ip = request.remote_addr
+        ua = request.headers.get("User-Agent", "-")
 
-        with open(log_path, "a", newline="", encoding="utf-8") as csvfile:
-            writer = csv.writer(csvfile)
-            if is_new_file:
-                writer.writerow(["timestamp", "ip", "user_agent", "question", "answer"])
-            writer.writerow([
-                datetime.datetime.now().isoformat(),
-                request.remote_addr,
-                request.headers.get('User-Agent', '-'),
-                question.replace("\n", " ").replace('"', "'"),
-                answer.replace("\n", " ").replace('"', "'")
-            ])
+        sheet.append_row([now, ip, ua, question, answer])
 
         return jsonify({"answer": answer})
 
     except Exception as e:
-        print("[ERROR] Failed:", e)
-        return jsonify({"answer": f"Error: {e}"})
-
-@app.route("/logs", methods=["GET"])
-def get_logs():
-    log_path = "chat_logs.csv"
-    if not os.path.exists(log_path):
-        return "Log file not found", 404
-    return send_file(log_path, as_attachment=True)
+        return jsonify({"answer": f"Error: {str(e)}"})
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+    
+
