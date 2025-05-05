@@ -1,14 +1,16 @@
- # server.py
+# server.py
 from dotenv import load_dotenv
 load_dotenv()
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from flask_cors import CORS
 import openai
 import os
 import datetime
 import csv
+from user_agents import parse
 import pytz
+import uuid
 
 app = Flask(__name__)
 CORS(app)
@@ -19,12 +21,16 @@ CSV_PATH = "chat_logs.csv"
 if not os.path.exists(CSV_PATH):
     with open(CSV_PATH, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow(["timestamp", "device", "question", "answer"])
+        writer.writerow(["timestamp", "session_id", "device", "question", "answer"])
 
 @app.route("/ask", methods=["POST"])
 def ask():
     data = request.get_json()
     question = data.get("question", "").strip()
+    session_id = request.cookies.get("session_id")
+
+    if not session_id:
+        session_id = str(uuid.uuid4())
 
     if not question:
         return jsonify({"answer": "Please ask a question."})
@@ -171,6 +177,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 Use these answers when responding to related questions.
    
+   
     """
 
     try:
@@ -183,7 +190,7 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%b %d, %Y - %-I:%M %p")
         ua_string = request.headers.get("User-Agent", "-")
 
         device_type = (
@@ -196,9 +203,11 @@ Use these answers when responding to related questions.
 
         with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow([timestamp, device_type, question, answer])
+            writer.writerow([timestamp, session_id, device_type, question, answer])
 
-        return jsonify({"answer": answer})
+        response = jsonify({"answer": answer})
+        response.set_cookie("session_id", session_id, max_age=60*60*24*30)  # 30 days
+        return response
 
     except Exception as e:
         return jsonify({"answer": f"Error: {str(e)}"})
@@ -210,11 +219,11 @@ def logs():
             reader = csv.reader(file)
             rows = list(reader)
 
-        table = "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse:collapse; font-family:sans-serif;'>"
-        table += "<tr>" + "".join(f"<th style='background:#eee;text-align:left'>{h}</th>" for h in rows[0]) + "</tr>"
+        table = "<table border='1' cellpadding='5' cellspacing='0'>"
+        table += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0]) + "</tr>"
 
         for row in rows[1:]:
-            table += "<tr>" + "".join(f"<td style='vertical-align:top'>{cell}</td>" for cell in row) + "</tr>"
+            table += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>"
 
         table += "</table>"
         return f"<html><body>{table}</body></html>"
@@ -224,3 +233,5 @@ def logs():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+    
