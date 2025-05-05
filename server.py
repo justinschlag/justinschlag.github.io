@@ -13,7 +13,7 @@ import pytz
 import uuid
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 CSV_PATH = "chat_logs.csv"
@@ -27,13 +27,21 @@ if not os.path.exists(CSV_PATH):
 def ask():
     data = request.get_json()
     question = data.get("question", "").strip()
-    session_id = request.cookies.get("session_id")
-
-    if not session_id:
-        session_id = str(uuid.uuid4())
 
     if not question:
         return jsonify({"answer": "Please ask a question."})
+
+    session_id = request.cookies.get("session_id") or str(uuid.uuid4())
+    ua_string = request.headers.get("User-Agent", "-")
+    device_type = (
+        "iPhone" if "iPhone" in ua_string else
+        "Android" if "Android" in ua_string else
+        "Mac" if "Mac" in ua_string else
+        "Windows" if "Windows" in ua_string else
+        "Other"
+    )
+
+    timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%b %d, %Y - %-I:%M %p")
 
     instructions = """
     You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
@@ -177,7 +185,6 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 Use these answers when responding to related questions.
    
-   
     """
 
     try:
@@ -190,22 +197,11 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%b %d, %Y - %-I:%M %p")
-        ua_string = request.headers.get("User-Agent", "-")
-
-        device_type = (
-            "iPhone" if "iPhone" in ua_string else
-            "Android" if "Android" in ua_string else
-            "Mac" if "Mac" in ua_string else
-            "Windows" if "Windows" in ua_string else
-            "Other"
-        )
-
         with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
             writer.writerow([timestamp, session_id, device_type, question, answer])
 
-        response = jsonify({"answer": answer})
+        response = make_response(jsonify({"answer": answer}))
         response.set_cookie("session_id", session_id, max_age=60*60*24*30)  # 30 days
         return response
 
@@ -220,10 +216,11 @@ def logs():
             rows = list(reader)
 
         table = "<table border='1' cellpadding='5' cellspacing='0'>"
-        table += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0]) + "</tr>"
+        table += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0] if h != "ip") + "</tr>"
 
         for row in rows[1:]:
-            table += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>"
+            filtered_row = [cell for i, cell in enumerate(row) if rows[0][i] != "ip"]
+            table += "<tr>" + "".join(f"<td>{cell}</td>" for cell in filtered_row) + "</tr>"
 
         table += "</table>"
         return f"<html><body>{table}</body></html>"
@@ -235,3 +232,4 @@ if __name__ == "__main__":
     app.run(debug=True)
 
     
+   
