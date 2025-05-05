@@ -8,47 +8,12 @@ import openai
 import os
 import datetime
 import requests
-import threading
-import time
 
 app = Flask(__name__)
 CORS(app)
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
-
-# Global log queue
-discord_log_queue = []
-
-# ─── Background Thread: Sends 1 Discord log every 10 seconds ───
-def discord_logger():
-    while True:
-        print(f"[LOOP] Queue size: {len(discord_log_queue)}")
-        if discord_log_queue:
-            payload = discord_log_queue.pop(0)
-            try:
-                print("[QUEUE] Sending Discord webhook...")
-                resp = requests.post(webhook_url, json=payload, timeout=5)
-                if resp.status_code == 429:
-                    retry = resp.headers.get("Retry-After", "unknown")
-                    print(f"[WARN] Rate-limited. Retry-After: {retry}")
-                elif resp.status_code >= 400:
-                    print(f"[ERROR] Discord error {resp.status_code}: {resp.text}")
-                else:
-                    print(f"[OK] Discord logged: {resp.status_code}")
-            except Exception as e:
-                print("[ERROR] Discord webhook failed:", e)
-        time.sleep(10)
-
-# ─── Ensure Background Thread Starts ───
-def start_discord_logger_once():
-    if not getattr(app, "_discord_logger_started", False):
-        threading.Thread(target=discord_logger, daemon=True).start()
-        app._discord_logger_started = True
-
-@app.before_request
-def ensure_logger_is_running():
-    start_discord_logger_once()
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -212,7 +177,7 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        # 2) Save to Discord queue (non-blocking)
+        # 2) Log to Discord inline
         log_payload = {
             "content": (
                 f"**JustinBot Chat**\n"
@@ -223,8 +188,12 @@ Use these answers when responding to related questions.
                 f"\u2014 {datetime.datetime.utcnow().isoformat()} UTC"
             )
         }
-        discord_log_queue.append(log_payload)
-        print(f"[DEBUG] Log queued. Queue size: {len(discord_log_queue)}")
+        try:
+            print("[SEND] Sending Discord webhook inline...")
+            resp = requests.post(webhook_url, json=log_payload, timeout=5)
+            print("[SEND] Discord response:", resp.status_code, resp.text)
+        except Exception as e:
+            print("[SEND] Discord webhook failed:", e)
 
         # 3) Persist locally
         with open("chat_logs.txt", "a", encoding="utf-8") as log_file:
@@ -240,3 +209,4 @@ Use these answers when responding to related questions.
 
 if __name__ == "__main__":
     app.run(debug=True)
+
