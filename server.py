@@ -14,13 +14,9 @@ import pytz
 app = Flask(__name__)
 CORS(app)
 
-# ─── OpenAI Config ───
 openai.api_key = os.getenv("OPENAI_API_KEY")
-
-# ─── CSV File Path ───
 CSV_PATH = "chat_logs.csv"
 
-# ─── Ensure CSV Exists ───
 if not os.path.exists(CSV_PATH):
     with open(CSV_PATH, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
@@ -35,7 +31,8 @@ def ask():
         return jsonify({"answer": "Please ask a question."})
 
     instructions = """
-     You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
+   
+You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
@@ -175,7 +172,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
- 
+    
     """
 
     try:
@@ -190,19 +187,34 @@ Use these answers when responding to related questions.
 
         timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%Y-%m-%d %H:%M:%S")
         ip = request.remote_addr
-
         ua_string = request.headers.get("User-Agent", "-")
-        user_agent = parse(ua_string)
-        ua_summary = f"{user_agent.device.family} / {user_agent.os.family} / {user_agent.browser.family}"
+
+        device_type = (
+            "iPhone" if "iPhone" in ua_string else
+            "Android" if "Android" in ua_string else
+            "Mac" if "Mac" in ua_string else
+            "Windows" if "Windows" in ua_string else
+            "Other"
+        )
 
         with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow([timestamp, ip, ua_summary, question, answer])
+            writer.writerow([timestamp, ip, device_type, question, answer])
 
         return jsonify({"answer": answer})
 
     except Exception as e:
         return jsonify({"answer": f"Error: {str(e)}"})
 
+@app.route("/logs", methods=["GET"])
+def logs():
+    try:
+        with open(CSV_PATH, mode="r", encoding="utf-8") as file:
+            content = file.read()
+        return f"<pre>{content}</pre>"
+    except Exception as e:
+        return f"Error loading logs: {e}", 500
+
 if __name__ == "__main__":
     app.run(debug=True)
+
