@@ -1,4 +1,4 @@
-# server.py
+ # server.py
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -8,7 +8,6 @@ import openai
 import os
 import datetime
 import csv
-from user_agents import parse
 import pytz
 
 app = Flask(__name__)
@@ -20,7 +19,7 @@ CSV_PATH = "chat_logs.csv"
 if not os.path.exists(CSV_PATH):
     with open(CSV_PATH, mode="w", newline="", encoding="utf-8") as file:
         writer = csv.writer(file)
-        writer.writerow(["timestamp", "ip", "device", "question", "answer"])
+        writer.writerow(["timestamp", "device", "question", "answer"])
 
 @app.route("/ask", methods=["POST"])
 def ask():
@@ -31,8 +30,7 @@ def ask():
         return jsonify({"answer": "Please ask a question."})
 
     instructions = """
-   
-You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
+    You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
@@ -172,7 +170,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
-    
+   
     """
 
     try:
@@ -186,7 +184,6 @@ Use these answers when responding to related questions.
         answer = resp.choices[0].message.content.strip()
 
         timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%Y-%m-%d %H:%M:%S")
-        ip = request.remote_addr
         ua_string = request.headers.get("User-Agent", "-")
 
         device_type = (
@@ -213,12 +210,11 @@ def logs():
             reader = csv.reader(file)
             rows = list(reader)
 
-        table = "<table border='1' cellpadding='5' cellspacing='0'>"
-        table += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0] if h != "ip") + "</tr>"
+        table = "<table border='1' cellpadding='5' cellspacing='0' style='border-collapse:collapse; font-family:sans-serif;'>"
+        table += "<tr>" + "".join(f"<th style='background:#eee;text-align:left'>{h}</th>" for h in rows[0]) + "</tr>"
 
         for row in rows[1:]:
-            filtered_row = [cell for i, cell in enumerate(row) if rows[0][i] != "ip"]
-            table += "<tr>" + "".join(f"<td>{cell}</td>" for cell in filtered_row) + "</tr>"
+            table += "<tr>" + "".join(f"<td style='vertical-align:top'>{cell}</td>" for cell in row) + "</tr>"
 
         table += "</table>"
         return f"<html><body>{table}</body></html>"
@@ -228,4 +224,3 @@ def logs():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
