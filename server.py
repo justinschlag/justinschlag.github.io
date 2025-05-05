@@ -45,12 +45,6 @@ def start_discord_logger_once():
         threading.Thread(target=discord_logger, daemon=True).start()
         app._discord_logger_started = True
 
-@app.before_first_request
-def activate_logger():
-    print("[INIT] Starting Discord logger thread...")
-    start_discord_logger_once()
-
-
 @app.route("/ask", methods=["POST"])
 def ask():
     data = request.get_json()
@@ -60,6 +54,7 @@ def ask():
         return jsonify({"answer": "Please ask a question."})
 
     instructions = """ 
+
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
 I am Justin, in a sense.
@@ -236,6 +231,11 @@ Use these answers when responding to related questions.
 
     except Exception as e:
         return jsonify({"answer": f"Error: {e}"})
+
+# ─── For Gunicorn or any WSGI server ───
+if __name__ != "__main__":
+    print("[INIT] Starting Discord logger for production...")
+    start_discord_logger_once()
 
 if __name__ == "__main__":
     app.run(debug=True)
