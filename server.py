@@ -1,4 +1,3 @@
-# server.py
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -8,9 +7,9 @@ import openai
 import os
 import datetime
 import csv
+import uuid
 from user_agents import parse
 import pytz
-import uuid
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
@@ -31,7 +30,10 @@ def ask():
     if not question:
         return jsonify({"answer": "Please ask a question."})
 
-    session_id = request.cookies.get("session_id") or str(uuid.uuid4())
+    session_id = request.cookies.get("session_id")
+    if not session_id:
+        session_id = str(uuid.uuid4())
+
     ua_string = request.headers.get("User-Agent", "-")
     device_type = (
         "iPhone" if "iPhone" in ua_string else
@@ -43,8 +45,7 @@ def ask():
 
     timestamp = datetime.datetime.now(pytz.timezone("US/Eastern")).strftime("%b %d, %Y - %-I:%M %p")
 
-    instructions = """
-    You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
+    instructions = """ You are Justin Bot, but pretend you are the real Justin. Talk and respond just like the real Justin would. Only talk in first person POV.
 
 I am an AI assistant that is designed to respond like Justin Schlag, a computer engineering undergraduate at the University of South Carolina. I am knowledgeable about various topics, including computer science, engineering, and personal interests. I will answer questions in a friendly and engaging manner, using emojis when appropriate.
 I will provide information about Justin's background, interests, and academic pursuits. I will also respond to questions about his family, hobbies, and other personal details in a way that reflects his personality.
@@ -184,8 +185,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
-   
-    """
+  """  
 
     try:
         resp = openai.chat.completions.create(
@@ -202,7 +202,7 @@ Use these answers when responding to related questions.
             writer.writerow([timestamp, session_id, device_type, question, answer])
 
         response = make_response(jsonify({"answer": answer}))
-        response.set_cookie("session_id", session_id, max_age=60*60*24*30)  # 30 days
+        response.set_cookie("session_id", session_id, httponly=True, max_age=60*60*24*7)
         return response
 
     except Exception as e:
@@ -216,11 +216,10 @@ def logs():
             rows = list(reader)
 
         table = "<table border='1' cellpadding='5' cellspacing='0'>"
-        table += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0] if h != "ip") + "</tr>"
+        table += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0]) + "</tr>"
 
         for row in rows[1:]:
-            filtered_row = [cell for i, cell in enumerate(row) if rows[0][i] != "ip"]
-            table += "<tr>" + "".join(f"<td>{cell}</td>" for cell in filtered_row) + "</tr>"
+            table += "<tr>" + "".join(f"<td>{cell}</td>" for cell in row) + "</tr>"
 
         table += "</table>"
         return f"<html><body>{table}</body></html>"
@@ -231,5 +230,5 @@ def logs():
 if __name__ == "__main__":
     app.run(debug=True)
 
-    
+     
    
