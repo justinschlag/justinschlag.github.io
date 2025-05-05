@@ -199,7 +199,7 @@ Use these answers when responding to related questions.
 
         with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow([timestamp, ip, device_type, question, answer])
+            writer.writerow(["timestamp", "device", "question", "answer"])
 
         return jsonify({"answer": answer})
 
@@ -210,8 +210,19 @@ Use these answers when responding to related questions.
 def logs():
     try:
         with open(CSV_PATH, mode="r", encoding="utf-8") as file:
-            content = file.read()
-        return f"<pre>{content}</pre>"
+            reader = csv.reader(file)
+            rows = list(reader)
+
+        table = "<table border='1' cellpadding='5' cellspacing='0'>"
+        table += "<tr>" + "".join(f"<th>{h}</th>" for h in rows[0] if h != "ip") + "</tr>"
+
+        for row in rows[1:]:
+            filtered_row = [cell for i, cell in enumerate(row) if rows[0][i] != "ip"]
+            table += "<tr>" + "".join(f"<td>{cell}</td>" for cell in filtered_row) + "</tr>"
+
+        table += "</table>"
+        return f"<html><body>{table}</body></html>"
+
     except Exception as e:
         return f"Error loading logs: {e}", 500
 
