@@ -199,7 +199,7 @@ Use these answers when responding to related questions.
 
         with open(CSV_PATH, mode="a", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            writer.writerow(["timestamp", "device", "question", "answer"])
+            writer.writerow([timestamp, device_type, question, answer])
 
         return jsonify({"answer": answer})
 
