@@ -8,6 +8,8 @@ import openai
 import os
 import datetime
 import requests
+import csv
+import os.path
 
 app = Flask(__name__)
 CORS(app)
@@ -165,7 +167,7 @@ Madeleines family includes: Mom: Catherine who is a teacher, dad: Joe, who likes
 
 
 Use these answers when responding to related questions.
-  """
+ """
 
     try:
         # 1) Call OpenAI
@@ -178,30 +180,20 @@ Use these answers when responding to related questions.
         )
         answer = resp.choices[0].message.content.strip()
 
-        # 2) Log to Discord inline
-        log_payload = {
-            "content": (
-                f"**JustinBot Chat**\n"
-                f"> **Q:** {question}\n"
-                f"> **A:** {answer}\n"
-                f"> **IP:** {request.remote_addr}\n"
-                f"> **UA:** {request.headers.get('User-Agent','-')}\n"
-                f"\u2014 {datetime.datetime.utcnow().isoformat()} UTC"
-            )
-        }
-        try:
-            print("[SEND] Sending Discord webhook inline...")
-            resp = requests.post(webhook_url, json=log_payload, timeout=5)
-            print("[SEND] Discord response:", resp.status_code, resp.text)
-        except Exception as e:
-            print("[SEND] Discord webhook failed:", e)
-
-        # 3) Persist locally
-        with open("chat_logs.txt", "a", encoding="utf-8") as log_file:
-            log_file.write(f"\n[{datetime.datetime.now()}] IP:{request.remote_addr}\n")
-            log_file.write(f"UA: {request.headers.get('User-Agent','-')}\n")
-            log_file.write(f"Q: {question}\nA: {answer}\n")
-            log_file.write("-" * 40 + "\n")
+        # 2) Save chat to CSV log
+        log_path = "chat_logs.csv"
+        is_new_file = not os.path.isfile(log_path)
+        with open(log_path, "a", newline="", encoding="utf-8") as csvfile:
+            writer = csv.writer(csvfile)
+            if is_new_file:
+                writer.writerow(["timestamp", "ip", "user_agent", "question", "answer"])
+            writer.writerow([
+                datetime.datetime.now().isoformat(),
+                request.remote_addr,
+                request.headers.get('User-Agent', '-'),
+                question.replace("\n", " ").replace('"', "'"),
+                answer.replace("\n", " ").replace('"', "'")
+            ])
 
         return jsonify({"answer": answer})
 
@@ -210,4 +202,3 @@ Use these answers when responding to related questions.
 
 if __name__ == "__main__":
     app.run(debug=True)
-
