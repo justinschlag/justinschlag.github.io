@@ -408,49 +408,35 @@ section h2 {
 }
 
 /* Mobile */
-@media (max-width: 768px) {
-  .timeline::before { left: 10px; }
-
-  .timeline-item {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .timeline-bundle {
-    width: 100%;
-    margin-left: 1.5rem;
-  }
-
-  .timeline-stats {
-    margin-left: 1.5rem;
-  }
-}
-
-
 @media screen and (max-width: 768px) {
   html, body {
-    transform: scale(0.8);
+    transform: scale(0.78);
     transform-origin: top left;
-    width: 125%;
+    width: 128%;
     overflow-x: hidden;
   }
 
   .top-section {
     display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 2rem;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 1.5rem;
   }
 
-  .usc-main {
-    max-width: 1200px;
-    padding: 0 2rem;
+  .intro {
+    padding: 2rem;
   }
 
-  .intro, .about-container, .chatbox-section {
-    width: 100%;
+  .about-container,
+  .chatbox-section {
+    padding: 1.25rem;
+    margin: 0;
   }
 
-  /* Kill mobile nav fully */
+  .about-container img {
+    width: 120px;
+    height: 120px;
+  }
+
   .mobile-nav, .site-nav {
     display: none !important;
   }
