@@ -563,3 +563,20 @@ section h2 {
     display: none !important;
   }
 }
+  /* Remove inner white cards for About Me and JustinBot on mobile */
+  .about-container,
+  .chatbox-section {
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .about-container p,
+  .chatbox-section p {
+    padding: 0 0.5rem;
+  }
+
+  .about-container img {
+    margin-bottom: 0.75rem;
+  }
