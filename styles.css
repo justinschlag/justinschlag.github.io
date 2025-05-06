@@ -407,7 +407,7 @@ section h2 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Mobile Responsiveness */
+/* Mobile */
 @media (max-width: 768px) {
   .timeline::before { left: 10px; }
 
@@ -425,121 +425,33 @@ section h2 {
     margin-left: 1.5rem;
   }
 }
-/* === Mobile Navigation === */
 
-.mobile-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: rgba(255,255,255,0.9);
-  z-index: 1000;
-  display: none;            /* hidden on desktop */
-  padding: 0.5rem 1rem;
-}
-.mobile-nav .hamburger {
-  font-size: 1.5rem;
-  background: none;
-  border: none;
-}
-.mobile-nav ul {
-  list-style: none;
-  display: none;
-  margin: 0.5rem 0 0;
-  padding: 0;
-}
-.mobile-nav ul li + li {
-  margin-top: 0.5rem;
-}
-.mobile-nav ul a {
-  color: var(--garnet);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-/* Toggle menu open/closed with a tiny script */
-.mobile-nav.open ul {
-  display: block;
-}
-
-/* Only show on small screens */
-@media (max-width: 768px) {
-  .mobile-nav {
-    display: block;
-  }
-  /* push main content down so it’s not hidden under the nav */
-  .usc-main {
-    margin-top: 3.5rem;
-  }
-}
-
-/* ✅ REPLACEMENT FOR MOBILE NAVIGATION */
-/* Remove hamburger menu, use static horizontal nav */
-
-.site-nav {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  background: rgba(255, 255, 255, 0.95);
-  padding: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-}
-
-.site-nav a {
-  color: var(--garnet);
-  font-weight: 600;
-  text-decoration: none;
-  font-size: 1rem;
-  transition: color 0.2s ease;
-}
-
-.site-nav a:hover {
-  text-decoration: underline;
-  color: #570008;
-}
 
 @media screen and (max-width: 768px) {
-  html {
-    font-size: 16px;
+  html, body {
+    transform: scale(0.8);
+    transform-origin: top left;
+    width: 125%;
     overflow-x: hidden;
   }
 
-  body {
-    padding: 0;
-    margin: 0;
-    font-size: 1rem;
-    overflow-x: hidden;
+  .top-section {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem;
   }
 
   .usc-main {
     max-width: 1200px;
-    margin: 2rem auto;
     padding: 0 2rem;
   }
 
-  .top-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-    gap: 2rem;
+  .intro, .about-container, .chatbox-section {
+    width: 100%;
   }
 
-  .about-container img {
-    width: 160px;
-    height: 160px;
-  }
-
-  .chatbox-container {
-    flex-direction: row;
-  }
-
-  .timeline-item {
-    flex-direction: row;
-    align-items: flex-start;
-  }
-
-  .timeline-bundle {
-    width: 45%;
+  /* Kill mobile nav fully */
+  .mobile-nav, .site-nav {
+    display: none !important;
   }
 }
