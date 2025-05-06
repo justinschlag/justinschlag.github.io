@@ -148,6 +148,35 @@ body.gamecock-theme {
 }
 
 /* ─────────────────────────────────────────────────────
+   Image Gallery for Network Operations
+───────────────────────────────────────────────────── */
+.network-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin: 3rem auto;
+}
+.network-gallery .img-box {
+  max-width: 450px;
+  text-align: center;
+}
+.network-gallery img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s;
+}
+.network-gallery img:hover {
+  transform: scale(1.02);
+}
+.network-gallery .caption {
+  font-size: 0.95rem;
+  color: #333;
+  margin-top: 0.5rem;
+}
+
+/* ─────────────────────────────────────────────────────
    Back Link
 ───────────────────────────────────────────────────── */
 .back-link {
@@ -174,7 +203,7 @@ body.gamecock-theme {
    Responsive Tweaks
 ───────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .logo-banner, .intro, .skills-grid, .back-link {
+  .logo-banner, .intro, .skills-grid, .network-gallery, .back-link {
     margin-left: 1rem;
     margin-right: 1rem;
   }
