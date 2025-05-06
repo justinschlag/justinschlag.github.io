@@ -108,11 +108,10 @@ body::before {
 
 .top-section {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   margin-bottom: 3rem;
 }
-
 
 .about-container,
 .chatbox-section {
@@ -408,36 +407,114 @@ section h2 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-/* Mobile */
+/* ======================= */
+/* 📱 Custom Mobile Layout */
+/* ======================= */
+
 @media screen and (max-width: 768px) {
   html, body {
+    padding: 0;
+    margin: 0;
     width: 100%;
     overflow-x: hidden;
+    font-size: 16px;
   }
-  
+
+  .usc-main {
+    padding: 1rem;
+  }
 
   .top-section {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
   }
 
   .intro {
-    padding: 2rem;
+    padding: 1.25rem;
   }
 
   .about-container,
   .chatbox-section {
-    padding: 1.25rem;
-    margin: 0;
+    padding: 1.5rem;
+    border-radius: 12px;
   }
 
   .about-container img {
     width: 120px;
     height: 120px;
+    margin: 0 auto 1rem;
+    display: block;
   }
 
-  .mobile-nav, .site-nav {
+  .about-container p,
+  .chatbox-section p,
+  .chatbox-section li,
+  .chatbox-explainer {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .chatbox-container {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  #user-input {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  #chat-form button {
+    width: 100%;
+    font-size: 1rem;
+  }
+
+  .skills-grid,
+  .project-grid,
+  .work-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .skill-card,
+  .project,
+  .work-card {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .timeline::before {
+    left: 8px;
+  }
+
+  .timeline-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timeline-bundle {
+    width: 100%;
+    margin-left: 1.5rem;
+  }
+
+  .timeline-content,
+  .timeline-stats {
+    margin-left: 0;
+  }
+
+  .footer-contact {
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+
+  .back-link {
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .mobile-nav,
+  .site-nav {
     display: none !important;
   }
 }
