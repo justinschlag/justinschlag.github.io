@@ -129,7 +129,7 @@
     </section>
     
 
-    <section class="project-section" id="projects">
+    <section class="project-section hidden-mobile" id="projects">
       <h2>Research & Projects</h2>
       <div class="project-grid">
         <div class="project">
@@ -153,7 +153,7 @@
       </div>
     </section>
 
-    <section class="work-experience" id="work">
+    <section class="work-experience hidden-mobile" id="work">
       <h2>Work Experience</h2>
       <div class="work-grid">
         <!-- Network Operator @ UofSC -->
@@ -188,7 +188,7 @@
       </div>
     </section>
     
-    <section class="timeline-section" id="timeline">
+    <section class="timeline-section hidden-mobile" id="timeline">
       <h2>Career Timeline</h2>
       <div class="timeline">
     
@@ -331,3 +331,24 @@
     items.forEach(item => observer.observe(item));
   });
 </script>
+<script>
+  // Mobile section reveal on anchor click
+  document.addEventListener("DOMContentLoaded", () => {
+    const navLinks = document.querySelectorAll(".mobile-jump-nav a");
+    navLinks.forEach(link => {
+      link.addEventListener("click", e => {
+        const targetId = link.getAttribute("href").substring(1); // removes #
+        const targetSection = document.getElementById(targetId);
+
+        if (window.innerWidth <= 768 && targetSection.classList.contains("hidden-mobile")) {
+          e.preventDefault(); // stop default jump until revealed
+          targetSection.classList.remove("hidden-mobile");
+          setTimeout(() => {
+            targetSection.scrollIntoView({ behavior: "smooth" });
+          }, 50); // delay lets layout update
+        }
+      });
+    });
+  });
+</script>
+

@@ -505,4 +505,9 @@ section h2 {
   .logo-banner {
     margin-top: 1rem;
   }
+
+    /* === Hidden sections on mobile until clicked === */
+    .hidden-mobile {
+      display: none !important;
+    }
 }
