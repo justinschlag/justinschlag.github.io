@@ -508,17 +508,28 @@ section h2 {
   .logo-banner {
     margin-top: 1rem;
   }
+  .timeline::before {
+    left: 20px !important;
+    transform: none !important;
+  }
+  
   .timeline-item {
     flex-direction: row !important;
     justify-content: flex-start !important;
+    position: relative;
+  }
+  
+  .timeline-bundle {
+    width: 100% !important;
+    margin-left: 2.5rem; /* give space between line and content */
+    text-align: left !important;
   }
   
   .timeline-item.right .timeline-bundle,
   .timeline-item.left .timeline-bundle {
-    margin-left: 0 !important;
+    margin-left: 2.5rem !important;
     margin-right: 0 !important;
-    width: 100% !important;
-    text-align: left !important;
   }
+  
   
 }
