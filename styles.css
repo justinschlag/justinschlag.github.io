@@ -500,51 +500,46 @@ section h2 {
   color: #570008;
 }
 
-/* REMOVE HAMBURGER FROM MOBILE */
-.mobile-nav {
-  display: none !important;
-}
-
-/* MOBILE SIZING FIXES */
 @media screen and (max-width: 768px) {
   html {
-    font-size: 14px;
+    font-size: 16px;
+    overflow-x: hidden;
   }
 
-  h1 {
-    font-size: 2rem;
-  }
-  h2 {
-    font-size: 1.5rem;
-  }
-  p, li, .project-button {
+  body {
+    padding: 0;
+    margin: 0;
     font-size: 1rem;
-  }
-  
-  .intro, .about-container, .chatbox-section, .skill-card, .project, .work-card {
-    padding: 1.2rem;
+    overflow-x: hidden;
   }
 
-  .usc-hero {
-    padding: 2rem 1rem;
+  .usc-main {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
+
+  .top-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
   }
 
   .about-container img {
-    width: 120px;
-    height: 120px;
+    width: 160px;
+    height: 160px;
   }
 
-  .site-nav {
-    flex-wrap: wrap;
-    gap: 1rem;
+  .chatbox-container {
+    flex-direction: row;
+  }
+
+  .timeline-item {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .timeline-bundle {
+    width: 45%;
   }
 }
-
-/* SUGGESTION: Add this HTML inside <body> at the top */
-/* <nav class="site-nav">
-  <a href="#about">About Me</a>
-  <a href="#justinbot">JustinBot</a>
-  <a href="#projects">Projects</a>
-  <a href="#work">Work Experience</a>
-  <a href="#skills">Skills</a>
-</nav> */
