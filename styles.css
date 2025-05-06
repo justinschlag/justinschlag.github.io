@@ -424,11 +424,11 @@ section h2 {
   }
 
   .usc-main {
-    padding: 1rem;
+    padding: 1rem !important;
   }
 
   .usc-hero {
-    padding: 2rem 1rem;
+    padding: 2rem 1rem !important;
     text-align: center;
   }
 
@@ -442,127 +442,114 @@ section h2 {
 
   .top-section {
     display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+    grid-template-columns: 1fr !important;
+    gap: 1.25rem !important;
   }
 
-  /* 🧼 Remove background and padding from About Me + JustinBot */
+  /* 🔥 Force remove background & card styles for mobile */
   .about-container,
   .chatbox-section {
     background: transparent !important;
     box-shadow: none !important;
     padding: 0 !important;
     border-radius: 0 !important;
+    backdrop-filter: none !important;
   }
 
   .about-container p,
   .chatbox-section p {
-    padding: 0 0.5rem;
+    padding: 0 0.5rem !important;
+    font-size: 0.95rem !important;
   }
 
   .about-container img {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto 0.75rem;
+    width: 90px !important;
+    height: 90px !important;
+    margin: 0 auto 0.75rem !important;
+    display: block;
   }
 
   .chatbox-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    flex-direction: column !important;
+    gap: 0.5rem !important;
   }
 
   #user-input,
   #chat-form button {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.5rem;
-    border-radius: 8px;
+    width: 100% !important;
+    font-size: 1rem !important;
+    padding: 0.5rem !important;
+    border-radius: 8px !important;
   }
 
-  /* 📱 Limit to 2 columns max */
+  /* 🧱 Force max 2 columns for all content cards */
   .skills-grid,
   .project-grid,
   .work-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 1rem !important;
   }
 
-  /* 📏 Force 1 column on ultra-small screens */
+  /* 📱 If screen is under 500px, force single column */
   @media screen and (max-width: 500px) {
     .skills-grid,
     .project-grid,
     .work-grid {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr !important;
     }
   }
 
   .project,
   .work-card,
   .skill-card {
-    padding: 1rem;
-    border-radius: 12px;
-    font-size: 0.9rem;
+    padding: 1rem !important;
+    border-radius: 12px !important;
+    font-size: 0.9rem !important;
   }
 
   .project img,
   .work-card img,
   .skill-card img {
-    width: 100%;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-  }
-
-  .project h3,
-  .work-card h3,
-  .skill-card h4 {
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .project p,
-  .work-card p {
-    font-size: 0.85rem;
+    width: 100% !important;
+    height: 90px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    margin-bottom: 0.5rem !important;
   }
 
   .timeline {
-    padding-left: 1rem;
+    padding-left: 1rem !important;
   }
 
   .timeline::before {
-    left: 6px;
-    width: 2px;
+    left: 6px !important;
+    width: 2px !important;
   }
 
   .timeline-item {
-    flex-direction: column;
-    margin-bottom: 1rem;
+    flex-direction: column !important;
+    margin-bottom: 1rem !important;
   }
 
   .timeline-bundle {
-    width: 100%;
-    margin-left: 1rem;
+    width: 100% !important;
+    margin-left: 1rem !important;
   }
 
   .timeline-content img {
-    height: 80px;
-    border-radius: 8px;
-    margin-top: 0.5rem;
+    height: 80px !important;
+    margin-top: 0.5rem !important;
   }
 
   .footer-contact,
   .back-link {
-    text-align: center;
-    padding: 0.75rem 1rem;
-    font-size: 0.85rem;
+    text-align: center !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.85rem !important;
   }
 
   .back-link {
-    display: inline-block;
-    margin: 1rem auto;
+    margin: 1rem auto !important;
   }
 
   .mobile-nav,
