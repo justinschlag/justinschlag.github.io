@@ -408,10 +408,6 @@ section h2 {
 
 /* === Mobile Styles (≤768px) === */
 @media screen and (max-width: 768px) {
-  *, *::before, *::after {
-    box-sizing: border-box;
-  }
-
   html, body {
     margin: 0;
     padding: 0;
@@ -423,85 +419,33 @@ section h2 {
     line-height: 1.5;
   }
 
-  /* Hide desktop main */
   .usc-main {
-    display: none !important;
-  }
-
-  /* Show mobile nav */
-  .mobile-nav-container {
-    display: block;
     padding: 1rem;
-    margin-bottom: 2rem;
   }
 
-  .mobile-nav-menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
+  .usc-hero {
+    padding: 2rem 1rem;
+    text-align: center;
   }
 
-  .mobile-nav-menu button {
-    background: var(--garnet);
-    color: white;
-    border: none;
-    padding: 0.6rem 1.2rem;
-    border-radius: 8px;
-    font-size: 0.95rem;
-    cursor: pointer;
+  .usc-header-text h1 {
+    font-size: clamp(1.6rem, 6vw, 1.8rem);
   }
 
-  .mobile-nav-menu button:hover {
-    background: #570008;
+  .usc-header-text p {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
   }
 
-  .mobile-section {
-    display: none;
-    animation: fadeIn 0.3s ease-in-out;
-    padding: 0.5rem 1rem;
-  }
-
-  .mobile-section.active {
-    display: block;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* Remove extra white boxes for About/Chat */
-  .about-container,
-  .chatbox-section {
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    backdrop-filter: none !important;
-  }
-
-  .about-container img {
-    display: block;
-    margin: 0 auto 0.75rem !important;
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-  }
-
-  .about-container p,
-  .chatbox-section p,
-  .chatbox-section li {
-    padding: 0 0.5rem !important;
-    font-size: 0.95rem;
+  .top-section {
+    display: grid !important;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
   }
 
   .chatbox-container {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 0 0.5rem;
   }
 
   #user-input,
@@ -512,100 +456,67 @@ section h2 {
     border-radius: 8px;
   }
 
-  /* Skills / Projects / Work Cards (2 max) */
-  .skills-grid,
-  .project-grid,
-  .work-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    padding: 0 0.5rem;
+  /* Keep About Me and Skills */
+  .about-container,
+  .chatbox-section {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    backdrop-filter: none !important;
   }
 
-  @media screen and (max-width: 500px) {
-    .skills-grid,
-    .project-grid,
-    .work-grid {
-      grid-template-columns: 1fr;
-    }
+  .about-container img {
+    margin: 0 auto 0.75rem !important;
+    display: block;
   }
 
-  .project,
-  .work-card,
-  .skill-card {
+  .about-container p,
+  .chatbox-section p {
+    padding: 0 0.5rem !important;
+  }
+
+  /* Mobile nav buttons */
+  .mobile-nav-container {
     padding: 1rem;
-    border-radius: 12px;
-    font-size: 0.9rem;
+    text-align: center;
   }
 
-  .project img,
-  .work-card img,
-  .skill-card img {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
+  .mobile-nav-menu button {
+    background: #73000a;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
     border-radius: 8px;
-    background: #fff;
-    padding: 0.5rem;
-    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+    cursor: pointer;
+    width: 90%;
   }
 
-  .project h3,
-  .work-card h3,
-  .skill-card h4 {
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .project p,
-  .work-card p {
-    font-size: 0.85rem;
-  }
-
-  /* Timeline adjustments */
-  .timeline {
-    padding-left: 1rem;
-  }
-
-  .timeline::before {
-    left: 6px;
-    width: 2px;
-  }
-
-  .timeline-item {
+  .mobile-submenu {
+    display: none;
     flex-direction: column;
+    gap: 0.25rem;
     margin-bottom: 1rem;
   }
 
-  .timeline-bundle {
-    width: 100%;
-    margin-left: 1rem;
+  .mobile-submenu a {
+    display: block;
+    color: #004080;
+    font-weight: 500;
+    text-decoration: underline;
+    font-size: 0.95rem;
   }
 
-  .timeline-content img {
-    height: auto;
-    max-height: 120px;
-    border-radius: 8px;
-    margin-top: 0.5rem;
-    object-fit: contain;
+  .mobile-submenu.active {
+    display: flex;
   }
 
-  /* Footer */
-  .footer-contact,
-  .back-link {
-    text-align: center;
-    padding: 0.75rem 1rem;
-    font-size: 0.85rem;
-  }
-
-  .back-link {
-    display: inline-block;
-    margin: 1rem auto;
-  }
-
-  /* Hide desktop nav */
-  .mobile-nav,
-  .site-nav {
+  /* Hide large sections below Skills */
+  .project-section,
+  .work-experience,
+  .timeline-section {
     display: none !important;
   }
 }

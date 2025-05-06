@@ -15,30 +15,29 @@
     </div>
   </header>
 
-<!-- Mobile navigation (only visible on screens <768px) -->
-  <div class="mobile-nav-container">
-    <nav class="mobile-nav-menu">
-      <button onclick="toggleSubmenu('research-sub')">Research & Projects</button>
-      <div id="research-sub" class="mobile-submenu">
-        <a href="research/index.html">Computer Vision Research</a>
-        <a href="JustinBot/index.html">JustinBot Assistant</a>
-        <a href="csce190/index.html">CSCE 190 Website</a>
-      </div>
-  
-      <button onclick="toggleSubmenu('work-sub')">Work Experience</button>
-      <div id="work-sub" class="mobile-submenu">
-        <a href="network-operator/index.html">Network Operator @ UofSC</a>
-        <a href="seap/index.html">SEAP Intern</a>
-        <a href="nreip_2025/index.html">NREIP Intern</a>
-      </div>
-  
-      <button onclick="toggleSubmenu('timeline-sub')">Career Timeline</button>
-      <div id="timeline-sub" class="mobile-submenu">
-        <a href="#timeline">View Timeline Section</a>
-      </div>
-    </nav>
-  </div>
-  
+<!-- Mobile Navigation (goes above your logo-banner) -->
+<div class="mobile-nav-container">
+  <nav class="mobile-nav-menu">
+    <button onclick="toggleSubmenu('research-links')">Research & Projects</button>
+    <div id="research-links" class="mobile-submenu">
+      <a href="research/index.html">Computer Vision Research</a>
+      <a href="JustinBot/index.html">JustinBot Assistant</a>
+      <a href="csce190/index.html">CSCE 190 Website</a>
+    </div>
+
+    <button onclick="toggleSubmenu('work-links')">Work Experience</button>
+    <div id="work-links" class="mobile-submenu">
+      <a href="network-operator/index.html">Network Operator</a>
+      <a href="seap/index.html">SEAP Intern</a>
+      <a href="nreip_2025/index.html">NREIP Intern</a>
+    </div>
+
+    <button onclick="toggleSubmenu('timeline-links')">Career Timeline</button>
+    <div id="timeline-links" class="mobile-submenu">
+      <a href="#timeline">View Timeline Section</a>
+    </div>
+  </nav>
+</div>
 
 
   <main class="usc-main">
@@ -289,9 +288,15 @@
 
   <script>
     function toggleSubmenu(id) {
-  const submenu = document.getElementById(id);
-  submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  document.querySelectorAll('.mobile-submenu').forEach(menu => {
+    if (menu.id === id) {
+      menu.style.display = menu.style.display === "block" ? "none" : "block";
+    } else {
+      menu.style.display = "none";
+    }
+  });
 }
+
 
     const form = document.getElementById("chat-form");
     const input = document.getElementById("user-input");
