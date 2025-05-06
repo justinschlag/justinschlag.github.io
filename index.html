@@ -16,28 +16,12 @@
   </header>
 
 <!-- Mobile Navigation (goes above your logo-banner) -->
-<div class="mobile-nav-container">
-  <nav class="mobile-nav-menu">
-    <button onclick="toggleSubmenu('research-links')">Research & Projects</button>
-    <div id="research-links" class="mobile-submenu">
-      <a href="research/index.html">Computer Vision Research</a>
-      <a href="JustinBot/index.html">JustinBot Assistant</a>
-      <a href="csce190/index.html">CSCE 190 Website</a>
-    </div>
+<nav class="mobile-jump-nav">
+  <a href="#projects">Research & Projects</a>
+  <a href="#work">Work Experience</a>
+  <a href="#timeline">Career Timeline</a>
+</nav>
 
-    <button onclick="toggleSubmenu('work-links')">Work Experience</button>
-    <div id="work-links" class="mobile-submenu">
-      <a href="network-operator/index.html">Network Operator</a>
-      <a href="seap/index.html">SEAP Intern</a>
-      <a href="nreip_2025/index.html">NREIP Intern</a>
-    </div>
-
-    <button onclick="toggleSubmenu('timeline-links')">Career Timeline</button>
-    <div id="timeline-links" class="mobile-submenu">
-      <a href="#timeline">View Timeline Section</a>
-    </div>
-  </nav>
-</div>
 
 
   <main class="usc-main">
@@ -145,7 +129,7 @@
     </section>
     
 
-    <section class="project-section">
+    <section class="project-section" id="projects">
       <h2>Research & Projects</h2>
       <div class="project-grid">
         <div class="project">
@@ -169,7 +153,7 @@
       </div>
     </section>
 
-    <section class="work-experience">
+    <section class="work-experience" id="work">
       <h2>Work Experience</h2>
       <div class="work-grid">
         <!-- Network Operator @ UofSC -->
@@ -204,7 +188,7 @@
       </div>
     </section>
     
-    <section class="timeline-section">
+    <section class="timeline-section" id="timeline">
       <h2>Career Timeline</h2>
       <div class="timeline">
     

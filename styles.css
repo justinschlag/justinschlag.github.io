@@ -456,7 +456,6 @@ section h2 {
     border-radius: 8px;
   }
 
-  /* Keep About Me and Skills */
   .about-container,
   .chatbox-section {
     background: transparent !important;
@@ -476,47 +475,24 @@ section h2 {
     padding: 0 0.5rem !important;
   }
 
-  /* Mobile nav buttons */
+  /* Mobile Nav Buttons */
   .mobile-nav-container {
     padding: 1rem;
     text-align: center;
   }
 
-  .mobile-nav-menu button {
+  .mobile-nav-menu a {
+    display: inline-block;
     background: #73000a;
     color: white;
-    border: none;
+    text-decoration: none;
     padding: 0.5rem 1rem;
-    margin-bottom: 0.5rem;
+    margin: 0.25rem;
     border-radius: 8px;
     font-size: 0.95rem;
-    cursor: pointer;
-    width: 90%;
   }
 
-  .mobile-submenu {
-    display: none;
-    flex-direction: column;
-    gap: 0.25rem;
-    margin-bottom: 1rem;
-  }
-
-  .mobile-submenu a {
-    display: block;
-    color: #004080;
-    font-weight: 500;
-    text-decoration: underline;
-    font-size: 0.95rem;
-  }
-
-  .mobile-submenu.active {
-    display: flex;
-  }
-
-  /* Hide large sections below Skills */
-  .project-section,
-  .work-experience,
-  .timeline-section {
-    display: none !important;
+  .mobile-nav-menu a:hover {
+    background: #570008;
   }
 }
