@@ -508,28 +508,40 @@ section h2 {
   .logo-banner {
     margin-top: 1rem;
   }
-  .timeline::before {
-    left: 20px !important;
-    transform: none !important;
-  }
   
+  .timeline {
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    left: 0;
+    transform: none;
+    height: 100%;
+  }
+
   .timeline-item {
-    flex-direction: row !important;
-    justify-content: flex-start !important;
+    display: block;
+    width: 100%;
+    margin: 2rem 0;
+  }
+
+  .timeline-bundle {
+    width: 100%;
+    margin-left: 1.5rem;
+    padding-left: 1rem;
     position: relative;
   }
-  
-  .timeline-bundle {
-    width: 100% !important;
-    margin-left: 2.5rem; /* give space between line and content */
-    text-align: left !important;
+
+  .timeline-bundle::before {
+    content: "";
+    position: absolute;
+    left: -1.5rem;
+    top: 0.75rem;
+    width: 12px;
+    height: 12px;
+    background: var(--garnet);
+    border-radius: 50%;
   }
-  
-  .timeline-item.right .timeline-bundle,
-  .timeline-item.left .timeline-bundle {
-    margin-left: 2.5rem !important;
-    margin-right: 0 !important;
-  }
-  
-  
 }
+  
+
