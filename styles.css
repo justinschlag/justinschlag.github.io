@@ -446,10 +446,18 @@ section h2 {
     gap: 1.25rem;
   }
 
+  /* 🧼 Remove background and padding from About Me + JustinBot */
   .about-container,
   .chatbox-section {
-    padding: 1rem;
-    border-radius: 12px;
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .about-container p,
+  .chatbox-section p {
+    padding: 0 0.5rem;
   }
 
   .about-container img {
@@ -472,7 +480,7 @@ section h2 {
     border-radius: 8px;
   }
 
-  /* FORCE: Only 2 columns max for all grids */
+  /* 📱 Limit to 2 columns max */
   .skills-grid,
   .project-grid,
   .work-grid {
@@ -481,7 +489,7 @@ section h2 {
     gap: 1rem;
   }
 
-  /* On very narrow phones (<500px), go single column */
+  /* 📏 Force 1 column on ultra-small screens */
   @media screen and (max-width: 500px) {
     .skills-grid,
     .project-grid,
@@ -490,7 +498,6 @@ section h2 {
     }
   }
 
-  /* Shrink card padding slightly for space */
   .project,
   .work-card,
   .skill-card {
@@ -563,20 +570,3 @@ section h2 {
     display: none !important;
   }
 }
-  /* Remove inner white cards for About Me and JustinBot on mobile */
-  .about-container,
-  .chatbox-section {
-    background: transparent;
-    box-shadow: none;
-    padding: 0;
-    border-radius: 0;
-  }
-
-  .about-container p,
-  .chatbox-section p {
-    padding: 0 0.5rem;
-  }
-
-  .about-container img {
-    margin-bottom: 0.75rem;
-  }
