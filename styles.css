@@ -407,51 +407,53 @@ section h2 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+
 /* ======================= */
-/* 📱 Custom Mobile Layout */
+/* 📱 Improved Mobile Layout */
 /* ======================= */
 
 @media screen and (max-width: 768px) {
   html, body {
-    padding: 0;
     margin: 0;
+    padding: 0;
+    font-size: 15px;
     width: 100%;
     overflow-x: hidden;
-    font-size: 16px;
   }
 
   .usc-main {
     padding: 1rem;
+    margin: 0 auto;
+    max-width: 100%;
   }
 
   .top-section {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
   }
 
-  .intro {
-    padding: 1.25rem;
-  }
-
+  .intro,
   .about-container,
   .chatbox-section {
-    padding: 1.5rem;
-    border-radius: 12px;
+    padding: 1.25rem;
+    border-radius: 14px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
   }
 
   .about-container img {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 1rem;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
     display: block;
+    margin: 0 auto 1rem;
   }
 
   .about-container p,
   .chatbox-section p,
   .chatbox-section li,
   .chatbox-explainer {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     line-height: 1.5;
   }
 
@@ -460,21 +462,19 @@ section h2 {
     gap: 0.5rem;
   }
 
-  #user-input {
-    width: 100%;
-    font-size: 1rem;
-  }
-
+  #user-input,
   #chat-form button {
-    width: 100%;
     font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
   }
 
   .skills-grid,
   .project-grid,
   .work-grid {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 
   .skill-card,
@@ -482,6 +482,13 @@ section h2 {
   .work-card {
     padding: 1rem;
     border-radius: 12px;
+    font-size: 0.9rem;
+  }
+
+  .project img,
+  .work-card img {
+    height: 120px;
+    object-fit: cover;
   }
 
   .timeline::before {
@@ -495,21 +502,23 @@ section h2 {
 
   .timeline-bundle {
     width: 100%;
-    margin-left: 1.5rem;
+    margin-left: 1rem;
   }
 
-  .timeline-content,
-  .timeline-stats {
-    margin-left: 0;
+  .timeline-content img {
+    height: 120px;
+    object-fit: cover;
   }
 
   .footer-contact {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    text-align: center;
     padding: 1rem;
   }
 
   .back-link {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    text-align: center;
     padding: 0.5rem 1rem;
   }
 
