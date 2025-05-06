@@ -112,9 +112,6 @@ body::before {
   gap: 2rem;
 }
 
-
-
-
 .about-container,
 .chatbox-section {
   background: var(--card-bg);
@@ -409,16 +406,12 @@ section h2 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
-
-/* ======================= */
-/* 📱 Improved Mobile Layout */
-/* ======================= */
-
+/* Mobile-first polish for optimal look on small screens */
 @media screen and (max-width: 768px) {
   html, body {
     margin: 0;
     padding: 0;
-    font-size: 15px;
+    font-size: 14px;
     width: 100%;
     overflow-x: hidden;
   }
@@ -429,25 +422,34 @@ section h2 {
     max-width: 100%;
   }
 
+  .usc-hero {
+    padding: 2.5rem 1rem;
+  }
+
+  .usc-header-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .usc-header-text p {
+    font-size: 1rem;
+  }
+
   .top-section {
     display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    gap: 1rem !important;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
-  
 
-  .intro,
   .about-container,
   .chatbox-section {
     padding: 1.25rem;
-    border-radius: 14px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .about-container img {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
+    width: 100px;
+    height: 100px;
     display: block;
     margin: 0 auto 1rem;
   }
@@ -456,7 +458,7 @@ section h2 {
   .chatbox-section p,
   .chatbox-section li,
   .chatbox-explainer {
-    font-size: 0.92rem;
+    font-size: 0.93rem;
     line-height: 1.5;
   }
 
@@ -476,7 +478,7 @@ section h2 {
   .project-grid,
   .work-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
@@ -490,7 +492,7 @@ section h2 {
 
   .project img,
   .work-card img {
-    height: 120px;
+    height: 100px;
     object-fit: cover;
   }
 
@@ -509,7 +511,7 @@ section h2 {
   }
 
   .timeline-content img {
-    height: 120px;
+    height: 100px;
     object-fit: cover;
   }
 
