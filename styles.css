@@ -571,3 +571,56 @@ section h2 {
     padding: 0 0.5rem !important;
   }
 }
+
+/* Hide mobile sections by default on desktop */
+.mobile-nav-container {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  /* Hide desktop main content on mobile */
+  .usc-main {
+    display: none !important;
+  }
+
+  .mobile-nav-container {
+    display: block;
+    padding: 1rem;
+  }
+
+  .mobile-nav-menu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-nav-menu button {
+    background: #73000a;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  .mobile-nav-menu button:hover {
+    background: #570008;
+  }
+
+  .mobile-section {
+    display: none;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .mobile-section.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
