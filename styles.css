@@ -108,10 +108,11 @@ body::before {
 
 .top-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   margin-bottom: 3rem;
 }
+
 
 .about-container,
 .chatbox-section {
@@ -410,11 +411,10 @@ section h2 {
 /* Mobile */
 @media screen and (max-width: 768px) {
   html, body {
-    transform: scale(0.78);
-    transform-origin: top left;
-    width: 128%;
+    width: 100%;
     overflow-x: hidden;
   }
+  
 
   .top-section {
     display: grid !important;
