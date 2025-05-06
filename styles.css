@@ -421,6 +421,7 @@ section h2 {
     background: #fff;
     color: #222;
     line-height: 1.5;
+    scroll-behavior: smooth;
   }
 
   .usc-main {
@@ -479,13 +480,13 @@ section h2 {
     padding: 0 0.5rem !important;
   }
 
-  /* Mobile Nav Buttons */
-  .mobile-nav-container {
+  /* === Mobile Jump Nav (NEW) === */
+  .mobile-jump-nav {
     padding: 1rem;
     text-align: center;
   }
 
-  .mobile-nav-menu a {
+  .mobile-jump-nav a {
     display: inline-block;
     background: #73000a;
     color: white;
@@ -496,7 +497,12 @@ section h2 {
     font-size: 0.95rem;
   }
 
-  .mobile-nav-menu a:hover {
+  .mobile-jump-nav a:hover {
     background: #570008;
+  }
+
+  /* Optional: add a little spacing below nav on mobile */
+  .logo-banner {
+    margin-top: 1rem;
   }
 }
