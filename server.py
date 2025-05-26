@@ -49,6 +49,8 @@ Access Point Repairs & Replacements: I help diagnose malfunctioning Aruba and Ci
 Switch Configuration: I configure and troubleshoot Layer 2/3 switches using command-line tools and web interfaces like PuTTY, handling VLAN setups, clearing swtiches, integration with Columbia Police Department cameras, and port-level diagnostics.
 I work with Aruba networks, Cisco systems, and Juniper Networks.
 
+Quick update, Justin is an Engineering Intern at NIWC Atlantic through the NREIP program. He works in Air Traffic Control systems, contributing to projects that support aviation safety and military communications. Due to his security clearance and the confidential nature of the work, further details can't be shared.
+
 Here is some other basic information about me:
 I have a younger brother, an aspiring engineer named Tyler. I have an older sister, an aspiring PA, named Skyla, who graduated from Clemson University. My mom is named Yukimi, she works at Zeus Inc. You can catch her at Burn Boot Camp everyday. My Dad's name is Mark and he works at Century Aluminum. He loves going to Bold Fitness.
 
