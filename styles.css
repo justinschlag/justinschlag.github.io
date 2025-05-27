@@ -1,4 +1,4 @@
-
+/* ROOT & GLOBALS */
 :root {
   --garnet: #73000a;
   --gray: #f9fafb;
@@ -11,6 +11,7 @@
 html {
   scroll-behavior: smooth;
 }
+
 body.gamecock-theme {
   background:
     linear-gradient(rgba(115, 0, 10, 0.06), rgba(115, 0, 10, 0.06)),
@@ -34,7 +35,7 @@ body::before {
   z-index: -1;
 }
 
-/* Hero Header */
+/* HERO */
 .usc-hero {
   text-align: center;
   padding: 4rem 2rem;
@@ -54,6 +55,7 @@ body::before {
   opacity: 0.95;
 }
 
+/* MAIN */
 .usc-main {
   max-width: 1200px;
   margin: 2rem auto;
@@ -82,11 +84,7 @@ body::before {
 }
 
 .intro {
-  background: var(--card-bg);
   padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px var(--accent-shadow);
-  backdrop-filter: blur(5px);
   margin-bottom: 2rem;
   animation: fadeIn 1s ease-out forwards;
 }
@@ -114,16 +112,20 @@ body::before {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
+  background: rgba(255, 255, 255, 0.85);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px var(--accent-shadow);
+  backdrop-filter: blur(6px);
+  margin-bottom: 2rem;
 }
 
 .about-container,
 .chatbox-section {
-  background: var(--card-bg);
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 16px var(--accent-shadow);
-  backdrop-filter: blur(5px);
-  animation: fadeIn 1s ease-out forwards;
+  background: none;
+  padding: 0;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .about-container img {
@@ -172,6 +174,9 @@ body::before {
   min-height: 100px;
   color: #222;
 }
+
+/* ADDITIONAL SECTIONS AND TIMELINE REMAIN UNCHANGED */
+
 
 .project-grid,
 .work-grid,
@@ -302,6 +307,7 @@ section h2 {
     transform: translateY(0);
   }
 }
+
 /* === Timeline Section === */
 .timeline-section {
   position: relative;
