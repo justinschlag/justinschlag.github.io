@@ -215,7 +215,6 @@ section h2::after {
     border-radius: var(--radius);
     padding: 1rem;
     min-height: 120px;
-    font-style: italic;
     color: var(--text-dark);
   }
   .chat-response .notice {

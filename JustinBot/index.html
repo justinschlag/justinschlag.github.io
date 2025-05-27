@@ -40,9 +40,9 @@
       <div id="chat-response" class="chat-response">
         <p class="notice">Example questions:</p>
         <ul class="example-list">
-          <p>• What is Justin’s background in computer vision?</p>
-          <p>• How does the raindrop segmentation project work?</p>
-          <p>• Where can I find Justin’s resume?</p>
+          <p>• Where did Justin do his summer internships?</p>
+          <p>• What does Justin study at school?</p>
+          <p>• Explain Justin's work experiences</p>
         </ul>
       </div>
     </section>
@@ -98,7 +98,7 @@
         <li>
           <h3>Render Hosting (Cold Starts &amp; Scaling)</h3>
           <p><strong>How it runs:</strong> I host on Render, which spins up containers on demand.</p>
-          <p><strong>Cold start:</strong> If idle, the first request takes ~30 s (“JustinBot is waking up 💤”).</p>
+          <p><strong>Cold start:</strong> If idle, the first request takes ~30 s (“JustinBot is sleeping... 💤”).</p>
           <p><strong>Warm instances:</strong> Subsequent replies return in under 1 s.</p>
           <p><strong>Why Render:</strong> Pay-as-you-go pricing, automatic SSL, GitHub integration for CI/CD.</p>
         </li>
@@ -156,7 +156,7 @@
       if (!question) return;
 
       responseDiv.innerHTML = first
-        ? '<p class="notice">JustinBot is waking up… please allow up to 30 seconds.</p>'
+        ? '<p class="notice"> 💤 JustinBot is sleeping... please allow up to 30 seconds for him to wake up.</p>'
         : '<p class="notice">Thinking…</p>';
       first = false;
 
