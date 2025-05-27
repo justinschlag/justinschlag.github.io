@@ -62,45 +62,63 @@
   <a href="#timeline">Career Timeline</a>
 </nav>
 
-
-
-  <main class="usc-main">
+<main class="usc-main">
     <div class="logo-banner">
       <img src="images/USC_1801.png" alt="USC 1801 Logo">
     </div>
 
-    <section class="intro">
-      <h2>About Me</h2>
-      <div class="top-section">
-        <section class="about-container">
-          <img src="images/grad pic.jpg" alt="Profile Picture">
-          <p>
-            <p>
-  Hi! I'm Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College. I currently hold an active DoD Secret Security Clearance through my work with NIWC Atlantic. I focus on computer vision, image segmentation, and defense research through hands-on development. I’m passionate about building impactful tools and advancing Department of Defense engineering work.
-</p>
+<section class="intro">
+  <!-- row of two titles, side-by-side -->
+  <div class="intro-headings">
+    <h2>About Me</h2>
+    <h2>Just Ask JustinBot</h2>
+  </div>
 
-          </p>
-        </section>
-
-        <section class="chatbox-section">
-          <h2>Just Ask JustinBot</h2>
-          <div class="justinbot-explainer">Don't want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained by me to explain my projects, research, skills, and even personal experiences. You can ask me anything! </div>
-          <form id="chat-form" class="chatbox-container">
-            <input type="text" id="user-input" placeholder="Ask me anything..." required>
-            <button type="submit">Send</button>
-          </form>
-          <div id="chat-response" class="chat-response">
-            <p class="placeholder">Try asking:</p>
-            <ul class="examples">
-              <li>"What kind of engineering work have you done?”</li>
-              <li>“Can you explain your Navy research project?”</li>
-              <li>“What’s your job as a Network Operator about?”</li>
-              <li>“How did you build JustinBot?”</li>
-            </ul>
-          </div>
-        </section>
+  <!-- row of two panels -->
+  <div class="top-section">
+    <!-- ABOUT ME PANEL -->
+    <section class="about-container">
+      <img src="images/grad pic.jpg" alt="Profile Picture">
+      <div class="about-text">
+        <p>
+          Hi! I’m Justin Schlag, a Computer Engineering student at the University of 
+          South Carolina Honors College. I currently hold an active DoD Secret Security 
+          Clearance through my work with NIWC Atlantic. I focus on computer vision, image 
+          segmentation, and defense research through hands-on development. I’m passionate 
+          about building impactful tools and advancing Department of Defense engineering work.
+        </p>
       </div>
     </section>
+
+    <!-- JUSTINBOT PANEL -->
+    <section class="chatbox-section">
+      <div class="chat-info">
+        <p class="justinbot-explainer">
+          Don’t want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained 
+          by me to explain my projects, research, skills, and even personal experiences. You 
+          can ask me anything!
+        </p>
+      </div>
+      <div class="chat-ui">
+        <form id="chat-form" class="chatbox-container">
+          <input type="text" id="user-input" placeholder="Ask me anything…" required>
+          <button type="submit">Send</button>
+        </form>
+        <div id="chat-response" class="chat-response">
+          <p class="placeholder">Try asking:</p>
+          <ul class="examples">
+            <li>“What kind of engineering work have you done?”</li>
+            <li>“Can you explain your Navy research project?”</li>
+            <li>“What’s your job as a Network Operator about?”</li>
+            <li>“How did you build JustinBot?”</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</section>
+
+    
 
     <section class="skills">
       <h2>Skills & Resume</h2>

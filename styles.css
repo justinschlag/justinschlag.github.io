@@ -1,59 +1,85 @@
-/* ROOT & GLOBALS */
+/* =================================
+   ROOT & GLOBALS
+   ================================= */
 :root {
   --garnet: #73000a;
   --gray: #f9fafb;
-  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-bg: rgba(255, 255, 255, 0.25);
   --text-dark: #111;
   --accent-shadow: rgba(115, 0, 10, 0.15);
   --radius: 16px;
+  --glass-blur: 8px;
 }
 
 html {
   scroll-behavior: smooth;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: var(--text-dark);
 }
 
 body.gamecock-theme {
+  margin: 0;
   background:
-    linear-gradient(rgba(115, 0, 10, 0.06), rgba(115, 0, 10, 0.06)),
-    linear-gradient(rgba(253, 246, 240, 0.92), rgba(253, 246, 240, 0.92)),
-    url('images/tailfeathers.png') no-repeat;
+    linear-gradient(rgba(115,0,10,0.06), rgba(115,0,10,0.06)),
+    linear-gradient(rgba(253,246,240,0.92), rgba(253,246,240,0.92)),
+    url('images/tailfeathers.png') no-repeat fixed 65% center;
   background-blend-mode: multiply, lighten;
   background-color: #fdf6f0;
-  background-size: 80%;
-  background-position: 65% center;
-  background-attachment: fixed;
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, sans-serif;
-  color: var(--text-dark);
 }
 
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: linear-gradient(to bottom, rgba(253, 246, 240, 0.4), transparent 200px);
+  background: linear-gradient(to bottom, rgba(253,246,240,0.4), transparent 200px);
   z-index: -1;
 }
 
+/* =================================
+   HERO
+   ================================= */
 .usc-hero {
   text-align: center;
   padding: 4rem 2rem;
-  background-color: rgba(115, 0, 10, 0.85);
+  background-color: rgba(115,0,10,0.85);
   color: white;
   position: relative;
   z-index: 1;
 }
-
 .usc-header-text h1 {
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
 }
-
 .usc-header-text p {
   font-size: 1.15rem;
   opacity: 0.95;
 }
 
+/* =================================
+   NAV BUTTONS
+   ================================= */
+.mobile-jump-nav {
+  text-align: center;
+  padding: 1rem;
+}
+.mobile-jump-nav a {
+  display: inline-block;
+  margin: 0.25rem;
+  padding: 0.5rem 1rem;
+  background: var(--garnet);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: background 0.3s;
+}
+.mobile-jump-nav a:hover {
+  background: #570008;
+}
+
+/* =================================
+   MAIN LAYOUT
+   ================================= */
 .usc-main {
   max-width: 1200px;
   margin: 2rem auto;
@@ -61,319 +87,397 @@ body::before {
 }
 
 .logo-banner {
-  background: var(--card-bg);
-  border-radius: 16px;
-  padding: 1.5rem;
-  margin: 0 auto 2rem;
   max-width: 300px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.85);
+  border-radius: var(--radius);
   box-shadow: 0 4px 16px var(--accent-shadow);
   backdrop-filter: blur(5px);
   text-align: center;
 }
-
 .logo-banner img {
   max-width: 200px;
   opacity: 0.95;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s;
 }
-
 .logo-banner img:hover {
   transform: scale(1.05);
 }
 
+/* =================================
+   INTRO / ABOUT & JUSTINBOT
+   ================================= */
 .intro {
+  max-width: 1200px;           /* match .usc-main */
+  margin: 0 auto 2rem;         /* center and gap below */
   padding: 2rem;
-  margin-bottom: 2rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
   animation: fadeIn 1s ease-out forwards;
 }
 
-.intro h2 {
-  font-size: 1.8rem;
-  color: var(--garnet);
-  margin-bottom: 1rem;
-  top: 0;
-  background: var(--card-bg);
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  z-index: 5;
-}
-
-.intro p {
-  font-size: 1.05rem;
-  line-height: 1.7;
-  margin-bottom: 1rem;
-  color: #222;
-}
-
-.top-section {
+/* Two-column grid for the H2 headings */
+.intro-headings {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  background: rgba(255, 255, 255, 0.85);
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 4px 16px var(--accent-shadow);
-  backdrop-filter: blur(6px);
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;                   /* same as .top-section */
   margin-bottom: 2rem;
 }
-
-.about-container,
-.chatbox-section {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 2rem;
+.intro-headings h2 {
+  margin: 0;
+  background: rgba(255,255,255,0.85);
+  color: var(--garnet);
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  white-space: nowrap;
 }
 
+/* Panels row below headings */
+.top-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+/* Frosted-glass base for panels */
+.about-container,
+.chatbox-section,
+.chat-response {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
+}
+
+/* ----- ABOUT ME ----- */
+.about-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(115,0,10,0.15);
+}
 .about-container img {
   width: 160px;
   height: 160px;
-  border-radius: 50%;
   object-fit: cover;
+  border-radius: 50%;
   border: 4px solid var(--garnet);
 }
-
-.about-container .text-content,
-.chatbox-section .text-content {
-  flex: 1;
-  min-width: 200px;
+.about-text {
+  max-width: 600px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #222;
+  text-align: center;
 }
 
+/* ----- JUSTINBOT ----- */
+.chatbox-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(115,0,10,0.15);
+}
+.chat-info .justinbot-explainer {
+  margin: 0;
+  font-size: 1rem;
+  color: #222;
+}
+
+/* Chat input + button row */
+.chat-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
 .chatbox-container {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.5rem;
-  margin-top: 1rem;
+  flex-wrap: wrap;            /* prevents overlap */
   width: 100%;
+  margin-top: 1rem;
 }
-
 #user-input {
-  flex: 1;
+  flex: 1 1 auto;             /* shrink and grow */
+  min-width: 0;               /* critical for flex shrink */
+  font-size: 1rem;
   padding: 0.6rem;
+  border: 1px solid rgba(115,0,10,0.3);
   border-radius: 8px;
-  border: 1px solid rgba(115, 0, 10, 0.3);
 }
-
 #chat-form button {
+  flex: 0 0 auto;
   padding: 0.6rem 1.2rem;
   background: var(--garnet);
-  color: white;
   border: none;
   border-radius: 8px;
+  color: white;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s;
 }
-
 #chat-form button:hover {
   background: #570008;
 }
 
+/* ----- CHAT RESPONSE BOX ----- */
 .chat-response {
-  margin-top: 1rem;
-  background: white;
-  padding: 1rem;
-  border-radius: 12px;
-  border: 1px solid rgba(115, 0, 10, 0.2);
-  min-height: 100px;
-  color: #222;
+  flex: 1 1 100%;             /* full width below form */
   width: 100%;
+  max-width: 560px;           /* prevent overflow */
+  margin-top: 1rem;
+  padding: 1rem;
+  min-height: 120px;
+  background: white;
+  border: none;
+  position: relative;
+  z-index: 1;
 }
 
-@media (max-width: 768px) {
-  .about-container,
-  .chatbox-section {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .about-container img,
-  .chatbox-section form,
-  .chatbox-section .text-content {
-    flex: 1 1 45%;
-    min-width: 180px;
-  }
-  .chatbox-container,
-  .chat-response {
-    flex: 1 1 100%;
-  }
-}
-
-/* REMAINING SECTIONS LEFT UNCHANGED FOR BREVITY */
-
-/* ... The rest of your CSS remains unchanged above or below this block ... */
-
-
+/* =================================
+   SKILLS, PROJECTS & WORK GRIDS
+   ================================= */
+.skills-grid,
 .project-grid,
-.work-grid,
-.skills-grid {
+.work-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
   gap: 2rem;
   margin-bottom: 3rem;
 }
-
+.skill-card,
 .project,
-.work-card,
-.skill-card {
-  background: var(--card-bg);
-  border-radius: 16px;
+.work-card {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: 0 4px 16px var(--accent-shadow);
-  transition: transform 0.3s ease;
-  backdrop-filter: blur(6px);
+  transition: transform 0.3s, border-left 0.3s;
   border-left: 5px solid transparent;
 }
-
+.skill-card:hover,
 .project:hover,
-.work-card:hover,
-.skill-card:hover {
+.work-card:hover {
   transform: translateY(-6px);
   border-left: 5px solid var(--garnet);
 }
-
 .project img,
 .work-card img {
   width: 100%;
   height: 180px;
   object-fit: contain;
-  margin-bottom: 1rem;
-  border-radius: 12px;
   background: #eee;
   padding: 0.5rem;
+  border-radius: 12px;
+  margin-bottom: 1rem;
 }
-
 .project h3,
 .work-card h3,
 .skill-card h4 {
   color: var(--garnet);
   margin-bottom: 0.75rem;
-  font-size: 1.25rem;
 }
-
 .project p,
 .work-card p {
   font-size: 1rem;
   color: #222;
 }
-
 .project-button {
   display: inline-block;
   margin-top: 0.75rem;
   padding: 0.6rem 1.2rem;
-  background-color: var(--garnet);
+  background: var(--garnet);
   color: white;
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: background 0.3s;
 }
-
 .project-button:hover {
-  background-color: #570008;
+  background: #570008;
 }
 
-.footer-contact {
-  background: var(--card-bg);
-  text-align: center;
-  padding: 1rem 0;
-  font-size: 0.95rem;
-  margin-top: 2rem;
-  border-top: 1px solid rgba(115, 0, 10, 0.1);
-}
-
-.footer-contact a {
-  color: var(--garnet);
-  margin: 0 1rem;
-  text-decoration: none;
-}
-
-.footer-contact a:hover {
-  text-decoration: underline;
-}
-
+/* =================================
+   BACK LINK & FOOTER
+   ================================= */
 .back-link {
-  background: var(--card-bg);
-  padding: 1rem 2rem;
-  border-radius: 16px;
-  max-width: fit-content;
   margin: 3rem auto 1rem;
-  box-shadow: 0 4px 16px var(--accent-shadow);
+  max-width: fit-content;
+  padding: 1rem 2rem;
+  background: rgba(255,255,255,0.85);
   backdrop-filter: blur(5px);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
 }
-
 .back-link a {
   color: var(--garnet);
   font-weight: bold;
   text-decoration: none;
   font-size: 1.05rem;
 }
-
 .back-link a:hover {
   text-decoration: underline;
 }
-
-section h2 {
-  background: rgba(255, 255, 255, 0.85);
+.footer-contact {
+  margin-top: 2rem;
+  padding: 1rem 0;
+  text-align: center;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(5px);
+  border-top: 1px solid rgba(115,0,10,0.1);
+}
+.footer-contact a {
+  margin: 0 1rem;
   color: var(--garnet);
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
+  text-decoration: none;
+}
+.footer-contact a:hover {
+  text-decoration: underline;
+}
+
+/* =================================
+   SECTION HEADERS & ANIMATION
+   ================================= */
+section h2 {
   display: inline-block;
   margin-bottom: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0.75rem 1.5rem;
+  background: rgba(255,255,255,0.85);
+  color: var(--garnet);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
-
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =================================
+   RESPONSIVE (≤768px)
+   ================================= */
+@media screen and (max-width: 768px) {
+  html, body {
+    margin: 0; padding: 0;
+    font-size: 14px;
+    overflow-x: hidden;
+    background: white;
+    color: #222;
+    line-height: 1.5;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .usc-hero {
+    padding: 2rem 1rem;
+  }
+  .usc-header-text h1 {
+    font-size: clamp(1.6rem,6vw,1.8rem);
+  }
+  .usc-header-text p {
+    font-size: clamp(0.9rem,3.5vw,1rem);
+  }
+  .usc-main {
+    padding: 1rem;
+  }
+
+  /* STACK the TWO HEADING PILLS */
+  .intro-headings {
+    grid-template-columns: 1fr;  /* one per row */
+  }
+
+  /* HIDE the offscreen “Just Ask JustinBot” pill up there */
+  .intro-headings h2:last-child {
+    display: none;
+  }
+  /* REINSERT it above the chat panel instead */
+  .chatbox-section::before {
+    content: 'Just Ask JustinBot';
+    display: block;
+    margin: 0 0 1rem;
+    background: rgba(255,255,255,0.85);
+    color: var(--garnet);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    white-space: nowrap;
+  }
+
+  /* panels side-by-side */
+  .top-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .about-container,
+  .chatbox-section {
+    flex: 1 1 45%;
+    min-width: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .about-text {
+    text-align: left;
+  }
+
+  /* inputs & response full width */
+  #user-input,
+  #chat-form button,
+  .chat-response {
+    width: 100%;
+  }
+
+  /* ensure frosted glass on mobile for intro */
+  .intro {
+    background: var(--card-bg) !important;
+    backdrop-filter: blur(var(--glass-blur)) !important;
+    box-shadow: none !important;
+    padding: 1rem !important;
   }
 }
 
-/* === Timeline Section === */
+/* =================================
+   TIMELINE
+   ================================= */
 .timeline-section {
-  position: relative;
   padding: 4rem 2rem;
 }
-
 .timeline-section h2 {
-  text-align: center;
-  font-size: 2rem;
-  color: var(--garnet);
-  background: rgba(255,255,255,0.9);
-  padding: 0.6rem 1.2rem;
-  border-radius: 12px;
   display: inline-block;
   margin-bottom: 3rem;
+  padding: 0.6rem 1.2rem;
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  color: var(--garnet);
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
-
 .timeline {
   position: relative;
   max-width: 1000px;
   margin: auto;
   padding: 0 2rem;
 }
-
 .timeline::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 50%;
-  width: 4px;
-  height: 100%;
+  top: 0; left: 50%;
+  width: 4px; height: 100%;
   background: var(--garnet);
   transform: translateX(-50%);
   z-index: 0;
 }
-
 .timeline-item {
   display: flex;
   justify-content: center;
@@ -381,201 +485,51 @@ section h2 {
   position: relative;
   z-index: 1;
 }
-
 .timeline-bundle {
+  width: 45%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 45%;
 }
-
 .timeline-item.left .timeline-bundle {
   margin-right: auto;
-  text-align: left;
 }
-
 .timeline-item.right .timeline-bundle {
   margin-left: auto;
-  text-align: left;
 }
-
 .timeline-date {
   font-weight: bold;
   color: var(--garnet);
   margin-bottom: 0.5rem;
-  font-size: 1rem;
 }
-
 .timeline-content {
-  background: rgba(255,255,255,0.7);
   padding: 1rem;
+  background: rgba(255,255,255,0.7);
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(0,0,0,0.1);
   backdrop-filter: blur(4px);
 }
-
 .timeline-content img {
   width: 100%;
   border-radius: 8px;
   object-fit: cover;
   margin-bottom: 0.75rem;
 }
-
 .timeline-content p {
   margin: 0;
   font-style: italic;
   color: #222;
-  font-size: 1rem;
 }
-
 .timeline-stats {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin-top: 0.75rem;
 }
-
 .stat {
+  padding: 0.4rem 0.9rem;
   background: var(--garnet);
   color: white;
-  padding: 0.4rem 0.9rem;
   border-radius: 999px;
-  font-size: 0.85rem;
-  white-space: nowrap;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
- /* === Mobile Jump Nav (NEW) === */
- .mobile-jump-nav {
-  padding: 1rem;
-  text-align: center;
-}
-
-.mobile-jump-nav a {
-  display: inline-block;
-  background: #73000a;
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  margin: 0.25rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-}
-
-.mobile-jump-nav a:hover {
-  background: #570008;
-}
-
-/* === Mobile Styles (≤768px) === */
-@media screen and (max-width: 768px) {
-  .hidden-mobile {
-    display: none !important;
-  }
-  html, body {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    width: 100%;
-    overflow-x: hidden;
-    background: #fff;
-    color: #222;
-    line-height: 1.5;
-    scroll-behavior: smooth;
-  }
-
-  .usc-main {
-    padding: 1rem;
-  }
-
-  .usc-hero {
-    padding: 2rem 1rem;
-    text-align: center;
-  }
-
-  .usc-header-text h1 {
-    font-size: clamp(1.6rem, 6vw, 1.8rem);
-  }
-
-  .usc-header-text p {
-    font-size: clamp(0.9rem, 3.5vw, 1rem);
-  }
-
-  .top-section {
-    display: grid !important;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-  }
-
-  .chatbox-container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  #user-input,
-  #chat-form button {
-    width: 100%;
-    font-size: 1rem;
-    padding: 0.5rem;
-    border-radius: 8px;
-  }
-
-  .about-container,
-  .chatbox-section {
-    background: transparent !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    backdrop-filter: none !important;
-  }
-
-  .about-container img {
-    margin: 0 auto 0.75rem !important;
-    display: block;
-  }
-
-  .about-container p,
-  .chatbox-section p {
-    padding: 0 0.5rem !important;
-  }
-
-  /* Optional: add a little spacing below nav on mobile */
-  .logo-banner {
-    margin-top: 1rem;
-  }
-  
-  .timeline {
-    padding-left: 2rem;
-  }
-
-  .timeline::before {
-    left: 0;
-    transform: none;
-    height: 100%;
-  }
-
-  .timeline-item {
-    display: block;
-    width: 100%;
-    margin: 2rem 0;
-  }
-
-  .timeline-bundle {
-    width: 100%;
-    margin-left: 1.5rem;
-    padding-left: 1rem;
-    position: relative;
-  }
-
-  .timeline-bundle::before {
-    content: "";
-    position: absolute;
-    left: -1.5rem;
-    top: 0.75rem;
-    width: 12px;
-    height: 12px;
-    background: var(--garnet);
-    border-radius: 50%;
-  }
-}
-  
-
