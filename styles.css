@@ -35,7 +35,6 @@ body::before {
   z-index: -1;
 }
 
-/* HERO */
 .usc-hero {
   text-align: center;
   padding: 4rem 2rem;
@@ -55,7 +54,6 @@ body::before {
   opacity: 0.95;
 }
 
-/* MAIN */
 .usc-main {
   max-width: 1200px;
   margin: 2rem auto;
@@ -110,7 +108,7 @@ body::before {
 
 .top-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   background: rgba(255, 255, 255, 0.85);
   padding: 2rem;
@@ -122,10 +120,12 @@ body::before {
 
 .about-container,
 .chatbox-section {
-  background: none;
-  padding: 0;
-  box-shadow: none;
-  backdrop-filter: none;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
 .about-container img {
@@ -134,14 +134,20 @@ body::before {
   border-radius: 50%;
   object-fit: cover;
   border: 4px solid var(--garnet);
-  margin-bottom: 1rem;
+}
+
+.about-container .text-content,
+.chatbox-section .text-content {
+  flex: 1;
+  min-width: 200px;
 }
 
 .chatbox-container {
   display: flex;
-  gap: 0.5rem;
   flex-wrap: wrap;
+  gap: 0.5rem;
   margin-top: 1rem;
+  width: 100%;
 }
 
 #user-input {
@@ -173,9 +179,32 @@ body::before {
   border: 1px solid rgba(115, 0, 10, 0.2);
   min-height: 100px;
   color: #222;
+  width: 100%;
 }
 
-/* ADDITIONAL SECTIONS AND TIMELINE REMAIN UNCHANGED */
+@media (max-width: 768px) {
+  .about-container,
+  .chatbox-section {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+  .about-container img,
+  .chatbox-section form,
+  .chatbox-section .text-content {
+    flex: 1 1 45%;
+    min-width: 180px;
+  }
+  .chatbox-container,
+  .chat-response {
+    flex: 1 1 100%;
+  }
+}
+
+/* REMAINING SECTIONS LEFT UNCHANGED FOR BREVITY */
+
+/* ... The rest of your CSS remains unchanged above or below this block ... */
 
 
 .project-grid,
