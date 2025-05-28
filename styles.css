@@ -128,11 +128,12 @@ body::before {
 }
 .intro-headings h2 {
   margin: 0;
-  background: rgba(255,255,255,0.85);
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
   color: var(--garnet);
   padding: 0.75rem 1.5rem;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 16px var(--accent-shadow);
   white-space: nowrap;
 }
 
@@ -161,10 +162,6 @@ body::before {
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(115,0,10,0.15);
 }
 .about-container img {
   width: 160px;
@@ -175,7 +172,6 @@ body::before {
 }
 .about-text {
   max-width: 600px;
-  font-size: 1.05rem;
   line-height: 1.7;
   color: #222;
   text-align: center;
@@ -187,10 +183,6 @@ body::before {
   flex-direction: column;
   gap: 1rem;
   padding: 1.5rem;
-  background: rgba(255,255,255,0.25);
-  backdrop-filter: blur(8px);
-  border-radius: 16px;
-  box-shadow: 0 4px 16px rgba(115,0,10,0.15);
 }
 .chat-info .justinbot-explainer {
   margin: 0;
@@ -207,13 +199,13 @@ body::before {
 .chatbox-container {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;            /* prevents overlap */
+  flex-wrap: wrap;
   width: 100%;
   margin-top: 1rem;
 }
 #user-input {
-  flex: 1 1 auto;             /* shrink and grow */
-  min-width: 0;               /* critical for flex shrink */
+  flex: 1 1 auto;
+  min-width: 0;
   font-size: 1rem;
   padding: 0.6rem;
   border: 1px solid rgba(115,0,10,0.3);
@@ -235,13 +227,12 @@ body::before {
 
 /* ----- CHAT RESPONSE BOX ----- */
 .chat-response {
-  flex: 1 1 100%;             /* full width below form */
-  width: 100%;
-  max-width: 560px;           /* prevent overflow */
-  margin-top: 1rem;
+  margin: 1rem auto 0;      /* center & gap above */
+  flex: 1 1 100%;
   padding: 1rem;
   min-height: 120px;
-  background: white;
+  width: auto;              /* allow shrinking */
+  max-width: 560px;         /* cap width on desktop too */
   border: none;
   position: relative;
   z-index: 1;
@@ -395,21 +386,22 @@ section h2 {
   .intro-headings {
     grid-template-columns: 1fr;  /* one per row */
   }
-
-  /* HIDE the offscreen “Just Ask JustinBot” pill up there */
   .intro-headings h2:last-child {
     display: none;
   }
-  /* REINSERT it above the chat panel instead */
   .chatbox-section::before {
     content: 'Just Ask JustinBot';
     display: block;
     margin: 0 0 1rem;
-    background: rgba(255,255,255,0.85);
+    background: var(--card-bg);
+    backdrop-filter: blur(var(--glass-blur));
     color: var(--garnet);
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
     padding: 0.75rem 1.5rem;
     border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 16px var(--accent-shadow);
     white-space: nowrap;
   }
 
@@ -432,18 +424,22 @@ section h2 {
     text-align: left;
   }
 
-  /* inputs & response full width */
+  /* inputs & button full width */
   #user-input,
-  #chat-form button,
-  .chat-response {
+  #chat-form button {
     width: 100%;
+  }
+
+  /* the Try Asking box stays capped & centered */
+  .chat-response {
+    /* inherited max-width, auto margins apply */
   }
 
   /* ensure frosted glass on mobile for intro */
   .intro {
     background: var(--card-bg) !important;
     backdrop-filter: blur(var(--glass-blur)) !important;
-    box-shadow: none !important;
+    box-shadow: 0 4px 16px var(--accent-shadow) !important;
     padding: 1rem !important;
   }
 }
