@@ -16,7 +16,7 @@
 
   <div id="controls">
     <input id="user-input" type="text" placeholder="Say something to Justin…" />
-    <button id="submit-btn">Speak!</button>
+    <button id="submit-btn">Send</button>
     <div id="status-text">Justin is neutral.</div>
   </div>
 
@@ -55,7 +55,7 @@
         let mood = "neutral";
         if (/(thank|great|awesome|glad|impressive|happy|cool|love|nice|funny|haha|good job|beautiful|smart)/.test(lower)) {
           mood = "happy";
-        } else if (/(sad|mean|ugly|bad|hate|disappointed|offensive|cringe|weird|hurt|suck|stupid|dumb|rude|ouch)/.test(lower)) {
+        } else if (/(sad|mean|ugly|bad|hate|disappointed|offensive|cringe|weird|hurt|suck|stupid|dumb|rude|ouch|poop)/.test(lower)) {
           mood = "sad";
         }
 
