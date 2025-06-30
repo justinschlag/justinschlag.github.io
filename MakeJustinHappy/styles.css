@@ -1,0 +1,140 @@
+:root {
+  --garnet: #73000a;
+  --gray: #f9fafb;
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --text-dark: #111;
+  --accent-shadow: rgba(115, 0, 10, 0.15);
+  --radius: 16px;
+  --glass-blur: 8px;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  background:
+    linear-gradient(rgba(115,0,10,0.06), rgba(115,0,10,0.06)),
+    linear-gradient(rgba(253,246,240,0.92), rgba(253,246,240,0.92)),
+    url('../images/tailfeathers.png') no-repeat fixed 65% center;
+  background-blend-mode: multiply, lighten;
+  background-color: #fdf6f0;
+  color: var(--text-dark);
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem auto 1rem;
+  font-size: 2.2rem;
+  color: var(--garnet);
+}
+
+#justin-image-container {
+  max-width: 300px;
+  margin: 0 auto;
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
+  position: relative;
+}
+
+#justin-image-container img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+#controls {
+  max-width: 500px;
+  margin: 2rem auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
+}
+
+#user-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid rgba(115,0,10,0.2);
+  border-radius: 8px;
+}
+
+#submit-btn {
+  padding: 0.6rem 1.5rem;
+  background: var(--garnet);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+#submit-btn:hover {
+  background: #570008;
+}
+
+#status-text {
+  font-size: 1.1rem;
+  color: #444;
+  text-align: center;
+}
+
+/* === Crop justin face emotion images === */
+#justin-image[src*="justin-happy"],
+#justin-image[src*="justin-sad"],
+#justin-image[src*="justin-neutral"] {
+  height: 400px;
+  object-fit: cover;
+  object-position: center top 12%;
+}
+
+/* === Tear drop effect === */
+.tear {
+  position: absolute;
+  width: 14px;
+  height: 22px;
+  background: rgba(100, 149, 237, 0.7);
+  border-radius: 50%;
+  left: 60%;
+  top: 42%;
+  opacity: 0;
+  animation: drop 1.5s ease-out forwards;
+  z-index: 2;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+}
+/* Back to Home button */
+.back-link {
+  text-align: center;
+  margin: 2rem auto;
+}
+
+.back-link a {
+  font-size: 1rem;
+  color: var(--garnet);
+  text-decoration: none;
+  padding: 0.6rem 1.2rem;
+  border: 1px solid var(--garnet);
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.back-link a:hover {
+  background: var(--garnet);
+  color: white;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Make Justin Happy</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>Make Justin Happy</h1>
+
+  <div id="justin-image-container">
+    <img id="justin-image" src="../images/justin-neutral.jpeg" alt="Justin Neutral">
+    <div id="tear" class="tear" style="display: none;"></div>
+  </div>
+
+  <div id="controls">
+    <input id="user-input" type="text" placeholder="Say something to Justin…" />
+    <button id="submit-btn">Speak!</button>
+    <div id="status-text">Justin is neutral.</div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    const imageEl = document.getElementById('justin-image');
+    const input = document.getElementById('user-input');
+    const button = document.getElementById('submit-btn');
+    const status = document.getElementById('status-text');
+    const tear = document.getElementById('tear');
+
+    function launchConfetti() {
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    }
+
+    async function evaluateMood() {
+      const question = input.value.trim();
+      if (!question) return;
+
+      status.textContent = "Hmmmmmmmm......";
+
+      try {
+        const res = await fetch('https://justin-bot-ujmo.onrender.com/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+
+        const { answer } = await res.json();
+        const lower = answer.toLowerCase();
+
+        let mood = "neutral";
+        if (/(thank|great|awesome|glad|impressive|happy|cool|love|nice|funny|haha|good job|beautiful|smart)/.test(lower)) {
+          mood = "happy";
+        } else if (/(sad|mean|ugly|bad|hate|disappointed|offensive|cringe|weird|hurt|suck|stupid|dumb|rude|ouch)/.test(lower)) {
+          mood = "sad";
+        }
+
+        if (mood === "happy") {
+          imageEl.src = "../images/justin-happy.jpeg";
+          imageEl.alt = "Justin Happy";
+          status.textContent = "Justin is happy!";
+          tear.style.display = 'none';
+          launchConfetti();
+        } else if (mood === "sad") {
+          imageEl.src = "../images/justin-sad.jpeg";
+          imageEl.alt = "Justin Sad";
+          status.textContent = "Justin is sad.";
+          tear.style.display = 'block';
+          tear.classList.remove('tear'); // re-trigger animation
+          void tear.offsetWidth;
+          tear.classList.add('tear');
+        } else {
+          imageEl.src = "../images/justin-neutral.jpeg";
+          imageEl.alt = "Justin Neutral";
+          status.textContent = "Justin is neutral.";
+          tear.style.display = 'none';
+        }
+
+      } catch {
+        status.textContent = "Error, sorry :(";
+        tear.style.display = 'none';
+      }
+
+      input.value = '';
+    }
+
+    button.addEventListener('click', evaluateMood);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') evaluateMood();
+    });
+  </script>
+  <div class="back-link">
+      <a href="../index.html">← Back to Home</a>
+    </div>
+</body>
+</html>
