@@ -10,17 +10,12 @@
 
   <!-- META DESCRIPTION -->
   <meta name="description" content="Personal website of Justin Schlag — USC Honors College student, computer engineering researcher, and developer of JustinBot. Explore projects, internships, and technical skills." />
-
   <meta name="google-site-verification" content="RMAI2wUtea9xAi6wJcb5gfca_ASmkkwDdqFNAdJnXWI" />
-  
-  <!-- META AUTHOR -->
   <meta name="author" content="Justin Schlag" />
-
-  <!-- KEYWORDS (optional, not prioritized by Google but helps smaller engines) -->
   <meta name="keywords" content="Justin Schlag, USC, computer engineering, portfolio, JustinBot, NIWC, NREIP, SEAP, AI research, OpenCV, UofSC" />
 
   <!-- FAVICON -->
-  <link rel="icon" href="images/JustinSchlag2.png" type="image/png">
+  <link rel="icon" href="images/JustinSchlag2.png" type="image/png" />
 
   <!-- STYLES -->
   <link rel="stylesheet" href="styles.css" />
@@ -46,8 +41,8 @@
   </script>
 </head>
 
-
 <body class="gamecock-theme">
+  <!-- HERO -->
   <header class="usc-hero">
     <div class="usc-header-text">
       <h1>Justin Schlag</h1>
@@ -55,77 +50,81 @@
     </div>
   </header>
 
-<!-- Mobile Navigation (goes above your logo-banner) -->
-<nav class="mobile-jump-nav">
-  <a href="#projects">Research & Projects</a>
-  <a href="#work">Work Experience</a>
-  <a href="#timeline">Career Timeline</a>
-</nav>
+  <!-- DESKTOP NAVIGATION -->
+  <nav class="desktop-jump-nav">
+    <a href="About Me/index.html">About Me</a>
+    <a href="#projects">Research & Projects</a>
+    <a href="#work">Work Experience</a>
+    <a href="#timeline">Career Timeline</a>
+  </nav>
 
-<main class="usc-main">
+  <!-- MOBILE NAVIGATION -->
+  <nav class="mobile-jump-nav">
+    <a href="About Me/index.html">About Me</a>
+    <a href="#projects">Research & Projects</a>
+    <a href="#work">Work Experience</a>
+    <a href="#timeline">Career Timeline</a>
+  </nav>
+
+  <main class="usc-main">
+    <!-- LOGO BANNER -->
     <div class="logo-banner">
-      <img src="images/USC_1801.png" alt="USC 1801 Logo">
+      <img src="images/USC_1801.png" alt="USC 1801 Logo" />
     </div>
 
-<section class="intro">
-  <!-- row of two titles, side-by-side -->
-  <div class="intro-headings">
-    <h2>About Me</h2>
-    <h2>Just Ask JustinBot</h2>
-  </div>
-
-  <!-- row of two panels -->
-  <div class="top-section">
-    <!-- ABOUT ME PANEL -->
-    <section class="about-container">
-      <img src="images/grad pic.jpg" alt="Profile Picture">
-      <div class="about-text">
-        <p>
-          Hi! I’m Justin Schlag, a Computer Engineering student at the University of 
-          South Carolina Honors College. I currently hold an active DoD Secret Security 
-          Clearance through my work with NIWC Atlantic. I focus on computer vision, image 
-          segmentation, and defense research through hands-on development. I’m passionate 
-          about building impactful tools and advancing Department of Defense engineering work.
-        </p>
+    <!-- INTRO / ABOUT & JUSTINBOT -->
+    <section class="intro">
+      <div class="intro-headings">
+        <h2>About Me</h2>
+        <h2>Just Ask JustinBot</h2>
+      </div>
+      <div class="top-section">
+        <!-- ABOUT ME PANEL -->
+        <section class="about-container">
+          <img src="images/grad pic.jpg" alt="Profile Picture" />
+          <div class="about-text">
+            <p>
+              Hi! I’m Justin Schlag, a Computer Engineering student at the University of
+              South Carolina Honors College. I currently hold an active DoD Secret Security
+              Clearance through my work with NIWC Atlantic. I focus on computer vision, image
+              segmentation, and defense research through hands-on development. I’m passionate
+              about building impactful tools and advancing Department of Defense engineering work.
+            </p>
+          </div>
+        </section>
+        <!-- JUSTINBOT PANEL -->
+        <section class="chatbox-section">
+          <div class="chat-info">
+            <p class="justinbot-explainer">
+              Don’t want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained
+              by me to explain my projects, research, skills, and even personal experiences. You
+              can ask me anything!
+            </p>
+          </div>
+          <div class="chat-ui">
+            <form id="chat-form" class="chatbox-container">
+              <input type="text" id="user-input" placeholder="Ask me anything…" required />
+              <button type="submit">Send</button>
+            </form>
+            <div id="chat-response" class="chat-response">
+              <p class="placeholder">Try asking:</p>
+              <ul class="examples">
+                <li>“What kind of engineering work have you done?”</li>
+                <li>“Can you explain your Navy research project?”</li>
+                <li>“What’s your job as a Network Operator about?”</li>
+                <li>“How did you build JustinBot?”</li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
-    <!-- JUSTINBOT PANEL -->
-    <section class="chatbox-section">
-      <div class="chat-info">
-        <p class="justinbot-explainer">
-          Don’t want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained 
-          by me to explain my projects, research, skills, and even personal experiences. You 
-          can ask me anything!
-        </p>
-      </div>
-      <div class="chat-ui">
-        <form id="chat-form" class="chatbox-container">
-          <input type="text" id="user-input" placeholder="Ask me anything…" required>
-          <button type="submit">Send</button>
-        </form>
-        <div id="chat-response" class="chat-response">
-          <p class="placeholder">Try asking:</p>
-          <ul class="examples">
-            <li>“What kind of engineering work have you done?”</li>
-            <li>“Can you explain your Navy research project?”</li>
-            <li>“What’s your job as a Network Operator about?”</li>
-            <li>“How did you build JustinBot?”</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </div>
-</section>
-
-    
-
+    <!-- SKILLS & RESUME -->
     <section class="skills">
       <h2>Skills & Resume</h2>
       <p><strong>Resume:</strong> <a href="files/Resume (Nov 19).pdf" target="_blank">Download here</a></p>
-    
       <div class="skills-grid">
-        
         <div class="skill-card">
           <h4>Languages</h4>
           <ul>
@@ -135,7 +134,6 @@
             <li>HTML & CSS</li>
           </ul>
         </div>
-    
         <div class="skill-card">
           <h4>AI & Research Tools</h4>
           <ul>
@@ -145,7 +143,6 @@
             <li>MATLAB</li>
           </ul>
         </div>
-    
         <div class="skill-card">
           <h4>Software & Platforms</h4>
           <ul>
@@ -155,7 +152,6 @@
             <li>Git & GitHub</li>
           </ul>
         </div>
-    
         <div class="skill-card">
           <h4>Networking Hardware</h4>
           <ul>
@@ -165,131 +161,138 @@
             <li>NetScout Devices</li>
           </ul>
         </div>
-    
-      <div class="skill-card">
-  <h4>System & Network Tools</h4>
-  <ul>
-    <li>Unix/Linux Command Line</li>
-    <li>PuTTY & Terminal-Based Networking</li>
-    <li>Basic Diagnostics (Switches, APs, Cabling)</li>
-    <li>Secure Device Configuration</li>
-  </ul>
-</div>
-
-    
+        <div class="skill-card">
+          <h4>System & Network Tools</h4>
+          <ul>
+            <li>Unix/Linux Command Line</li>
+            <li>PuTTY & Terminal-Based Networking</li>
+            <li>Basic Diagnostics (Switches, APs, Cabling)</li>
+            <li>Secure Device Configuration</li>
+          </ul>
+        </div>
       </div>
     </section>
-    
-     <section class="work-experience hidden-mobile" id="work">
+
+    <!-- WORK EXPERIENCE -->
+    <section class="work-experience hidden-mobile" id="work">
       <h2>Work Experience</h2>
       <div class="work-grid">
-        <!-- Network Operator @ USC -->
         <div class="work-card">
           <a href="network-operator/index.html">
-            <img src="images/Network-Operator.png" alt="Network Operator">
+            <img src="images/Network-Operator.png" alt="Network Operator" />
           </a>
-          
           <h3>Network Operator - USC DoIT</h3>
           <p>
-            As a student employee in the Division of IT, I clear and process enterprise switches (Aruba, Cisco, Juniper), manage RMA tracking, organize inventory stacks, and perform AP diagnostics and cable fixes across campus environments.
+            As a student employee in the Division of IT, I clear and process enterprise switches
+            (Aruba, Cisco, Juniper), manage RMA tracking, organize inventory stacks, and perform
+            AP diagnostics and cable fixes across campus environments.
           </p>
           <a href="network-operator/index.html" class="project-button">Learn More</a>
         </div>
-    
-        <!-- SEAP Internship -->
         <div class="work-card">
           <a href="seap/index.html">
-            <img src="images/Seap_Niwc.png" alt="SEAP Internship">
-          </a>          
+            <img src="images/Seap_Niwc.png" alt="SEAP Internship" />
+          </a>
           <h3>SEAP Intern @ NIWC Atlantic</h3>
           <p>
-            During my SEAP internship, I supported Foreign Military Sales (FMS) and mobile app development at NIWC Atlantic. I gained hands-on experience in defense contracting and software development, contributing to projects that enhance military capabilities.
+            During my SEAP internship, I supported Foreign Military Sales (FMS) and mobile app
+            development at NIWC Atlantic. I gained hands-on experience in defense contracting and
+            software development, contributing to projects that enhance military capabilities.
           </p>
           <a href="seap/index.html" class="project-button">Learn More</a>
         </div>
-    
-        <!-- NREIP Internship -->
         <div class="work-card">
           <a href="nreip_2025/index.html">
-            <img src="images/NREIP.png" alt="NREIP Internship">
-          </a>          
+            <img src="images/NREIP.png" alt="NREIP Internship" />
+          </a>
           <h3>NREIP Intern @ NIWC Atlantic</h3>
-          <p>
-            under construction
+          <p>Under construction</p>
           <a href="nreip_2025/index.html" class="project-button">Learn More</a>
         </div>
       </div>
     </section>
 
+    <!-- RESEARCH & PROJECTS -->
     <section class="project-section hidden-mobile" id="projects">
       <h2>Research & Projects</h2>
       <div class="project-grid">
         <div class="project">
           <a href="research/index.html">
-            <img src="images/research.png" alt="Undergraduate Research">
-          </a>          
+            <img src="images/research.png" alt="Undergraduate Research" />
+          </a>
           <h3>Computer Vision Research</h3>
-          <p>Dive into my end-to-end raindrop segmentation pipeline: manual SAM2 labeling, horizon-based sampling strategies, and U-Net training with performance benchmarks across diverse environments.</p>
+          <p>
+            Dive into my end-to-end raindrop segmentation pipeline: manual SAM2 labeling, horizon-based
+            sampling strategies, and U-Net training with performance benchmarks across diverse environments.
+          </p>
           <a href="research/index.html" class="project-button">Learn More</a>
         </div>
         <div class="project">
-          <a href="JustinBot/index.html"><img src="images/JustinBot.png" alt="JustinBot"></a>
+          <a href="JustinBot/index.html">
+            <img src="images/JustinBot.png" alt="JustinBot" />
+          </a>
           <h3>JustinBot Chat Assistant</h3>
-          <p>Interact with JustinBot, my AI assistant built on OpenAI’s GPT models and deployed via Render. Ask about my work, coding projects, or academic journey.</p>
+          <p>
+            Interact with JustinBot, my AI assistant built on OpenAI’s GPT models and deployed via
+            Render. Ask about my work, coding projects, or academic journey.
+          </p>
           <a href="JustinBot/index.html" class="project-button">Learn More</a>
         </div>
         <div class="project">
-          <a href="csce190/index.html"><img src="images/csce190.png" alt="CSCE 190"></a>
+          <a href="csce190/index.html">
+            <img src="images/csce190.png" alt="CSCE 190" />
+          </a>
           <h3>CSCE 190 Website</h3>
-          <p>Review my CSCE 190 final site project: from brainstorming and wireframing to interactive prototypes and production-ready builds.</p>
+          <p>
+            Review my CSCE 190 final site project: from brainstorming and wireframing to interactive
+            prototypes and production-ready builds.
+          </p>
           <a href="csce190/index.html" class="project-button">Learn More</a>
         </div>
-        <!-- NEW: Make Justin Happy Project -->
-<div class="project">
-  <a href="MakeJustinHappy/index.html">
-    <img src="images/justin-neutral.jpeg" alt="Make Justin Happy">
-  </a>
-  <h3>Make Justin Happy</h3>
-  <p>Make me Happy or Sad. This mood-sensing project changes my expression based on what you say</p>
-  <a href="MakeJustinHappy/index.html" class="project-button">Try It</a>
-</div>
-
+        <div class="project">
+          <a href="MakeJustinHappy/index.html">
+            <img src="images/justin-neutral.jpeg" alt="Make Justin Happy" />
+          </a>
+          <h3>Make Justin Happy</h3>
+          <p>
+            Make me Happy or Sad. This mood-sensing project changes my expression based on what you say.
+          </p>
+          <a href="MakeJustinHappy/index.html" class="project-button">Try It</a>
+        </div>
       </div>
     </section>
 
-   
-    
+    <!-- CAREER TIMELINE -->
     <section class="timeline-section hidden-mobile" id="timeline">
       <h2>Career Timeline</h2>
       <div class="timeline">
-    
-        <!-- NREIP Internship — Most Recent -->
         <div class="timeline-item right">
           <div class="timeline-bundle">
             <div class="timeline-date">Summer 2025</div>
             <div class="timeline-content">
               <a href="nreip_2025/index.html">
-                <img src="images/NREIP.png" alt="NREIP Internship">
-              </a>              
-              <p>Held a Security clearance, working as an air traffic control engineer at NIWC Atlantic </p>
+                <img src="images/NREIP.png" alt="NREIP Internship" />
+              </a>
+              <p>Held a Security clearance, working as an air traffic control engineer at NIWC Atlantic</p>
             </div>
             <div class="timeline-stats">
               <span class="stat">✈︎ ATC</span>
-              <span class="stat">✈️ </span>
+              <span class="stat">✈️</span>
               <span class="stat">📅 DoD</span>
             </div>
           </div>
         </div>
-    
-        <!-- Network Operator @ UofSC -->
         <div class="timeline-item left">
           <div class="timeline-bundle">
             <div class="timeline-date">Apr 2025 – Present</div>
             <div class="timeline-content">
               <a href="network-operator/index.html">
-                <img src="images/Network-Operator.png" alt="Network Operator">
-              </a>              
-              <p>Clear &amp; process Aruba, Cisco, and Juniper switches; manage RMA inventory; perform campus-wide AP diagnostics.</p>
+                <img src="images/Network-Operator.png" alt="Network Operator" />
+              </a>
+              <p>
+                Clear & process Aruba, Cisco, and Juniper switches; manage RMA inventory; perform
+                campus-wide AP diagnostics.
+              </p>
             </div>
             <div class="timeline-stats">
               <span class="stat">🧠 50+ switches</span>
@@ -298,16 +301,17 @@
             </div>
           </div>
         </div>
-    
-        <!-- USC Undergraduate Research -->
         <div class="timeline-item right">
           <div class="timeline-bundle">
             <div class="timeline-date">Aug 2024 – Present</div>
             <div class="timeline-content">
               <a href="research/index.html">
-                <img src="images/research.png" alt="Undergraduate Research">
-              </a>              
-              <p>ONR-funded computer vision work at USC: raindrop segmentation pipeline, SAM2 labeling tool, U-Net model training.</p>
+                <img src="images/research.png" alt="Undergraduate Research" />
+              </a>
+              <p>
+                ONR-funded computer vision work at USC: raindrop segmentation pipeline, SAM2 labeling
+                tool, U-Net model training.
+              </p>
             </div>
             <div class="timeline-stats">
               <span class="stat">🔍 Research</span>
@@ -316,16 +320,17 @@
             </div>
           </div>
         </div>
-    
-        <!-- SEAP Internship — Oldest -->
         <div class="timeline-item left">
           <div class="timeline-bundle">
             <div class="timeline-date">Summer 2024</div>
             <div class="timeline-content">
               <a href="seap/index.html">
-                <img src="images/Seap_Niwc.png" alt="SEAP Internship">
-              </a>              
-              <p>Supported Foreign Military Sales and mobile app development at NIWC Atlantic after high school.</p>
+                <img src="images/Seap_Niwc.png" alt="SEAP Internship" />
+              </a>
+              <p>
+                Supported Foreign Military Sales and mobile app development at NIWC Atlantic after
+                high school.
+              </p>
             </div>
             <div class="timeline-stats">
               <span class="stat">🪙 FMS</span>
@@ -333,34 +338,23 @@
             </div>
           </div>
         </div>
-    
       </div>
     </section>
-    
 
     <div class="back-link">
       <a href="#">↑ Back to Top</a>
     </div>
   </main>
 
+  <!-- FOOTER -->
   <footer class="footer-contact">
     <a href="https://www.linkedin.com/in/justinschlag" target="_blank">LinkedIn</a>
     <a href="mailto:jschlag@email.sc.edu">jschlag@email.sc.edu</a>
     <span>(843) 408-7027</span>
   </footer>
 
+  <!-- JustinBot Script -->
   <script>
-    function toggleSubmenu(id) {
-  document.querySelectorAll('.mobile-submenu').forEach(menu => {
-    if (menu.id === id) {
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-    } else {
-      menu.style.display = "none";
-    }
-  });
-}
-
-
     const form = document.getElementById("chat-form");
     const input = document.getElementById("user-input");
     const responseDiv = document.getElementById("chat-response");
@@ -372,12 +366,10 @@
       if (!question) return;
 
       responseDiv.classList.add("filled");
-      if (firstMessage) {
-        responseDiv.innerHTML = `<div style="font-style: italic; color: gray;">JustinBot is sleeping... please allow up to thirty seconds while he wakes up 💤</div>`;
-        firstMessage = false;
-      } else {
-        responseDiv.innerHTML = "Thinking...";
-      }
+      responseDiv.innerHTML = firstMessage
+        ? `<div style="font-style: italic; color: gray;">JustinBot is sleeping... please allow up to thirty seconds while he wakes up 💤</div>`
+        : "Thinking...";
+      firstMessage = false;
 
       try {
         const res = await fetch("https://justin-bot-ujmo.onrender.com/ask", {
@@ -396,38 +388,36 @@
       }
     };
   </script>
-</body>
-</html>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const items = document.querySelectorAll(".timeline-item");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("show");
-      });
-    }, { threshold: 0.2 });
-    items.forEach(item => observer.observe(item));
-  });
-</script>
-<script>
-  // Mobile section reveal on anchor click
-  document.addEventListener("DOMContentLoaded", () => {
-    const navLinks = document.querySelectorAll(".mobile-jump-nav a");
-    navLinks.forEach(link => {
-      link.addEventListener("click", e => {
-        const targetId = link.getAttribute("href").substring(1); // removes #
-        const targetSection = document.getElementById(targetId);
+  <!-- Timeline Intersection Observer -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = document.querySelectorAll(".timeline-item");
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add("show");
+        });
+      }, { threshold: 0.2 });
+      items.forEach(item => observer.observe(item));
+    });
+  </script>
 
-        if (window.innerWidth <= 768 && targetSection.classList.contains("hidden-mobile")) {
-          e.preventDefault(); // stop default jump until revealed
-          targetSection.classList.remove("hidden-mobile");
-          setTimeout(() => {
-            targetSection.scrollIntoView({ behavior: "smooth" });
-          }, 50); // delay lets layout update
-        }
+  <!-- Mobile Reveal Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll(".mobile-jump-nav a").forEach(link => {
+        link.addEventListener("click", e => {
+          const targetId = link.getAttribute("href").slice(1);
+          const section = document.getElementById(targetId);
+          if (window.innerWidth <= 768 && section?.classList.contains("hidden-mobile")) {
+            e.preventDefault();
+            section.classList.remove("hidden-mobile");
+            setTimeout(() => section.scrollIntoView({ behavior: "smooth" }), 50);
+          }
+        });
       });
     });
-  });
-</script>
+  </script>
+</body>
 
+</html>

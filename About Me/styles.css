@@ -1,0 +1,82 @@
+/* =================================
+   ABOUT ME PAGE (cohesive with main site)
+   ================================= */
+.about-page {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+/* — Large summary “card” — */
+.about-summary {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.about-summary h2 {
+  color: var(--garnet);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+}
+
+.about-summary p {
+  color: #222;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+/* — Photo Album “card” — */
+.photo-album {
+  background: var(--card-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow);
+  padding: 2rem;
+}
+
+.photo-album h2 {
+  color: var(--garnet);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+/* the grid itself */
+.photo-album .gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.photo-album .gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px var(--accent-shadow);
+}
+
+/* =================================
+   RESPONSIVE TWEAKS (≤768px)
+   ================================= */
+@media (max-width: 768px) {
+  .about-page {
+    padding: 0 1rem;
+  }
+  .about-summary,
+  .photo-album {
+    padding: 1rem;
+  }
+  .about-summary h2,
+  .photo-album h2 {
+    font-size: 1.5rem;
+  }
+  .photo-album .gallery {
+    grid-template-columns: 1fr;
+  }
+}

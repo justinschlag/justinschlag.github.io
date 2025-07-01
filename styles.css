@@ -11,10 +11,17 @@
   --glass-blur: 8px;
 }
 
+/* =================================
+   BASE ELEMENT STYLES
+   ================================= */
 html {
   scroll-behavior: smooth;
   font-family: 'Segoe UI', Tahoma, sans-serif;
   color: var(--text-dark);
+}
+body {
+  margin: 0;
+  background-color: #fdf6f0;
 }
 
 body.gamecock-theme {
@@ -36,7 +43,7 @@ body::before {
 }
 
 /* =================================
-   HERO
+   HERO SECTION
    ================================= */
 .usc-hero {
   text-align: center;
@@ -56,12 +63,14 @@ body::before {
 }
 
 /* =================================
-   NAV BUTTONS
+   NAVIGATION
    ================================= */
+.desktop-jump-nav,
 .mobile-jump-nav {
   text-align: center;
   padding: 1rem;
 }
+.desktop-jump-nav a,
 .mobile-jump-nav a {
   display: inline-block;
   margin: 0.25rem;
@@ -73,8 +82,25 @@ body::before {
   font-size: 0.95rem;
   transition: background 0.3s;
 }
+.desktop-jump-nav a:hover,
 .mobile-jump-nav a:hover {
   background: #570008;
+}
+
+/* hide both by default */
+.desktop-jump-nav,
+.mobile-jump-nav {
+  display: none;
+}
+
+/* show mobile nav on small screens */
+@media (max-width: 768px) {
+  .mobile-jump-nav { display: block; }
+}
+
+/* show desktop nav on larger screens */
+@media (min-width: 769px) {
+  .desktop-jump-nav { display: block; }
 }
 
 /* =================================
@@ -85,7 +111,6 @@ body::before {
   margin: 2rem auto;
   padding: 0 2rem;
 }
-
 .logo-banner {
   max-width: 300px;
   margin: 0 auto 2rem;
@@ -109,8 +134,8 @@ body::before {
    INTRO / ABOUT & JUSTINBOT
    ================================= */
 .intro {
-  max-width: 1200px;           /* match .usc-main */
-  margin: 0 auto 2rem;         /* center and gap below */
+  max-width: 1200px;
+  margin: 0 auto 2rem;
   padding: 2rem;
   background: var(--card-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -118,12 +143,10 @@ body::before {
   box-shadow: 0 4px 16px var(--accent-shadow);
   animation: fadeIn 1s ease-out forwards;
 }
-
-/* Two-column grid for the H2 headings */
 .intro-headings {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;                   /* same as .top-section */
+  gap: 2rem;
   margin-bottom: 2rem;
 }
 .intro-headings h2 {
@@ -136,8 +159,6 @@ body::before {
   box-shadow: 0 4px 16px var(--accent-shadow);
   white-space: nowrap;
 }
-
-/* Panels row below headings */
 .top-section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
@@ -145,7 +166,7 @@ body::before {
   align-items: start;
 }
 
-/* Frosted-glass base for panels */
+/* content panels base */
 .about-container,
 .chatbox-section,
 .chat-response {
@@ -155,7 +176,7 @@ body::before {
   box-shadow: 0 4px 16px var(--accent-shadow);
 }
 
-/* ----- ABOUT ME ----- */
+/* ABOUT ME PANEL */
 .about-container {
   display: flex;
   flex-direction: column;
@@ -177,7 +198,7 @@ body::before {
   text-align: center;
 }
 
-/* ----- JUSTINBOT ----- */
+/* JUSTINBOT PANEL */
 .chatbox-section {
   display: flex;
   flex-direction: column;
@@ -189,8 +210,6 @@ body::before {
   font-size: 1rem;
   color: #222;
 }
-
-/* Chat input + button row */
 .chat-ui {
   display: flex;
   flex-direction: column;
@@ -224,18 +243,11 @@ body::before {
 #chat-form button:hover {
   background: #570008;
 }
-
-/* ----- CHAT RESPONSE BOX ----- */
 .chat-response {
-  margin: 1rem auto 0;      /* center & gap above */
-  flex: 1 1 100%;
+  margin: 1rem auto 0;
   padding: 1rem;
   min-height: 120px;
-  width: auto;              /* allow shrinking */
-  max-width: 560px;         /* cap width on desktop too */
-  border: none;
-  position: relative;
-  z-index: 1;
+  max-width: 560px;
 }
 
 /* =================================
@@ -358,93 +370,6 @@ section h2 {
 }
 
 /* =================================
-   RESPONSIVE (≤768px)
-   ================================= */
-@media screen and (max-width: 768px) {
-  html, body {
-    margin: 0; padding: 0;
-    font-size: 14px;
-    overflow-x: hidden;
-    background: white;
-    color: #222;
-    line-height: 1.5;
-  }
-  .usc-hero {
-    padding: 2rem 1rem;
-  }
-  .usc-header-text h1 {
-    font-size: clamp(1.6rem,6vw,1.8rem);
-  }
-  .usc-header-text p {
-    font-size: clamp(0.9rem,3.5vw,1rem);
-  }
-  .usc-main {
-    padding: 1rem;
-  }
-
-  /* STACK the TWO HEADING PILLS */
-  .intro-headings {
-    grid-template-columns: 1fr;  /* one per row */
-  }
-  .intro-headings h2:last-child {
-    display: none;
-  }
-  .chatbox-section::before {
-    content: 'Just Ask JustinBot';
-    display: block;
-    margin: 0 0 1rem;
-    background: var(--card-bg);
-    backdrop-filter: blur(var(--glass-blur));
-    color: var(--garnet);
-    font-weight: 600;
-    font-size: 1.5rem;
-    text-align: center;
-    padding: 0.75rem 1.5rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px var(--accent-shadow);
-    white-space: nowrap;
-  }
-
-  /* panels side-by-side */
-  .top-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-  .about-container,
-  .chatbox-section {
-    flex: 1 1 45%;
-    min-width: unset;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  .about-text {
-    text-align: left;
-  }
-
-  /* inputs & button full width */
-  #user-input,
-  #chat-form button {
-    width: 100%;
-  }
-
-  /* the Try Asking box stays capped & centered */
-  .chat-response {
-    /* inherited max-width, auto margins apply */
-  }
-
-  /* ensure frosted glass on mobile for intro */
-  .intro {
-    background: var(--card-bg) !important;
-    backdrop-filter: blur(var(--glass-blur)) !important;
-    box-shadow: 0 4px 16px var(--accent-shadow) !important;
-    padding: 1rem !important;
-  }
-}
-
-/* =================================
    TIMELINE
    ================================= */
 .timeline-section {
@@ -468,8 +393,10 @@ section h2 {
 .timeline::before {
   content: '';
   position: absolute;
-  top: 0; left: 50%;
-  width: 4px; height: 100%;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
   background: var(--garnet);
   transform: translateX(-50%);
   z-index: 0;
@@ -530,14 +457,77 @@ section h2 {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
+/* =================================
+   PROJECT IMAGE OVERRIDE
+   ================================= */
 .project img[src*="justin-neutral.jpeg"] {
   width: 100%;
-  height: 300px; /* you can test 285–310px */
+  height: 300px;
   object-fit: cover;
-  object-position: center 35%; /* LOWER = show more top; HIGHER = crop more from top */
+  object-position: center 35%;
   padding: 0.5rem;
   background: #f9fafb;
   border-radius: 12px;
   display: block;
   margin: 0 auto;
 }
+
+/* =================================
+   RESPONSIVE (≤768px)
+   ================================= */
+@media screen and (max-width: 768px) {
+  html, body {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    overflow-x: hidden;
+    background: white;
+    color: #222;
+    line-height: 1.5;
+  }
+  .usc-hero {
+    padding: 2rem 1rem;
+  }
+  .usc-header-text h1 {
+    font-size: clamp(1.6rem, 6vw, 1.8rem);
+  }
+  .usc-header-text p {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+  }
+  .usc-main {
+    padding: 1rem;
+  }
+  .intro-headings {
+    grid-template-columns: 1fr;
+  }
+  .intro-headings h2:last-child {
+    display: none;
+  }
+  .chatbox-section::before {
+    content: 'Just Ask JustinBot';
+    display: block;
+    margin: 0 0 1rem;
+    background: var(--card-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    color: var(--garnet);
+    font-weight: 600;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px var(--accent-shadow);
+    white-space: nowrap;
+  }
+  .top-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .about-container,
+  .chatbox-section {
+    flex: 1 1 45%;
+    min-width: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center; }
+  }
