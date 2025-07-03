@@ -36,10 +36,15 @@
       const res = await fetch('https://justin-bot-ujmo.onrender.com/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: `What mood should this text trigger: happy or sad? Answer with one word, happy or sad. "${message}"` })
+        body: JSON.stringify({ question: `What mood should this text trigger: happy, sad, or neutral? Just answer with one word: happy, sad, or neutral. "${message}"` })
       });
       const { answer } = await res.json();
-      return answer.toLowerCase().includes("happy") ? "happy" : "sad";
+      const a = answer.toLowerCase();
+      if (a.includes("happy")) return "happy";
+      if (a.includes("sad")) return "sad";
+      if (a.includes("neutral")) return "neutral";
+      return "neutral";
+
     }
 
     async function evaluateMood() {
