@@ -4,32 +4,47 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Me | Justin Schlag</title>
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body class="gamecock-theme">
   <header class="usc-hero">
     <div class="usc-header-text">
-      <h1>About Me</h1>
+      <h1></h1>
     </div>
   </header>
 
   <main class="about-page">
-    <section class="intro">
-      <h2>Hello!</h2>
-      <p>
-        I’m Justin Schlag, a Computer Engineering student at USC’s Honors College.
-        Here you can learn a bit more about me—and see some snapshots from my life.
-      </p>
+    <section class="about-section card">
+      <h2>About Me</h2>
+      <p>Hi, I’m Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College.</p>
+      <p>I created this website to showcase my professional life, highlight the projects I’ve worked on, and document my journey through college, internships, and research. It’s part resume, part personal timeline, and something I genuinely enjoy building. My goal is for it to help me stand out when applying for jobs and also serve as a place I can look back on with pride.</p>
+      <p>Most of my time is spent taking on new challenges, whether through job opportunities, research, or personal projects. This site helps me keep everything organized and in one place.</p>
+      <p>A little about me personally: I’m from South Carolina and enjoy fishing, working out, and spending time outside. I’m a collegiate powerlifter on USC’s Powerlifting team and stay active in the Gamecock Barbell Club. In my free time, I like working with my hands and building things — whether it’s woodworking or electronics.</p>
+      <p><p>
+  If you have any questions, feel free to chat with <a href="../JustinBot/index.html" class="inline-link">JustinBot</a>
+. If he doesn’t have the answer, my contact info is available on the <a href="../index.html">main page</a>.
+</p>
+</a>.</p>
+      <p>Thanks for stopping by and learning a little bit about me.<br />
+      Scroll down to check out the photo album — it’s filled mostly with work photos, but you’ll find some personal ones too.</p>
     </section>
 
     <section class="photo-album">
       <h2>Photo Album</h2>
       <div class="gallery">
-        <img src="images/photo1.jpg" alt="Caption 1" />
-        <img src="images/photo2.jpg" alt="Caption 2" />
-        <img src="images/photo3.jpg" alt="Caption 3" />
-        <img src="images/photo4.jpg" alt="Caption 4" />
-        <!-- add more <img> as needed -->
+        <img src="images/Captain_Oneil.jpeg" alt="Caption 1" />
+        <img src="images/ETVSRackorganizing.jpeg" alt="Caption 2" />
+        <img src="images/FirstLightboard.jpeg" alt="Caption 3" />
+        <img src="images/HelpingHands.jpeg" alt="Caption 4" />
+        <img src="images/InsideTransciever.jpeg" alt="Caption 5" />
+        <img src="images/Schematics.jpeg" alt="Caption 6" />
+        <img src="images/Soldering.jpeg" alt="Caption 7" />
+        <img src="images/Soldering2.jpeg" alt="Caption 8" />
+        <img src="images/switches.jpeg" alt="Caption 9" />
+        <img src="images/switches_justin.jpeg" alt="Caption 10" />
+        <img src="images/Transciever.jpeg" alt="Caption 11" />
+        <img src="images/Transciever2.jpeg" alt="Caption 12" />
+        <!-- Add more images if needed -->
       </div>
     </section>
   </main>
@@ -37,5 +52,53 @@
   <footer class="footer-contact">
     <a href="../index.html">← Back to Home</a>
   </footer>
+
+  <!-- Modal Script Goes Below Here -->
+  <script>
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    modal.innerHTML = `
+      <button class="modal-close">&times;</button>
+      <button class="modal-prev">&#10094;</button>
+      <img class="modal-content" src="" alt="Modal Image">
+      <button class="modal-next">&#10095;</button>
+    `;
+    document.body.appendChild(modal);
+
+    const modalImg = modal.querySelector('.modal-content');
+    const images = [...document.querySelectorAll('.gallery img')];
+    let currentIndex = 0;
+
+    function openModal(index) {
+      currentIndex = index;
+      modal.style.display = 'flex';
+      modalImg.src = images[index].src;
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % images.length;
+      modalImg.src = images[currentIndex].src;
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      modalImg.src = images[currentIndex].src;
+    }
+
+    images.forEach((img, i) =>
+      img.addEventListener('click', () => openModal(i))
+    );
+
+    modal.querySelector('.modal-close').addEventListener('click', closeModal);
+    modal.querySelector('.modal-next').addEventListener('click', showNext);
+    modal.querySelector('.modal-prev').addEventListener('click', showPrev);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+  </script>
 </body>
 </html>
