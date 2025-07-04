@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>20 Questions with JustinBot</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Basic Layout */
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #chat-box { border:1px solid #ccc; padding:10px; height:350px; overflow-y:auto; margin-bottom:10px; }
+    #chat-box p { margin:6px 0; }
+    button { margin:4px 6px; padding:8px 16px; }
+    .hidden { display:none; }
+  </style>
+</head>
+<body>
+  <h1>20 Questions</h1>
+
+  <!-- Mode Selection -->
+  <div id="mode-selection">
+    <h2>Who should guess?</h2>
+    <button onclick="startGame('bot')">JustinBot Guesses</button>
+    <button onclick="startGame('user')">You Guess</button>
+  </div>
+
+  <!-- Counter -->
+  <div id="question-counter" class="hidden">Question <span id="q-number">1</span> / 20</div>
+
+  <!-- Chat Box -->
+  <div id="chat-box"></div>
+
+  <!-- User Input Mode -->
+  <div id="user-input-container" class="hidden">
+    <input type="text" id="user-input" placeholder="Type your question..."> 
+    <button onclick="submitUserQuestion()">Send</button>
+  </div>
+
+  <!-- Bot Buttons Mode -->
+  <div id="bot-buttons" class="hidden">
+    <button onclick="submitAnswer('Yes')">Yes</button>
+    <button onclick="submitAnswer('Probably')">Probably</button>
+    <button onclick="submitAnswer('Probably not')">Probably Not</button>
+    <button onclick="submitAnswer('No')">No</button>
+    <button onclick="submitAnswer('I don\'t know')">I don't know</button>
+  </div>
+
+  <!-- Win Buttons -->
+  <div id="win-buttons" class="hidden">
+    <button id="btn-user-guess" onclick="userGuessedIt()">I Guessed It!</button>
+    <button id="btn-bot-guess" onclick="botWins()">JustinBot Guessed It!</button>
+  </div>
+
+<script>
+// GLOBAL STATE
+let mode = null;
+let qNum = 0;
+let answers = [];
+
+// HARD-CODED QUESTIONS
+const Q1_7 = [
+  "Is it a living thing?",
+  "Is it man-made?",
+  "Is it larger than a microwave oven?",
+  "Is it commonly found indoors (in a typical home)?",
+  "Does it require electricity (or batteries) to function?",
+  "Is it something you hold in one hand when using it?",
+  "Do you use it on a daily basis?"
+];
+const PERSON_BRANCH = [
+  "Is it a human being?",
+  "Is it a specific, named person?",
+  "Is this person known for entertainment (music, film, sports) or public life?",
+  "Is this person still living or active?",
+  "Has this person received major awards (like Grammys, Oscars, championships)?"
+];
+
+// UTILS
+const $ = id => document.getElementById(id);
+function addEntry(speaker, msg) {
+  const p = document.createElement('p');
+  p.innerHTML = `<strong>${speaker}:</strong> ${msg}`;
+  $('chat-box').appendChild(p);
+  $('chat-box').scrollTop = $('chat-box').scrollHeight;
+}
+function updateCounter() { $('q-number').textContent = qNum; }
+function getHistory() { return Array.from($('chat-box').querySelectorAll('p')).map(p=>p.textContent).join('\n'); }
+
+// START GAME
+function startGame(chosen) {
+  mode = chosen;
+  $('mode-selection').classList.add('hidden');
+  $('question-counter').classList.remove('hidden');
+  $('chat-box').innerHTML = '';
+  qNum = 1; answers = [];
+  updateCounter();
+
+  if (mode === 'bot') {
+    $('bot-buttons').classList.remove('hidden');
+    addEntry('JustinBot','Think of an object or person; I will guess by asking yes/no questions.');
+    setTimeout(nextQuestion, 800);
+  } else {
+    $('user-input-container').classList.remove('hidden');
+    $('win-buttons').classList.remove('hidden');
+    addEntry('JustinBot',"Okay! I'm thinking of something... Ask yes/no questions to guess it!");
+  }
+}
+
+// NEXT QUESTION
+function nextQuestion() {
+  // PERSON BRANCH FOR LIVING/NON-MADE
+  if (qNum === 3 && answers[0]==='Yes' && answers[1]==='No') {
+    askFixed(PERSON_BRANCH[0]); return;
+  }
+  if (qNum >= 4 && qNum < 4 + PERSON_BRANCH.length && answers[0]==='Yes' && answers[1]==='No') {
+    askFixed(PERSON_BRANCH[qNum-3]); return;
+  }
+  // NORMAL FLOW
+  if (qNum <= 7) {
+    askFixed(Q1_7[qNum-1]);
+  } else if (qNum <= 17) {
+    askGeneral();
+  } else if (qNum <= 20) {
+    askSpecific();
+  } else {
+    addEntry('JustinBot','Out of questions! I give up. 😓');
+  }
+}
+
+function askFixed(text) {
+  addEntry(`Q${qNum}`, text);
+}
+
+async function askGeneral() {
+  const prompt = `You are JustinBot playing 20 Questions. Ask ONE broad yes/no question to narrow down the category or function. Do NOT guess.`;
+  const q = await callAI(prompt);
+  addEntry(`Q${qNum}`, sanitize(q));
+}
+
+async function askSpecific() {
+  const prompt = `You are JustinBot playing 20 Questions. Make a SPECIFIC guess. Start with 'Final Guess!'.`;
+  const g = await callAI(prompt);
+  addEntry(`Q${qNum}`, sanitize(g));
+  // Show only bot guess button on final
+  $('win-buttons').classList.remove('hidden');
+  $('btn-user-guess').style.display = 'none';
+  $('btn-bot-guess').style.display = 'inline-block';
+}
+
+async function callAI(prompt) {
+  const res = await fetch('https://justin-bot-ujmo.onrender.com/ask', {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({question:`${getHistory()}\n${prompt}`})
+  });
+  const data = await res.json();
+  return data.answer;
+}
+
+function sanitize(text) {
+  return text.replace(/^Q\d+[\.:]?\s*/i,'').replace(/^JustinBot[:\s-]*/i,'').trim();
+}
+
+// RESPONSES
+function submitAnswer(ans) {
+  answers.push(ans); addEntry('You',ans);
+  qNum++; updateCounter(); nextQuestion();
+}
+
+function submitUserQuestion() {
+  const inp = $('user-input'); const q = inp.value.trim(); if(!q) return; inp.value='';
+  answers.push(q); addEntry('You',q);
+  callAI(q).then(res=>addEntry('JustinBot',res));
+  qNum++; updateCounter();
+}
+
+// WIN LOGIC
+function userGuessedIt(){ addEntry('You','I Guessed It! 🎉'); }
+function botWins(){ addEntry('JustinBot','Haha! I win again! 😎'); }
+
+// Expose
+window.startGame = startGame;
+window.submitAnswer = submitAnswer;
+window.submitUserQuestion = submitUserQuestion;
+window.userGuessedIt = userGuessedIt;
+window.botWins = botWins;
+</script>
+</body>
+</html>
