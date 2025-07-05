@@ -8,20 +8,19 @@
   --text-dark: #1a1a1a;
   --border-dark: #330000;
   --bg-light: #fdf6f3;
-  --bg-dark: #1a1a1a;
 }
 
 body {
   font-family: 'Press Start 2P', monospace;
   background-color: var(--bg-light);
   color: var(--text-dark);
-  margin: 20px;
+  margin: 10px;
   text-align: center;
 }
 
 h1, h2 {
   color: var(--garnet);
-  font-size: 16px;
+  font-size: 1rem;
   margin-bottom: 12px;
 }
 
@@ -29,12 +28,12 @@ h1, h2 {
   background-color: #fff;
   border: 3px solid var(--garnet-dark);
   padding: 12px;
-  height: 360px;
+  height: 300px;
   overflow-y: auto;
   margin: 0 auto 16px auto;
-  width: 90%;
+  width: 95%;
   max-width: 600px;
-  font-size: 10px;
+  font-size: 0.6rem;
   line-height: 1.4;
   color: var(--text-dark);
   text-align: left;
@@ -46,7 +45,7 @@ h1, h2 {
 
 button {
   font-family: 'Press Start 2P', monospace;
-  font-size: 10px;
+  font-size: 0.6rem;
   background-color: var(--garnet);
   color: var(--text-light);
   padding: 8px 12px;
@@ -70,18 +69,7 @@ button:disabled {
 #question-counter {
   text-align: center;
   margin-bottom: 10px;
-  font-size: 10px;
-}
-
-#mode-selection,
-#bot-buttons,
-#win-buttons {
-  text-align: center;
-  margin: 10px 0;
-}
-
-.hidden {
-  display: none;
+  font-size: 0.6rem;
 }
 
 #back-home {
@@ -94,7 +82,7 @@ button:disabled {
 
 #back-home a {
   font-family: 'Press Start 2P', monospace;
-  font-size: 10px;
+  font-size: 0.6rem;
   text-decoration: none;
   background-color: var(--garnet-dark);
   color: var(--text-light);
@@ -116,16 +104,36 @@ button:disabled {
 
 #music-toggle button {
   background-color: transparent;
-  font-size: 24px; /* Enlarged music icon */
+  font-size: 1.2rem;
   border: none;
   color: var(--garnet-dark);
   cursor: pointer;
 }
 
-#mode-selection .nav-link {
+#input-area {
+  margin-top: 10px;
+}
+
+#user-question {
+  width: 30%;             /* narrower than before */
+  height: 40px;           /* taller for better UX */
+  padding: 10px;
+  font-size: 10px;
+  font-family: 'Press Start 2P', monospace;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+
+#give-up-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.nav-link {
   display: inline-block;
   font-family: 'Press Start 2P', monospace;
-  font-size: 10px;
+  font-size: 0.6rem;
   background-color: var(--garnet);
   color: var(--text-light);
   padding: 8px 12px;
@@ -137,25 +145,29 @@ button:disabled {
   cursor: pointer;
 }
 
-#mode-selection .nav-link:hover {
+.nav-link:hover {
   background-color: var(--garnet-dark);
   color: var(--accent);
 }
 
-#user-question {
-  width: 20%;
-  padding: 10px;
-  font-size: 10px;
-  font-family: 'Press Start 2P', monospace;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-}
+/* Responsive Enhancements */
+@media (max-width: 480px) {
+  #chat-box {
+    height: 250px;
+    font-size: 0.55rem;
+  }
 
-#input-area {
-  margin-top: 10px;
-}
+  #user-question {
+    width: 90%;
+    font-size: 0.55rem;
+  }
 
-#give-up-container {
-  text-align: center;
-  margin-top: 40px;
+  button, .nav-link {
+    font-size: 0.55rem;
+    padding: 6px 10px;
+  }
+
+  h1, h2 {
+    font-size: 0.9rem;
+  }
 }
