@@ -4,21 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>20 Questions with JustinBot</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <!-- Back to Home Button -->
-  <div id="back-home" class="always-visible">
-    <a href="../index.html" class="nav-link">← Back to Home</a>
-  </div>
-
   <h1>20 Questions with JustinBot</h1>
 
   <!-- Mode Selection -->
   <div id="mode-selection">
     <h2>Who should guess?</h2>
     <button onclick="startGame('bot')">JustinBot Guesses</button>
-    <button onclick="startGame('user')">You Guess</button>
+    <a href="you-guess.html" class="nav-link">You Guess</a>
   </div>
 
   <!-- Question Counter -->
@@ -26,10 +21,10 @@
     Question <span id="q-number">1</span> / 20
   </div>
 
-  <!-- Chat Box -->
+  <!-- Chat Display -->
   <div id="chat-box"></div>
 
-  <!-- Bot Answer Buttons -->
+  <!-- Bot Mode Buttons -->
   <div id="bot-buttons" class="hidden">
     <button onclick="submitAnswer('yes')">Yes</button>
     <button onclick="submitAnswer('probably')">Probably</button>
@@ -38,217 +33,217 @@
     <button onclick="submitAnswer('unknown')">I don't know</button>
   </div>
 
-  <!-- User Input -->
-  <div id="user-input-container" class="hidden">
-    <input type="text" id="user-input" placeholder="Type your question...">
-    <button onclick="submitUserQuestion()">Send</button>
+  <!-- Win Buttons: Always Visible in Bot Mode -->
+<div id="win-buttons" style="text-align:center; margin-top: 16px; display: none;"></div>
+  <button onclick="botWins()">JustinBot Guessed It!</button>
+</div>
+
+
+  <!-- Back to Home -->
+  <div id="back-home">
+    <a href="index.html" class="nav-link">← Back to Home</a>
   </div>
 
-  <!-- Win Buttons -->
-  <div id="win-buttons" class="hidden">
-    <button id="btn-bot-wins" onclick="botWins()">JustinBot Guessed It!</button>
+  <!-- Music Controls -->
+  <div id="music-toggle">
+    <button onclick="toggleMusic()">🔊</button>
   </div>
 
-  <!-- Sound Effects -->
-  <audio id="blip" src="https://freesound.org/data/previews/64/64614_634166-lq.mp3"></audio>
-  <audio id="click" src="https://freesound.org/data/previews/170/170523_2394245-lq.mp3"></audio>
-  <audio id="success" src="https://freesound.org/data/previews/435/435396_5121236-lq.mp3"></audio>
-  <audio id="bgmusic" src="https://freesound.org/data/previews/391/391539_5121236-lq.mp3" loop autoplay></audio>
+  <!-- Audio Files -->
+  <audio id="bg-music" loop>
+    <source src="audio/gameboy-theme.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="sfx-click" src="audio/click.mp3"></audio>
+  <audio id="sfx-blip" src="audio/blip.mp3"></audio>
+  <audio id="sfx-success" src="audio/success.mp3"></audio>
+  <audio id="sfx-lose" src="audio/lose.mp3"></audio>
 
-<script>
-let qNum = 1;
-let phase = 1;
-let mode = null;
-let history = [];
-let finalGuesses = new Set();
-let askedTraits = new Set();
-let currentNode = null;
-let currentQuestion = "";
+  <script>
+    let qNum = 1;
+    let mode = null;
+    let history = [];
+    let finalGuesses = new Set();
+    let phase = 1;
+    let currentNode = null;
+    let currentQuestion = null;
 
-const traitPool = [
-  "used in an office", "used for entertainment", "used in kitchen", "decorative",
-  "edible", "emits light", "produces sound", "portable", "used for communication",
-  "associated with technology", "used outdoors", "found in homes", "used by children",
-  "used by professionals", "part of clothing", "transport-related", "made of metal",
-  "made of plastic", "has moving parts", "requires power source", "connects to the internet"
-];
+    const $ = id => document.getElementById(id);
+    const music = $("bg-music");
+    const clickSFX = $("sfx-click");
+    const blipSFX = $("sfx-blip");
+    const successSFX = $("sfx-success");
+    const loseSFX = $("sfx-lose");
 
-const phase1Tree = {
-  question: "Is it a living thing?",
-  yes: {
-    question: "Is it a person?",
-    yes: {
-      question: "Are they a celebrity?",
-      yes: { question: "Are they an entertainer (actor, singer, etc.)?" },
-      no: { question: "Are they known for politics or science?" }
-    },
-    no: {
-      question: "Is it a mammal?",
-      yes: { question: "Is it a domesticated animal?" },
-      no: { question: "Is it an insect or bird?" }
-    }
-  },
-  no: {
-    question: "Is it man-made?",
-    yes: {
-      question: "Is it electronic?",
-      yes: {
-        question: "Is it used for communication?",
-        yes: { question: "Is it handheld?" },
-        no: { question: "Is it larger than a microwave?" }
-      },
-      no: {
-        question: "Is it used daily?",
-        yes: { question: "Is it found in a home?" },
-        no: { question: "Is it a tool or instrument?" }
+    const updateCounter = () => {
+      $("q-number").textContent = qNum;
+      $("question-counter").classList.remove("hidden");
+    };
+
+    const play = sfx => { sfx?.pause(); sfx.currentTime = 0; sfx?.play(); };
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        $("music-toggle").querySelector("button").textContent = "🔊";
+      } else {
+        music.pause();
+        $("music-toggle").querySelector("button").textContent = "🔇";
       }
-    },
-    no: {
-      question: "Is it found in nature?",
-      yes: { question: "Is it a mineral or geological object?" },
-      no: { question: "Is it fictional?" }
     }
-  }
-};
 
-const $ = id => document.getElementById(id);
-const updateCounter = () => $('q-number').textContent = qNum;
-const addEntry = (who, msg) => {
-  const p = document.createElement('p');
-  p.classList.add('fade-in');
-  p.innerHTML = `<strong>${who}:</strong> ${msg}`;
-  $('chat-box').appendChild(p);
-  $('chat-box').scrollTop = $('chat-box').scrollHeight;
-};
-
-function startGame(chosen) {
+    function startGame(chosen) {
   mode = chosen;
-  $('mode-selection').classList.add('hidden');
-  $('question-counter').classList.remove('hidden');
-  $('chat-box').innerHTML = '';
-  $('win-buttons').classList.remove('hidden');
-  $('q-number').textContent = '1';
-  $('bot-buttons').classList.toggle('hidden', mode !== 'bot');
-  $('user-input-container').classList.toggle('hidden', mode !== 'user');
-  $('btn-bot-wins').style.display = mode === 'bot' ? 'inline-block' : 'none';
+  $("mode-selection").classList.add("hidden");
+  $("chat-box").innerHTML = '';
+  $("bot-buttons").classList.remove("hidden");
+  $("question-counter").classList.remove("hidden");
+  $("back-home").style.display = 'block';
+  $("win-buttons").style.display = 'none'; // reset
 
   qNum = 1;
   history = [];
-  phase = 1;
-  askedTraits.clear();
   finalGuesses.clear();
   updateCounter();
+  play(clickSFX);
+  music.play();
 
   if (mode === 'bot') {
+    $("win-buttons").style.display = 'block'; // ✅ show permanently during bot mode
     currentNode = phase1Tree;
     currentQuestion = currentNode.question;
     addEntry("JustinBot", "I'm ready! Think of something... and answer my questions with honesty. 😎");
     askCurrent();
   } else {
+    $("win-buttons").style.display = 'none'; // hide if user guesses
     addEntry("JustinBot", "I'm thinking of something! Ask yes/no questions to guess it.");
   }
 }
 
-function submitAnswer(ans) {
-  playSound('click');
-  addEntry("You", ans);
-  history.push({ q: currentQuestion, a: ans });
-  qNum++; updateCounter();
 
-  if (qNum <= 10) {
-    handlePhase1(ans);
-  } else if (qNum <= 16) {
-    handlePhase2();
-  } else {
-    handleFinalGuess();
-  }
-}
+    function addEntry(who, text) {
+      const p = document.createElement('p');
+      p.innerHTML = `<strong>${who}:</strong> ${text}`;
+      $("chat-box").appendChild(p);
+      $("chat-box").scrollTop = $("chat-box").scrollHeight;
+    }
 
-function handlePhase1(answer) {
-  const branch = mapAnswer(answer);
-  currentNode = currentNode?.[branch];
-  if (currentNode && currentNode.question) {
-    currentQuestion = currentNode.question;
-    askCurrent();
-  } else {
-    handlePhase2();
-  }
-}
+    function askCurrent() {
+      addEntry("Q" + qNum, currentQuestion);
+      play(blipSFX);
+    }
 
-function handlePhase2() {
-  const remaining = traitPool.filter(t => !askedTraits.has(t));
-  if (remaining.length === 0) return handleFinalGuess();
-  const trait = remaining[Math.floor(Math.random() * remaining.length)];
-  askedTraits.add(trait);
-  currentQuestion = `Is it ${trait}?`;
-  askCurrent();
-}
+    function submitAnswer(ans) {
+      addEntry("You", ans);
+      history.push({ q: currentQuestion, a: ans });
+      qNum++;
+      updateCounter();
 
-function handleFinalGuess() {
-  const past = history.map(h => `Q: ${h.q}\nA: ${h.a}`).join('\n');
-  const guesses = [...finalGuesses].map(g => `Already guessed: ${g}`).join('\n');
-  const prompt = `You're JustinBot playing 20 Questions. Here's the conversation so far:\n${past}\n${guesses}\nNow ask a very specific guess (object or person).`;
-
-  fetch("https://justin-bot-ujmo.onrender.com/ask", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ question: prompt })
-  })
-    .then(res => res.json())
-    .then(data => {
-      const guess = data.answer.trim();
-      if (!finalGuesses.has(guess)) {
-        finalGuesses.add(guess);
-        addEntry("JustinBot", `Final guess: ${guess}`);
+      if (qNum <= 6) {
+        handlePhase1(ans);
+      } else if (qNum <= 16) {
+        askLLMQuestion();
+      } else if (qNum <= 20) {
+        askFinalGuess();
       }
-    });
 
-  if (qNum >= 20) {
-    setTimeout(() => {
-      addEntry("JustinBot", "You beat me this time... 👾 Thanks for playing!");
-    }, 1000);
-  }
-}
+      if (qNum > 20) {
+        addEntry("JustinBot", "You beat me this time... 👾 Thanks for playing!");
+        play(loseSFX);
+      }
+    }
 
-function askCurrent() {
-  playSound('blip');
-  addEntry("Q" + qNum, currentQuestion);
-}
+    function handlePhase1(ans) {
+      const branch = mapAnswer(ans);
+      currentNode = currentNode?.[branch];
+      if (currentNode?.question) {
+        currentQuestion = currentNode.question;
+        askCurrent();
+      } else {
+        askLLMQuestion();
+      }
+    }
 
-function submitUserQuestion() {
-  const input = $('user-input');
-  const question = input.value.trim();
-  if (!question) return;
-  input.value = '';
-  addEntry("You", question);
-  fetch("https://justin-bot-ujmo.onrender.com/ask", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ question })
-  })
-    .then(res => res.json())
-    .then(data => addEntry("JustinBot", data.answer));
-  qNum++; updateCounter();
-}
+    function askLLMQuestion() {
+      const context = buildContext();
+      const prompt = `You are JustinBot playing 20 Questions.
+Based on the following Q&A history, ask ONE useful yes/no question to narrow it down further:
+${context}
+Only ask a clear narrowing question. Do NOT guess yet.`;
 
-function botWins() {
-  playSound('success');
-  addEntry("JustinBot", "Haha! I win again! 😎");
-}
+      fetch("https://justin-bot-ujmo.onrender.com/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: prompt })
+      })
+        .then(res => res.json())
+        .then(data => {
+          currentQuestion = sanitize(data.answer);
+          askCurrent();
+        });
+    }
 
-function mapAnswer(ans) {
-  if (ans === "yes" || ans === "probably") return "yes";
-  if (ans === "no" || ans === "probably not") return "no";
-  return Math.random() > 0.5 ? "yes" : "no";
-}
+    function askFinalGuess() {
+      const context = buildContext();
+      const prior = [...finalGuesses].map(g => `• ${g}`).join("\n");
+      const prompt = `You're JustinBot playing 20 Questions.
+Based on the Q&A below, make a NEW specific guess the user might be thinking of.
+Avoid any of these already guessed: ${prior}
+Say: "Final guess: [your guess here]"
+Q&A History:
+${context}`;
 
-function playSound(id) {
-  const audio = document.getElementById(id);
-  if (audio) {
-    audio.currentTime = 0;
-    audio.play();
-  }
-}
-</script>
+      fetch("https://justin-bot-ujmo.onrender.com/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: prompt })
+      })
+        .then(res => res.json())
+        .then(data => {
+          const guess = sanitize(data.answer);
+          if (!finalGuesses.has(guess)) {
+            finalGuesses.add(guess);
+            currentQuestion = `Final guess: ${guess}`;
+            askCurrent();
+            $("win-buttons").classList.remove("hidden");
+          } else {
+            askFinalGuess(); // try again
+          }
+        });
+    }
+
+    function botWins() {
+      addEntry("JustinBot", "Haha! I win again! 😎");
+      play(successSFX);
+    }
+
+    function buildContext() {
+      return history.map(h => `Q: ${h.q}\nA: ${h.a}`).join("\n");
+    }
+
+    function mapAnswer(ans) {
+      if (ans === "yes" || ans === "probably") return "yes";
+      if (ans === "no" || ans === "probably not") return "no";
+      return Math.random() > 0.5 ? "yes" : "no";
+    }
+
+    function sanitize(text) {
+      return text.replace(/^Q\d+[\.:]?\s*/i, '').replace(/^JustinBot[:\s-]*/i, '').trim();
+    }
+
+    // Phase 1 Tree
+    const phase1Tree = {
+      question: "Is it a living thing?",
+      yes: {
+        question: "Is it a person?",
+        yes: { question: "Are they real?" },
+        no: { question: "Is it a mammal?" }
+      },
+      no: {
+        question: "Is it man-made?",
+        yes: { question: "Is it electronic?" },
+        no: { question: "Is it found in nature?" }
+      }
+    };
+  </script>
 </body>
 </html>

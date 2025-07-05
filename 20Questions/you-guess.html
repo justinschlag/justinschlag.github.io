@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>You Guess - 20 Questions</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1>20 Questions – You Guess</h1>
+
+  <div id="instructions">
+    <p><strong>Think of a yes/no question to ask JustinBot!</strong></p>
+    <p>Try to guess the secret word in 20 questions.</p>
+  </div>
+
+  <div id="question-counter">
+    Question <span id="q-number">1</span> / 20
+  </div>
+
+  <div id="chat-box"></div>
+
+  <div id="input-area">
+    <input type="text" id="user-question" placeholder="Ask a yes/no question..." />
+    <button onclick="submitQuestion()">Ask</button>
+  </div>
+
+  <div id="give-up-container">
+    <button onclick="giveUp()">Give Up</button>
+  </div>
+
+  <div id="back-home">
+    <a href="index.html" class="nav-link">← Back to Home</a>
+  </div>
+
+  <div id="music-toggle">
+    <button onclick="toggleMusic()">🔊</button>
+  </div>
+
+  <!-- Sounds -->
+  <audio id="bg-music" loop>
+    <source src="audio/gameboy-theme.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="sfx-blip" src="audio/blip.mp3"></audio>
+  <audio id="sfx-win" src="audio/success.mp3"></audio>
+  <audio id="sfx-lose" src="audio/lose.mp3"></audio>
+
+  <script>
+    const secretWords = [
+      "Justin", "giraffe", "penguin", "computer", "bookbag", "baseball", "lebron James",
+      "Taylor Swift", "cow", "clock", "candle", "vacuum", "dog", "cat", "tree",
+      "banana", "George Washington", "sadness", "happiness", "school", "sun",
+      "cloud", "fire", "camera"
+    ];
+    const secretWord = secretWords[Math.floor(Math.random() * secretWords.length)].toLowerCase();
+
+    let qNum = 1;
+    let musicStarted = false;
+    const history = [];
+
+    const $ = id => document.getElementById(id);
+    const input = $("user-question");
+    const blip = $("sfx-blip");
+    const winSFX = $("sfx-win");
+    const loseSFX = $("sfx-lose");
+    const music = $("bg-music");
+
+    document.body.addEventListener('click', () => {
+      if (!musicStarted) {
+        music.play();
+        musicStarted = true;
+      }
+    });
+
+    input.addEventListener("keydown", e => {
+      if (e.key === "Enter") submitQuestion();
+    });
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        $("music-toggle").querySelector("button").textContent = "🔊";
+      } else {
+        music.pause();
+        $("music-toggle").querySelector("button").textContent = "🔇";
+      }
+    }
+
+    function play(sfx) {
+      sfx?.pause();
+      sfx.currentTime = 0;
+      sfx?.play();
+    }
+
+    function updateCounter() {
+      $("q-number").textContent = qNum;
+    }
+
+    function sanitize(text) {
+      return text.replace(/^Q\d+[:.\-]?\s*/i, '').replace(/^JustinBot[:\s-]*/i, '').trim();
+    }
+
+    function addEntry(who, text) {
+      const p = document.createElement('p');
+      p.innerHTML = `<strong>${who}:</strong> ${text}`;
+      $("chat-box").appendChild(p);
+      $("chat-box").scrollTop = $("chat-box").scrollHeight;
+    }
+
+    function submitQuestion() {
+      const question = input.value.trim();
+      if (!question) return;
+
+      input.value = '';
+      input.focus();
+      addEntry("You", question);
+      play(blip);
+
+      if (question.toLowerCase().includes(secretWord)) {
+        addEntry("JustinBot", `🎉 You guessed it! The word was: ${secretWord}`);
+        play(winSFX);
+        return;
+      }
+
+      if (qNum >= 20) {
+        addEntry("JustinBot", `❌ 20 questions are up! You lose. The secret word was: ${secretWord}`);
+        play(loseSFX);
+        return;
+      }
+
+      const prompt = `You are JustinBot playing 20 Questions. The secret word is "${secretWord}". Respond to the user's question ONLY with "Yes", "No", "Probably", or "I don't know", unless they guessed the correct word.\nQuestion: ${question}`;
+
+      fetch("https://justin-bot-ujmo.onrender.com/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: prompt })
+      })
+        .then(res => res.json())
+        .then(data => {
+          const answer = sanitize(data.answer);
+          addEntry("JustinBot", answer);
+        });
+
+      history.push(question);
+      qNum++;
+      updateCounter();
+    }
+
+    function giveUp() {
+      addEntry("JustinBot", `❌ You gave up! The secret word was: ${secretWord}`);
+      play(loseSFX);
+    }
+  </script>
+</body>
+</html>

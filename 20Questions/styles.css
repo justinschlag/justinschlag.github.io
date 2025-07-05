@@ -16,11 +16,13 @@ body {
   background-color: var(--bg-light);
   color: var(--text-dark);
   margin: 20px;
+  text-align: center;
 }
 
 h1, h2 {
   color: var(--garnet);
-  text-align: center;
+  font-size: 16px;
+  margin-bottom: 12px;
 }
 
 #chat-box {
@@ -29,9 +31,13 @@ h1, h2 {
   padding: 12px;
   height: 360px;
   overflow-y: auto;
-  margin-bottom: 16px;
+  margin: 0 auto 16px auto;
+  width: 90%;
+  max-width: 600px;
   font-size: 10px;
   line-height: 1.4;
+  color: var(--text-dark);
+  text-align: left;
 }
 
 #chat-box p {
@@ -57,6 +63,7 @@ button:hover {
 
 button:disabled {
   background-color: #ccc;
+  color: #888;
   cursor: not-allowed;
 }
 
@@ -66,28 +73,26 @@ button:disabled {
   font-size: 10px;
 }
 
-#mode-selection {
+#mode-selection,
+#bot-buttons,
+#win-buttons {
   text-align: center;
-  margin-bottom: 20px;
-}
-
-#bot-buttons, #win-buttons {
-  text-align: center;
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
 .hidden {
   display: none;
 }
 
-.always-visible {
+#back-home {
   position: fixed;
-  top: 10px;
-  left: 10px;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
 }
 
-.nav-link {
+#back-home a {
   font-family: 'Press Start 2P', monospace;
   font-size: 10px;
   text-decoration: none;
@@ -95,10 +100,62 @@ button:disabled {
   color: var(--text-light);
   padding: 6px 12px;
   border: 2px solid var(--border-dark);
-  display: inline-block;
 }
 
-.nav-link:hover {
+#back-home a:hover {
   background-color: var(--accent);
   color: var(--text-dark);
+}
+
+#music-toggle {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 1000;
+}
+
+#music-toggle button {
+  background-color: transparent;
+  font-size: 24px; /* Enlarged music icon */
+  border: none;
+  color: var(--garnet-dark);
+  cursor: pointer;
+}
+
+#mode-selection .nav-link {
+  display: inline-block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  background-color: var(--garnet);
+  color: var(--text-light);
+  padding: 8px 12px;
+  margin: 4px;
+  border: 2px solid var(--border-dark);
+  text-decoration: none;
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+#mode-selection .nav-link:hover {
+  background-color: var(--garnet-dark);
+  color: var(--accent);
+}
+
+#user-question {
+  width: 20%;
+  padding: 10px;
+  font-size: 10px;
+  font-family: 'Press Start 2P', monospace;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+#input-area {
+  margin-top: 10px;
+}
+
+#give-up-container {
+  text-align: center;
+  margin-top: 40px;
 }
