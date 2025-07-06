@@ -25,7 +25,10 @@
     <button onclick="submitAnswer('no')">No</button>
     <button onclick="submitAnswer('unknown')">I don't know</button>
   </div>
-
+ <!-- Instruction for the user -->
+  <p id="guess-instruction" style="text-align:center; margin-top:16px;">
+    If JustinBot correctly guesses your word, simply press the <strong>JustinBot Guessed It!</strong> button.
+  </p>
   <!-- Result Buttons -->
   <div id="win-buttons" style="text-align:center; margin-top:16px;">
     <button onclick="botWins()">JustinBot Guessed It!</button>
@@ -50,262 +53,363 @@
   const successSFX = $("sfx-success");
   const loseSFX    = $("sfx-lose");
 
-  // Perfected Mega 20-Questions decision tree
+  // ─── Super-sized, binary-only decision tree ─────────────────────────
   const phase1Tree = {
-    question: "Is it a living thing?",
+  question: "Is it a living thing?",
+  yes: {
+    question: "Is it a human?",
     yes: {
-      question: "Is it a human?",
+      question: "Are they alive today?",
       yes: {
-        question: "Are they a real person?",
+        question: "Are they world-famous?",
         yes: {
-          question: "Is the person currently alive?",
-          yes: {
-            question: "Are they a public figure?",
-            yes: {
-              question: "Are they known globally?",
+          question: "Known for science or innovation?",
+          yes: { guess: "Elon Musk" },
+          no: {
+            question: "Known for politics or government?",
+            yes: { guess: "Barack Obama" },
+            no: {
+              question: "Known for entertainment?",
               yes: {
-                question: "Are they known for science or innovation?",
-                yes: { guess: "Elon Musk" },
+                question: "Known for music?",
+                yes: { guess: "Taylor Swift" },
                 no: {
-                  question: "Are they known for politics or government?",
-                  yes: { guess: "Barack Obama" },
+                  question: "Known for film?",
+                  yes: { guess: "Leonardo DiCaprio" },
                   no: {
-                    question: "Are they known for entertainment?",
-                    yes: {
-                      question: "Is it for music?",
-                      yes: { guess: "Taylor Swift" },
+                    question: "Known for TV?",
+                    yes: { guess: "Jennifer Aniston" },
+                    no: {
+                      question: "Known for sports?",
+                      yes: { guess: "Serena Williams" },
                       no: {
-                        question: "Is it for film or TV?",
-                        yes: { guess: "Leonardo DiCaprio" },
+                        question: "Known for literature or art?",
+                        yes: {
+                          question: "Literature?",
+                          yes: { guess: "J.K. Rowling" },
+                          no: { guess: "Banksy" }
+                        },
                         no: {
-                          question: "Is it for sports?",
-                          yes: { guess: "Serena Williams" },
+                          question: "Known for business?",
+                          yes: { guess: "Warren Buffett" },
                           no: {
-                            question: "Is it for literature or art?",
-                            yes: {
-                              question: "Literature?",
-                              yes: { guess: "J.K. Rowling" },
-                              no: { guess: "Banksy" }
-                            },
+                            question: "Known for activism?",
+                            yes: { guess: "Malala Yousafzai" },
                             no: {
-                              question: "Is it for business or activism?",
-                              yes: { guess: "Warren Buffett" },
-                              no:  { guess: "Malala Yousafzai" }
+                              question: "Known regionally?",
+                              yes: { guess: "Chimamanda Ngozi Adichie" },
+                              no: { guess: "A private individual" }
                             }
                           }
                         }
                       }
-                    },
-                    no: {
-                      question: "Are they known regionally?",
-                      yes: { guess: "Chimamanda Ngozi Adichie" },
-                      no:  { guess: "Private individual" }
                     }
                   }
                 }
               },
               no: {
-                question: "Are they known nationally?",
-                yes: { guess: "Chimamanda Ngozi Adichie" },
-                no:  { guess: "Local person" }
+                question: "An activist or influencer?",
+                yes: { guess: "Greta Thunberg" },
+                no: {
+                  question: "A chef or designer?",
+                  yes: { guess: "Gordon Ramsay" },
+                  no: { guess: "Oprah Winfrey" }
+                }
               }
-            },
-            no: {
-              question: "Is this someone you know personally?",
-              yes: { guess: "A friend or family member" },
-              no:  { guess: "An unknown private person" }
             }
-          },
-          no: {
-            question: "Did they contribute significantly to history?",
-            yes: {
-              question: "Were they active before 1900?",
-              yes: { guess: "Albert Einstein" },
-              no:  { guess: "Steve Jobs" }
-            },
-            no: { guess: "Minor historical figure" }
           }
         },
         no: {
-          question: "Is it a fictional character?",
+          question: "A fictional human?",
           yes: {
-            question: "Origin medium?",
-            book: { guess: "Harry Potter" },
-            film: { guess: "James Bond" },
-            tv:   { guess: "Sherlock Holmes" },
-            game: { guess: "Mario" },
-            comic:{ guess: "Spider-Man" },
-            myth: { guess: "Zeus" }
+            question: "From a book?",
+            yes: { guess: "Harry Potter" },
+            no: {
+              question: "From a film?",
+              yes: { guess: "James Bond" },
+              no: {
+                question: "From a TV show?",
+                yes: { guess: "Sherlock Holmes" },
+                no: {
+                  question: "From a video game?",
+                  yes: { guess: "Mario" },
+                  no: {
+                    question: "From a comic?",
+                    yes: { guess: "Spider-Man" },
+                    no: { guess: "Zeus" }
+                  }
+                }
+              }
+            }
           },
-          no: { guess: "Mythical person" }
+          no: {
+            question: "A historical figure?",
+            yes: {
+              question: "Active before 1900?",
+              yes: { guess: "Albert Einstein" },
+              no: { guess: "Steve Jobs" }
+            },
+            no: { guess: "Queen Elizabeth II" }
+          }
         }
       },
       no: {
-        question: "Is it another kind of animal?",
+        question: "Famous but deceased?",
         yes: {
-          question: "Is it a mammal?",
+          question: "An artist?",
+          yes: { guess: "Leonardo da Vinci" },
+          no: { guess: "Marilyn Monroe" }
+        },
+        no: { guess: "A friend or family member" }
+      }
+    },
+    no: {
+      question: "A non-human animal?",
+      yes: {
+        question: "A mammal?",
+        yes: {
+          question: "Domesticated?",
           yes: {
-            question: "Is it domesticated?",
+            question: "A common pet?",
             yes: {
-              question: "Is it a common pet?",
-              yes: {
-                question: "Does it meow?",
-                yes: { guess: "Cat" },
-                no:  {
-                  question: "Does it bark?",
-                  yes: { guess: "Dog" },
-                  no:  { guess: "Parakeet" }
-                }
-              },
+              question: "Does it meow?",
+              yes: { guess: "Cat" },
               no: {
-                question: "Is it a farm animal?",
-                yes: { guess: "Cow" },
-                no:  { guess: "Goat" }
+                question: "Does it bark?",
+                yes: { guess: "Dog" },
+                no: { guess: "Rabbit" }
               }
             },
             no: {
-              question: "Is it wild?",
-              yes: {
-                question: "Is its habitat aquatic?",
-                yes: { guess: "Dolphin" },
-                no:  {
-                  question: "Is its habitat forest?",
-                  yes: { guess: "Tiger" },
-                  no:  { guess: "Elephant" }
-                }
-              },
-              no: { guess: "Camel" }
-            }
-          },
-          no: {
-            question: "Is it a bird?",
-            yes: {
-              question: "Can it fly?",
-              yes: { guess: "Eagle" },
-              no:  { guess: "Penguin" }
-            },
-            no: {
-              question: "Is it a reptile?",
-              yes: {
-                question: "Slithers?",
-                yes: { guess: "Snake" },
-                no:  { guess: "Lizard" }
-              },
+              question: "A farm animal?",
+              yes: { guess: "Cow" },
               no: {
-                question: "Is it an amphibian?",
-                yes: { guess: "Frog" },
-                no:  { guess: "Butterfly" }
+                question: "A wild animal?",
+                yes: {
+                  question: "Aquatic?",
+                  yes: { guess: "Dolphin" },
+                  no: {
+                    question: "A big cat?",
+                    yes: { guess: "Lion" },
+                    no: { guess: "Elephant" }
+                  }
+                },
+                no: { guess: "Horse" }
               }
             }
           }
         },
         no: {
-          question: "Is it a plant?",
+          question: "A bird?",
           yes: {
-            question: "Type of plant?",
-            flower: { guess: "Rose" },
-            tree:   { guess: "Oak Tree" },
-            grass:  { guess: "Bamboo" },
-            fungus: { guess: "Mushroom" },
-            shrub:  { guess: "Holly" }
+            question: "Can it fly?",
+            yes: { guess: "Eagle" },
+            no: { guess: "Penguin" }
           },
-          no:    { guess: "Algae or moss" }
+          no: {
+            question: "A reptile?",
+            yes: {
+              question: "Does it slither?",
+              yes: { guess: "Snake" },
+              no: { guess: "Turtle" }
+            },
+            no: {
+              question: "An amphibian?",
+              yes: { guess: "Frog" },
+              no: { guess: "Butterfly" }
+            }
+          }
+        }
+      },
+      no: {
+        question: "A plant or fungus?",
+        yes: {
+          question: "A flower?",
+          yes: { guess: "Rose" },
+          no: {
+            question: "A tree?",
+            yes: { guess: "Oak Tree" },
+            no: {
+              question: "A mushroom?",
+              yes: { guess: "Mushroom" },
+              no: { guess: "Cactus" }
+            }
+          }
+        },
+        no: {
+          question: "Is it coral?",
+          yes: { guess: "Coral" },
+          no: { guess: "Algae or moss" }
+        }
+      }
+    }
+  },
+  no: {
+    question: "Is it man-made?",
+    yes: {
+      question: "Is it electronic?",
+      yes: {
+        question: "Does it communicate information?",
+        yes: { guess: "Smartphone" },
+        no: {
+          question: "Does it entertain?",
+          yes: {
+            question: "Audio-only?",
+            yes: { guess: "AirPods" },
+            no: { guess: "Television" }
+          },
+          no: {
+            question: "Does it compute data?",
+            yes: {
+              question: "Is it portable?",
+              yes: { guess: "Laptop" },
+              no: { guess: "Desktop computer" }
+            },
+            no: {
+              question: "A game device?",
+              yes: { guess: "Game Controller" },
+              no: {
+                question: "Does it tell time?",
+                yes: { guess: "Watch" },
+                no: { guess: "Camera" }
+              }
+            }
+          }
+        }
+      },
+      no: {
+        question: "Is it mechanical?",
+        yes: {
+          question: "Is it a vehicle?",
+          yes: {
+            question: "Does it operate on land?",
+            yes: { guess: "Car" },
+            no: {
+              question: "Does it operate on water?",
+              yes: { guess: "Boat" },
+              no: { guess: "Airplane" }
+            }
+          },
+          no: {
+            question: "Is it a tool?",
+            yes: {
+              question: "A hand tool?",
+              yes: { guess: "Hammer" },
+              no: { guess: "Drill" }
+            },
+            no: {
+              question: "Is it a fan?",
+              yes: { guess: "Fan" },
+              no: {
+                question: "Is it furniture?",
+                yes: {
+                  question: "Seating?",
+                  yes: { guess: "Sofa" },
+                  no: {
+                    question: "A surface?",
+                    yes: { guess: "Table" },
+                    no: { guess: "Chair" }
+                  }
+                },
+                no: {
+                  question: "Is it a container?",
+                  yes: {
+                    question: "For drinking?",
+                    yes: {
+                      question: "Is it a cup?",
+                      yes: { guess: "Cup" },
+                      no: {
+                        question: "Is it a water bottle?",
+                        yes: { guess: "Water Bottle" },
+                        no: {
+                          question: "Is it for holding food?",
+                          yes: { guess: "Bowl" },
+                          no: {
+                            question: "Is it for carrying items?",
+                            yes: { guess: "Backpack" },
+                            no: { guess: "Suitcase" }
+                          }
+                        }
+                      }
+                    },
+                    no: {
+                      question: "Is it for holding food?",
+                      yes: { guess: "Bowl" },
+                      no: {
+                        question: "Is it for carrying items?",
+                        yes: { guess: "Backpack" },
+                        no: { guess: "Suitcase" }
+                      }
+                    }
+                  },
+                  no: { guess: "Mirror" }
+                }
+              }
+            }
+          }
+        },
+        no: {
+          question: "Is it clothing?",
+          yes: { guess: "Shirt" },
+          no: {
+            question: "Is it makeup?",
+            yes: { guess: "Makeup" },
+            no: { guess: "Carpet" }
+          }
         }
       }
     },
     no: {
-      question: "Is it man-made?",
+      question: "Is it a natural non-living thing?",
       yes: {
-        question: "Is it electronic?",
-        yes: {
-          question: "Does it communicate or entertain?",
-          yes: {
-            question: "Communication or entertainment?",
-            communication: { guess: "Phone" },
-            entertainment: { guess: "TV" }
-          },
-          no: {
-            question: "Does it tell time?",
-            yes: { guess: "Clock" },
-            no:  { guess: "Laptop" }
-          }
-        },
+        question: "Is it a mineral?",
+        yes: { guess: "Gold" },
         no: {
-          question: "Is it mechanical?",
-          yes: {
-            question: "Is it a vehicle?",
-            yes: {
-              question: "Land, air, or water?",
-              land: { guess: "Car" },
-              air:  { guess: "Airplane" },
-              water:{ guess: "Boat" }
-            },
-            no: {
-              question: "Is it a tool or instrument?",
-              yes: {
-                question: "Hand tool or power tool?",
-                hand:  { guess: "Hammer" },
-                power: { guess: "Drill" }
-              },
-              no: {
-                question: "Is it furniture, decor, or container?",
-                yes: {
-                  question: "Which category?",
-                  furniture: {
-                    question: "Seating, surface or storage?",
-                    seating: { guess: "Couch" },
-                    surface: { guess: "Table" },
-                    storage: { guess: "Chair" }
-                  },
-                  decor: {
-                    question: "Mirror, candle or carpet?",
-                    mirror: { guess: "Mirror" },
-                    candle:{ guess: "Candle" },
-                    carpet:{ guess: "Carpet" }
-                  },
-                  container: {
-                    question: "Cup, bowl or trash can?",
-                    cup:       { guess: "Cup" },
-                    bowl:      { guess: "Bowl" },
-                    trash_can: { guess: "Trash Can" }
-                  }
-                },
-                no: { guess: "Fan" }
-              }
-            }
-          },
+          question: "Is it an element?",
+          yes: { guess: "Oxygen" },
           no: {
-            question: "Is it clothing or makeup?",
-            yes: {
-              question: "Clothing or makeup?",
-              clothing: { guess: "Shirt" },
-              makeup:   { guess: "Makeup" }
-            },
-            no: { guess: "Unknown object" }
+            question: "Is it a phenomenon?",
+            yes: { guess: "Lightning" },
+            no: {
+              question: "Is it a geographic feature?",
+              yes: {
+                question: "Is it a landform?",
+                yes: { guess: "Mountain" },
+                no: { guess: "River" }
+              },
+              no: { guess: "The Sun" }
+            }
           }
         }
       },
       no: {
-        question: "Is it a natural non-living thing?",
+        question: "Is it an abstract concept?",
         yes: {
-          question: "Mineral, element or phenomenon?",
-          mineral:    { guess: "Gold" },
-          element:    { guess: "Oxygen" },
-          phenomenon: { guess: "Lightning" }
+          question: "Is it an emotion?",
+          yes: { guess: "Love" },
+          no: {
+            question: "Is it time-related?",
+            yes: { guess: "Time" },
+            no: {
+              question: "Is it a principle?",
+              yes: { guess: "Justice" },
+              no: {
+                question: "Is it a mythical object?",
+                yes: {
+                  question: "From pop culture?",
+                  yes: { guess: "Lightsaber" },
+                  no: { guess: "Excalibur" }
+                },
+                no: { guess: "Gravity" }
+              }
+            }
+          }
         },
-        no: {
-          question: "Is it an abstract concept?",
-          yes: {
-            question: "Emotion, time or idea?",
-            emotion: { guess: "Love" },
-            time:    { guess: "Time" },
-            idea:    { guess: "Justice" }
-          },
-          no: { guess: "Air" }
-        }
+        no: { guess: "Air" }
       }
     }
-  };
+    }
+  }
 
   // ─── STATE & CONFIG ─────────────────────────────────────────────────
   const GENERAL_END  = 17;
@@ -394,8 +498,8 @@
     let g = res.answer.trim();
     if(askedSet.has(g)) return askLLMGuess(final);
     askedSet.add(g);
-    currentNode = null;
-    currentQ    = g;
+    currentNode  = null;
+    currentQ     = g;
     pendingGuess = !final;
     addEntry("Q"+qNum, g);
     play(blipSFX);
@@ -445,7 +549,6 @@
       const next   = currentNode[branch] || null;
 
       if (next && next.guess) {
-        // static guess → show and clear so it won’t repeat
         qNum++; updateCounter();
         currentQ     = `Is it ${next.guess}?`;
         pendingGuess = true;
@@ -456,7 +559,6 @@
         return;
       }
       if (next && next.question) {
-        // static deeper
         currentNode = next;
         qNum++; updateCounter();
         currentQ = next.question;
@@ -465,35 +567,33 @@
         play(blipSFX);
         return;
       }
-      // fell off that branch → go LLM
-      currentNode = null;
+
+      // ── FALL-OFF: FIRST DYNAMIC GUESS ───────────────────────────────
+      currentNode   = null;
+      pendingGuess  = true;
+      qNum++; updateCounter();
+      return askLLMGuess(false);
+    }
+
+    // ── DYNAMIC FALLBACK (questions → 2 guesses → final) ─────────────
+    if (qNum < GENERAL_END) {
       qNum++; updateCounter();
       return askLLMQuestion();
     }
-
-   // ── DYNAMIC FALLBACK (exactly 2 guesses then final) ─────────────────
-   // 1) Narrowing questions until GENERAL_END (e.g. 17)
-   if (qNum < GENERAL_END) {
-     qNum++; updateCounter();
-     return askLLMQuestion();
-   }
-   // 2) First dynamic guess at Q18
-   if (qNum === GENERAL_END) {
-     qNum++; updateCounter();
-     return askLLMGuess(false);
-   }
-   // 3) Second dynamic guess at Q19
-   if (qNum === GENERAL_END + 1) {
-     qNum++; updateCounter();
-     return askLLMGuess(false);
-   }
-   // 4) Final guess at Q20
-   if (qNum === GENERAL_END + 2) {
-     qNum++; updateCounter();
-     $("bot-buttons").classList.add("hidden");
-     $("wrong-btn").classList.remove("hidden");
-     return askLLMGuess(true);
-   }
+    if (qNum === GENERAL_END) {
+      qNum++; updateCounter();
+      return askLLMGuess(false);
+    }
+    if (qNum === GENERAL_END + 1) {
+      qNum++; updateCounter();
+      return askLLMGuess(false);
+    }
+    if (qNum === GENERAL_END + 2) {
+      qNum++; updateCounter();
+      $("bot-buttons").classList.add("hidden");
+      $("wrong-btn").classList.remove("hidden");
+      return askLLMGuess(true);
+    }
   }
 </script>
 </body>

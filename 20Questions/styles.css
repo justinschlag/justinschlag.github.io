@@ -174,3 +174,9 @@ button:disabled {
 .hidden {
   display: none;
 }
+#guess-instruction {
+  font-size: 0.72em;       /* makes the text 80% of normal size */
+  color: #000000;            /* optional: soften the color */
+  margin-top: 1rem;       /* adjust spacing if needed */
+  line-height: 1.2;       /* tighten up the line spacing */
+}
