@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>20 Questions with JustinBot</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
   <h1>20 Questions with JustinBot</h1>
@@ -32,23 +32,16 @@
     <button id="wrong-btn" class="hidden" onclick="botLoses()">No, wrong</button>
   </div>
 
-  <!-- Back to Home -->
-  <div id="back-home">
-    <a href="index.html" class="nav-link">← Back to Home</a>
-  </div>
-
-  <!-- Music Toggle -->
+  <!-- Music Toggle & Audio -->
   <div id="music-toggle" style="position:fixed; bottom:16px; right:16px;">
     <button onclick="toggleMusic()">🔊</button>
   </div>
-
-  <!-- Audio Elements -->
   <audio id="bg-music" loop>
-    <source src="audio/gameboy-theme.mp3" type="audio/mpeg" />
+    <source src="audio/gameboy-theme.mp3" type="audio/mpeg"/>
   </audio>
-  <audio id="sfx-blip" src="audio/blip.mp3"></audio>
+  <audio id="sfx-blip"    src="audio/blip.mp3"></audio>
   <audio id="sfx-success" src="audio/success.mp3"></audio>
-  <audio id="sfx-lose" src="audio/lose.mp3"></audio>
+  <audio id="sfx-lose"    src="audio/lose.mp3"></audio>
 
 <script>
   const $ = id => document.getElementById(id);
@@ -57,19 +50,13 @@
   const successSFX = $("sfx-success");
   const loseSFX    = $("sfx-lose");
 
-  // ─── CONFIG ───────────────────────────────────────────────────────────────
-  const STATIC_DEPTH = 9;    // Q1–Q9
-  const GENERAL_END  = 17;   // Q10–Q17 general yes/no
-  const SPECIFIC_END = 19;   // Q18–Q19 specific guesses
-  const FINAL_Q      = 20;   // Q20 final guess
-
-  // ─── STATIC TREE Q1–Q9 ───────────────────────────────────────────────────
+  // Perfected Mega 20-Questions decision tree
   const phase1Tree = {
     question: "Is it a living thing?",
     yes: {
       question: "Is it a human?",
       yes: {
-        question: "Are they real?",
+        question: "Are they a real person?",
         yes: {
           question: "Is the person currently alive?",
           yes: {
@@ -78,376 +65,358 @@
               question: "Are they known globally?",
               yes: {
                 question: "Are they known for science or innovation?",
-                yes:   { guess: "Elon Musk" },
-                no:    {
+                yes: { guess: "Elon Musk" },
+                no: {
                   question: "Are they known for politics or government?",
-                  yes:   { guess: "Barack Obama" },
-                  no:    {
-                    question: "Are they known for music or pop culture?",
-                    yes:   { guess: "Taylor Swift" },
-                    no:    {
-                      question: "Are they known for sports?",
-                      yes:   { guess: "Michael Jordan" },
-                      no:    {
-                        question: "Are they known in America during the mid-1900s?",
-                        yes:   { guess: "Marilyn Monroe" },
-                        no:    null
-                      }
-                    }
-                  }
-                }
-              },
-              no: null
-            },
-            no: null
-          },
-          no: {
-            question: "Did they contribute to science or history in the 20th century?",
-            yes:   { guess: "Albert Einstein" },
-            no:    null
-          }
-        },
-        no: {
-          question: "Are they a fictional character?",
-          yes: {
-            question: "Are they from books or film?",
-            yes:   { guess: "Harry Potter" },
-            no:    {
-              question: "Are they from mythology or fantasy?",
-              yes: {
-                question: "Do they wield a weapon or magical object?",
-                yes: {
-                  question: "Is it a lightsaber, wand, or hammer?",
-                  yes: {
-                    question: "Does it come from Star Wars, Harry Potter, or Norse myth?",
-                    yes:   { guess: "Lightsaber" },
-                    no:    { guess: "Magic wand" }
-                  },
+                  yes: { guess: "Barack Obama" },
                   no: {
-                    question: "Is it a symbolic or cursed item?",
-                    yes:   { guess: "The One Ring" },
-                    no:    { guess: "Excalibur" }
-                  }
-                },
-                no:   { guess: "A ghost" }
-              },
-              no:   null
-            }
-          },
-          no:   null
-        }
-      },
-      no: {
-        question: "Is it an animal?",
-        yes: {
-          question: "Is it a domesticated pet or wild animal?",
-          yes: {
-            question: "Is it commonly found in homes?",
-            yes: {
-              question: "Does it meow or bark?",
-              yes: { guess: "Cat" },
-              no:  { guess: "Dog" }
-            },
-            no: {
-              question: "Is it used for farming or riding?",
-              yes: { guess: "Horse" },
-              no:  null
-            }
-          },
-          no: {
-            question: "Is it found in the wild or in zoos?",
-            yes: {
-              question: "Is it large and iconic?",
-              yes: {
-                question: "Is it known for its trunk, tusks, or size?",
-                yes: { guess: "Elephant" },
-                no:  {
-                  question: "Does it live in cold or aquatic environments?",
-                  yes: { guess: "Penguin" },
-                  no:  {
-                    question: "Does it swim and use sonar?",
-                    yes: { guess: "Dolphin" },
-                    no:  {
-                      question: "Is it known for its roar or mane?",
-                      yes: { guess: "Lion" },
-                      no:  null
+                    question: "Are they known for entertainment?",
+                    yes: {
+                      question: "Is it for music?",
+                      yes: { guess: "Taylor Swift" },
+                      no: {
+                        question: "Is it for film or TV?",
+                        yes: { guess: "Leonardo DiCaprio" },
+                        no: {
+                          question: "Is it for sports?",
+                          yes: { guess: "Serena Williams" },
+                          no: {
+                            question: "Is it for literature or art?",
+                            yes: {
+                              question: "Literature?",
+                              yes: { guess: "J.K. Rowling" },
+                              no: { guess: "Banksy" }
+                            },
+                            no: {
+                              question: "Is it for business or activism?",
+                              yes: { guess: "Warren Buffett" },
+                              no:  { guess: "Malala Yousafzai" }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    no: {
+                      question: "Are they known regionally?",
+                      yes: { guess: "Chimamanda Ngozi Adichie" },
+                      no:  { guess: "Private individual" }
                     }
                   }
                 }
               },
               no: {
-                question: "Is it a reptile or bird of prey?",
-                yes: {
-                  question: "Does it slither or fly with sharp eyesight?",
-                  yes: { guess: "Snake" },
-                  no:  { guess: "Eagle" }
-                },
-                no:   { guess: "Kangaroo" }
+                question: "Are they known nationally?",
+                yes: { guess: "Chimamanda Ngozi Adichie" },
+                no:  { guess: "Local person" }
               }
             },
-            no: null
+            no: {
+              question: "Is this someone you know personally?",
+              yes: { guess: "A friend or family member" },
+              no:  { guess: "An unknown private person" }
+            }
+          },
+          no: {
+            question: "Did they contribute significantly to history?",
+            yes: {
+              question: "Were they active before 1900?",
+              yes: { guess: "Albert Einstein" },
+              no:  { guess: "Steve Jobs" }
+            },
+            no: { guess: "Minor historical figure" }
+          }
+        },
+        no: {
+          question: "Is it a fictional character?",
+          yes: {
+            question: "Origin medium?",
+            book: { guess: "Harry Potter" },
+            film: { guess: "James Bond" },
+            tv:   { guess: "Sherlock Holmes" },
+            game: { guess: "Mario" },
+            comic:{ guess: "Spider-Man" },
+            myth: { guess: "Zeus" }
+          },
+          no: { guess: "Mythical person" }
+        }
+      },
+      no: {
+        question: "Is it another kind of animal?",
+        yes: {
+          question: "Is it a mammal?",
+          yes: {
+            question: "Is it domesticated?",
+            yes: {
+              question: "Is it a common pet?",
+              yes: {
+                question: "Does it meow?",
+                yes: { guess: "Cat" },
+                no:  {
+                  question: "Does it bark?",
+                  yes: { guess: "Dog" },
+                  no:  { guess: "Parakeet" }
+                }
+              },
+              no: {
+                question: "Is it a farm animal?",
+                yes: { guess: "Cow" },
+                no:  { guess: "Goat" }
+              }
+            },
+            no: {
+              question: "Is it wild?",
+              yes: {
+                question: "Is its habitat aquatic?",
+                yes: { guess: "Dolphin" },
+                no:  {
+                  question: "Is its habitat forest?",
+                  yes: { guess: "Tiger" },
+                  no:  { guess: "Elephant" }
+                }
+              },
+              no: { guess: "Camel" }
+            }
+          },
+          no: {
+            question: "Is it a bird?",
+            yes: {
+              question: "Can it fly?",
+              yes: { guess: "Eagle" },
+              no:  { guess: "Penguin" }
+            },
+            no: {
+              question: "Is it a reptile?",
+              yes: {
+                question: "Slithers?",
+                yes: { guess: "Snake" },
+                no:  { guess: "Lizard" }
+              },
+              no: {
+                question: "Is it an amphibian?",
+                yes: { guess: "Frog" },
+                no:  { guess: "Butterfly" }
+              }
+            }
           }
         },
         no: {
           question: "Is it a plant?",
-          yes: { guess: "Tree" },
-          no:  null
+          yes: {
+            question: "Type of plant?",
+            flower: { guess: "Rose" },
+            tree:   { guess: "Oak Tree" },
+            grass:  { guess: "Bamboo" },
+            fungus: { guess: "Mushroom" },
+            shrub:  { guess: "Holly" }
+          },
+          no:    { guess: "Algae or moss" }
         }
       }
     },
     no: {
       question: "Is it man-made?",
       yes: {
-        question: "Is it electronic or mechanical?",
+        question: "Is it electronic?",
         yes: {
-          question: "Is it used for communication, entertainment, or chores?",
+          question: "Does it communicate or entertain?",
           yes: {
-            question: "Is it handheld or wearable?",
-            yes: {
-              question: "Is it used to talk, listen, or compute?",
-              yes: { guess: "Smartphone" },
-              no:  {
-                question: "Is it worn in the ears?",
-                yes: { guess: "AirPods" },
-                no:  null
-              }
-            },
-            no: {
-              question: "Is it portable and used for work or play?",
-              yes: { guess: "Laptop" },
-              no:  {
-                question: "Is it part of a gaming setup?",
-                yes: { guess: "Game controller" },
-                no:  { guess: "Television" }
-              }
-            }
+            question: "Communication or entertainment?",
+            communication: { guess: "Phone" },
+            entertainment: { guess: "TV" }
           },
           no: {
-            question: "Is it used in the kitchen or laundry?",
-            yes: {
-              question: "Does it heat, blend, or wash?",
-              yes: {
-                question: "Microwave, blender, or washing machine?",
-                yes: { guess: "Microwave" },
-                no:  { guess: "Washing machine" }
-              },
-              no:  { guess: "Refrigerator" }
-            },
-            no:  null
+            question: "Does it tell time?",
+            yes: { guess: "Clock" },
+            no:  { guess: "Laptop" }
           }
         },
         no: {
-          question: "Is it a hand tool or instrument?",
+          question: "Is it mechanical?",
           yes: {
-            question: "Hammer, screwdriver, or wrench?",
-            yes: { guess: "Hammer" },
-            no:  {
-              question: "Scissors, ruler, or paintbrush?",
-              yes: { guess: "Scissors" },
-              no:  { guess: "Paintbrush" }
+            question: "Is it a vehicle?",
+            yes: {
+              question: "Land, air, or water?",
+              land: { guess: "Car" },
+              air:  { guess: "Airplane" },
+              water:{ guess: "Boat" }
+            },
+            no: {
+              question: "Is it a tool or instrument?",
+              yes: {
+                question: "Hand tool or power tool?",
+                hand:  { guess: "Hammer" },
+                power: { guess: "Drill" }
+              },
+              no: {
+                question: "Is it furniture, decor, or container?",
+                yes: {
+                  question: "Which category?",
+                  furniture: {
+                    question: "Seating, surface or storage?",
+                    seating: { guess: "Couch" },
+                    surface: { guess: "Table" },
+                    storage: { guess: "Chair" }
+                  },
+                  decor: {
+                    question: "Mirror, candle or carpet?",
+                    mirror: { guess: "Mirror" },
+                    candle:{ guess: "Candle" },
+                    carpet:{ guess: "Carpet" }
+                  },
+                  container: {
+                    question: "Cup, bowl or trash can?",
+                    cup:       { guess: "Cup" },
+                    bowl:      { guess: "Bowl" },
+                    trash_can: { guess: "Trash Can" }
+                  }
+                },
+                no: { guess: "Fan" }
+              }
             }
           },
           no: {
-            question: "Is it a flashlight or a compass?",
-            yes: { guess: "Flashlight" },
-            no:  { guess: "Compass" }
+            question: "Is it clothing or makeup?",
+            yes: {
+              question: "Clothing or makeup?",
+              clothing: { guess: "Shirt" },
+              makeup:   { guess: "Makeup" }
+            },
+            no: { guess: "Unknown object" }
           }
         }
       },
       no: {
-        question: "Is it a natural object, element, or concept?",
+        question: "Is it a natural non-living thing?",
         yes: {
-          question: "Is it physical like rock, water, or sand?",
-          yes: { guess: "Water" },
-          no:  {
-            question: "Is it fire, cloud, or other?",
-            yes: { guess: "Fire" },
-            no:  {
-              question: "Mountain, ice, or gold?",
-              yes: { guess: "Gold" },
-              no:  {
-                question: "Is it abstract like time, love, or fear?",
-                yes: { guess: "Time" },
-                no:  { guess: "Justice" }
-              }
-            }
-          }
+          question: "Mineral, element or phenomenon?",
+          mineral:    { guess: "Gold" },
+          element:    { guess: "Oxygen" },
+          phenomenon: { guess: "Lightning" }
         },
-        no: null
+        no: {
+          question: "Is it an abstract concept?",
+          yes: {
+            question: "Emotion, time or idea?",
+            emotion: { guess: "Love" },
+            time:    { guess: "Time" },
+            idea:    { guess: "Justice" }
+          },
+          no: { guess: "Air" }
+        }
       }
     }
   };
 
-  // ─── STATE ────────────────────────────────────────────────────────────────
+  // ─── STATE & CONFIG ─────────────────────────────────────────────────
+  const GENERAL_END  = 17;
+  const SPECIFIC_END = 19;
+  const FINAL_Q      = 20;
+
   let qNum         = 1;
   let history      = [];
   let currentNode  = phase1Tree;
   let pendingGuess = false;
   let currentQ     = phase1Tree.question;
-
-  // ─── AUDIO SETUP ─────────────────────────────────────────────────────────
   let musicStarted = false;
-  document.body.addEventListener("click", () => {
-    if (!musicStarted) { music.play(); musicStarted = true; }
+  let askedSet     = new Set([currentQ]);
+
+  // ─── AUDIO CONTROL ──────────────────────────────────────────────────
+  document.body.addEventListener("click", ()=>{
+    if(!musicStarted){ music.play(); musicStarted=true; }
   });
-
-  function play(sfx){
-    sfx.pause(); sfx.currentTime = 0; sfx.play();
-  }
-
+  function play(sfx){ sfx.pause(); sfx.currentTime=0; sfx.play(); }
   function toggleMusic(){
     const btn = $("music-toggle").querySelector("button");
-    if (music.paused) { music.play(); btn.textContent="🔊"; }
-    else             { music.pause(); btn.textContent="🔇"; }
+    if(music.paused){ music.play(); btn.textContent="🔊"; }
+    else            { music.pause(); btn.textContent="🔇"; }
   }
 
-  // ─── UI HELPERS ───────────────────────────────────────────────────────────
+  // ─── UI HELPERS ─────────────────────────────────────────────────────
   function updateCounter(){
     $("q-number").textContent = qNum;
     $("question-counter").classList.remove("hidden");
   }
-
   function addEntry(who, txt){
     const p = document.createElement("p");
     p.innerHTML = `<strong>${who}:</strong> ${txt}`;
     $("chat-box").appendChild(p);
     $("chat-box").scrollTop = $("chat-box").scrollHeight;
   }
-
   function mapAnswer(ans){
     const a = ans.toLowerCase();
-    if (a.startsWith("yes") || a==="probably")     return "yes";
-    if (a.startsWith("no")  || a==="probably not") return "no";
+    if(a.startsWith("yes") || a==="probably") return "yes";
+    if(a.startsWith("no")  || a==="probably not") return "no";
     return Math.random()>0.5 ? "yes" : "no";
   }
-
   function getTraitLists(){
     const yes = history.filter(h=>h.a.startsWith("y")).map(h=>h.q).join("; ")||"none";
     const no  = history.filter(h=>h.a.startsWith("n")).map(h=>h.q).join("; ")||"none";
-    return { yes, no };
+    return {yes,no};
   }
 
-  function askLLM(raw){
-    return fetch("https://justin-bot-ujmo.onrender.com/ask", {
-      method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({ question: raw })
-    })
-    .then(r=>r.json())
-    .then(d=>d.answer.trim());
-  }
-
-  function askLLMQuestion(){
-    const { yes, no } = getTraitLists();
-    const prompt =
-      `The thing is: ${yes}.\n` +
-      `The thing is NOT: ${no}.\n` +
-      `Using that, ask exactly one yes/no question. Respond with only that question.\n\n` +
-      `History:\n` +
+  // ─── DYNAMIC LLM FALLBACKS ──────────────────────────────────────────
+  async function askLLMQuestion(){
+    const {yes,no} = getTraitLists();
+    const prompt = 
+      `The thing is: ${yes}.\n`+
+      `The thing is NOT: ${no}.\n`+
+      `Do NOT repeat any previous question.\n`+
+      `Ask exactly one yes/no question to narrow it down.\n`+
+      `Respond with only that question.\n\nHistory:\n`+
       history.map(h=>`Q: ${h.q}\nA: ${h.a}`).join("\n");
-    return askLLM(prompt).then(q => {
-      currentNode = null;   // guard against static access
-      currentQ = q;
-      addEntry("Q"+qNum, q);
-      play(blipSFX);
-    });
+    const res = await fetch("https://justin-bot-ujmo.onrender.com/ask", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({question:prompt})
+    }).then(r=>r.json());
+    let q = res.answer.trim();
+    if(askedSet.has(q)) return askLLMQuestion();
+    askedSet.add(q);
+    currentNode = null;
+    currentQ    = q;
+    addEntry("Q"+qNum, q);
+    play(blipSFX);
   }
 
-  function askLLMGuess(final=false){
-    const { yes, no } = getTraitLists();
+  async function askLLMGuess(final=false){
+    const {yes,no} = getTraitLists();
     const instr = final
       ? `Final guess: [item]. Respond with only "Final guess: [item]".`
-      : `Based on that, guess exactly one item, responding with only "Is it [item]?".`;
+      : `Based on that, make your best single guess.\nRespond with exactly "Is it [item]?"`;
     const prompt =
-      `The thing is: ${yes}.\n` +
-      `The thing is NOT: ${no}.\n` +
-      instr + `\n\n` +
-      `History:\n` +
+      `The thing is: ${yes}.\n`+
+      `The thing is NOT: ${no}.\n`+
+      instr + `\n\nHistory:\n`+
       history.map(h=>`Q: ${h.q}\nA: ${h.a}`).join("\n");
-    return askLLM(prompt).then(ans => {
-      currentNode = null;
-      currentQ = ans;
-      addEntry("Q"+qNum, ans);
-      play(blipSFX);
-      if (final) play(loseSFX);
-    });
+    const res = await fetch("https://justin-bot-ujmo.onrender.com/ask", {
+      method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({question:prompt})
+    }).then(r=>r.json());
+    let g = res.answer.trim();
+    if(askedSet.has(g)) return askLLMGuess(final);
+    askedSet.add(g);
+    currentNode = null;
+    currentQ    = g;
+    pendingGuess = !final;
+    addEntry("Q"+qNum, g);
+    play(blipSFX);
+    if(final) play(loseSFX);
   }
 
+  // ─── GAME FLOW ──────────────────────────────────────────────────────
   function startGame(){
     $("chat-box").innerHTML = "";
     $("bot-buttons").classList.remove("hidden");
     $("wrong-btn").classList.add("hidden");
     $("question-counter").classList.remove("hidden");
-    qNum = 1;
-    history = [];
-    currentNode = phase1Tree;
-    pendingGuess = false;
-    currentQ = phase1Tree.question;
-    addEntry("JustinBot", "I'm ready! Think of something... and answer honestly. 😎");
+    qNum = 1; history = []; currentNode = phase1Tree;
+    pendingGuess = false; currentQ = phase1Tree.question;
+    askedSet = new Set([currentQ]);
+    addEntry("JustinBot","I'm ready! Think of something… and answer honestly. 😎");
     addEntry("Q1", currentQ);
     play(blipSFX);
     updateCounter();
   }
   window.onload = startGame;
-
-  function submitAnswer(ans){
-    addEntry("You", ans);
-    history.push({ q: currentQ, a: ans.toLowerCase() });
-
-    // 1) STATIC Q1–Q9, only if currentNode not null
-    if (qNum <= STATIC_DEPTH && currentNode){
-      if (pendingGuess){
-        if (ans.toLowerCase().startsWith("y")){ botWins(); return; }
-        pendingGuess = false;
-      }
-      const branch = mapAnswer(ans);
-      const next   = currentNode[branch] || null;
-
-      if (next && next.guess){
-        pendingGuess = true;
-        qNum++; updateCounter();
-        currentQ = `Is it ${next.guess}?`;
-        addEntry("Q"+qNum, currentQ);
-        play(blipSFX);
-        return;
-      }
-      if (next && next.question){
-        currentNode = next;
-        qNum++; updateCounter();
-        currentQ = next.question;
-        addEntry("Q"+qNum, currentQ);
-        play(blipSFX);
-        return;
-      }
-      // next===null → fall through to dynamic
-    }
-
-    // 2) DYNAMIC GENERAL Q10–Q17
-    if (qNum < GENERAL_END){
-      qNum++; updateCounter();
-      askLLMQuestion();
-      return;
-    }
-
-    // 3) DYNAMIC SPECIFIC Q18–Q19 (keep buttons)
-    if (qNum < SPECIFIC_END){
-      qNum++; updateCounter();
-      askLLMGuess(false);
-      return;
-    }
-
-    // 4) AFTER Q19 answer, hide Yes/No buttons
-    if (qNum === SPECIFIC_END){
-      $("bot-buttons").classList.add("hidden");
-      $("wrong-btn").classList.remove("hidden");
-    }
-
-    // 5) FINAL GUESS Q20
-    if (qNum < FINAL_Q){
-      qNum++; updateCounter();
-      askLLMGuess(true);
-      return;
-    }
-  }
 
   function botWins(){
     $("bot-buttons").classList.add("hidden");
@@ -458,6 +427,73 @@
     $("bot-buttons").classList.add("hidden");
     addEntry("JustinBot","Dang, you got me. 😅 Thanks for playing!");
     play(loseSFX);
+  }
+
+  async function submitAnswer(ans){
+    addEntry("You", ans);
+    history.push({q:currentQ, a:ans.toLowerCase()});
+
+    // ONLY win when it was explicitly posed as a guess
+    if (pendingGuess && ans.toLowerCase().startsWith("y")) {
+      return botWins();
+    }
+    pendingGuess = false;
+
+    // ── STATIC TREE ────────────────────────────────────────────────────
+    if (currentNode && currentNode.question) {
+      const branch = mapAnswer(ans);
+      const next   = currentNode[branch] || null;
+
+      if (next && next.guess) {
+        // static guess → show and clear so it won’t repeat
+        qNum++; updateCounter();
+        currentQ     = `Is it ${next.guess}?`;
+        pendingGuess = true;
+        currentNode  = null;
+        askedSet.add(currentQ);
+        addEntry("Q"+qNum, currentQ);
+        play(blipSFX);
+        return;
+      }
+      if (next && next.question) {
+        // static deeper
+        currentNode = next;
+        qNum++; updateCounter();
+        currentQ = next.question;
+        askedSet.add(currentQ);
+        addEntry("Q"+qNum, currentQ);
+        play(blipSFX);
+        return;
+      }
+      // fell off that branch → go LLM
+      currentNode = null;
+      qNum++; updateCounter();
+      return askLLMQuestion();
+    }
+
+   // ── DYNAMIC FALLBACK (exactly 2 guesses then final) ─────────────────
+   // 1) Narrowing questions until GENERAL_END (e.g. 17)
+   if (qNum < GENERAL_END) {
+     qNum++; updateCounter();
+     return askLLMQuestion();
+   }
+   // 2) First dynamic guess at Q18
+   if (qNum === GENERAL_END) {
+     qNum++; updateCounter();
+     return askLLMGuess(false);
+   }
+   // 3) Second dynamic guess at Q19
+   if (qNum === GENERAL_END + 1) {
+     qNum++; updateCounter();
+     return askLLMGuess(false);
+   }
+   // 4) Final guess at Q20
+   if (qNum === GENERAL_END + 2) {
+     qNum++; updateCounter();
+     $("bot-buttons").classList.add("hidden");
+     $("wrong-btn").classList.remove("hidden");
+     return askLLMGuess(true);
+   }
   }
 </script>
 </body>
