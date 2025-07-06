@@ -123,40 +123,39 @@
     }
 
 function submitAnswer(ans) {
-  if (qNum > 20) return; // 🔒 Prevent overflow
-
   addEntry("You", ans);
   history.push({ q: currentQuestion, a: ans });
 
-  if (qNum <= 6) {
-    qNum++;
-    updateCounter();
-    handlePhase1(ans);
-  } else if (qNum <= 16) {
-    qNum++;
-    updateCounter();
+  // advance to next question number
+  qNum++;
+  updateCounter();
+
+  // 1) Q1–Q16: general narrowing questions
+  if (qNum <= 16) {
     askLLMQuestion();
-  } else if (qNum <= 19) {
-    qNum++;
-    updateCounter();
-    askFinalGuess();
-  } else if (qNum === 20) {
-    // ✅ Final guess logic for Q20
-    $("bot-buttons").classList.add("hidden");
-    $("wrong-btn").classList.remove("hidden");
-    $("win-buttons").classList.remove("hidden");
-
-    askFinalGuess(); // will just display guess
-    play(loseSFX);
-    updateCounter();
-
-    qNum++; // prevents further input
+    return;
   }
+
+  // 2) Q17–Q19: more specific narrowing questions
+  if (qNum <= 19) {
+    askLLMQuestion();  // same function, but will detect qNum>=17
+    return;
+  }
+
+  // 3) Q20: final guess
+  if (qNum === 20) {
+    // hide Yes/No buttons, show only result buttons
+    $("bot-buttons").classList.add("hidden");
+    $("win-buttons").classList.remove("hidden");
+    $("wrong-btn").style.display = "inline-block";
+
+    askFinalGuess();   // only here!
+    play(loseSFX);
+    return;
+  }
+
+  // any qNum > 20 => do nothing
 }
-
-
-
-
 
 
     function handlePhase1(ans) {
@@ -219,7 +218,7 @@ Say only: Final guess: [your guess]`;
     const guess = sanitize(data.answer);
     if (!finalGuesses.has(guess)) {
       finalGuesses.add(guess);
-      currentQuestion = `Final guess: ${guess}`;
+      currentQuestion = `${guess}`;
       askCurrent();
     }
   });
