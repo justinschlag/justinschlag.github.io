@@ -58,10 +58,10 @@
   const loseSFX    = $("sfx-lose");
 
   // ─── CONFIG ───────────────────────────────────────────────────────────────
-  const STATIC_DEPTH = 9;   // Q1–Q9
-  const GENERAL_END  = 17;  // Q10–Q17: general yes/no
-  const SPECIFIC_END = 19;  // Q18–Q19: specific guesses
-  const FINAL_Q      = 20;  // Q20 final guess
+  const STATIC_DEPTH = 9;    // Q1–Q9
+  const GENERAL_END  = 17;   // Q10–Q17 general yes/no
+  const SPECIFIC_END = 19;   // Q18–Q19 specific guesses
+  const FINAL_Q      = 20;   // Q20 final guess
 
   // ─── STATIC TREE Q1–Q9 ───────────────────────────────────────────────────
   const phase1Tree = {
@@ -231,7 +231,7 @@
                 yes: { guess: "Microwave" },
                 no:  { guess: "Washing machine" }
               },
-              no: { guess: "Refrigerator" }
+              no:  { guess: "Refrigerator" }
             },
             no:  null
           }
@@ -278,12 +278,12 @@
     }
   };
 
-  // ─── GAME STATE ────────────────────────────────────────────────────────────
+  // ─── STATE ────────────────────────────────────────────────────────────────
   let qNum         = 1;
   let history      = [];
   let currentNode  = phase1Tree;
   let pendingGuess = false;
-  let currentQ     = "";
+  let currentQ     = phase1Tree.question;
 
   // ─── AUDIO SETUP ─────────────────────────────────────────────────────────
   let musicStarted = false;
@@ -330,7 +330,7 @@
   function askLLM(raw){
     return fetch("https://justin-bot-ujmo.onrender.com/ask", {
       method:"POST", headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({ question: raw })
+      body: JSON.stringify({ question: raw })
     })
     .then(r=>r.json())
     .then(d=>d.answer.trim());
@@ -345,7 +345,7 @@
       `History:\n` +
       history.map(h=>`Q: ${h.q}\nA: ${h.a}`).join("\n");
     return askLLM(prompt).then(q => {
-      currentNode = null;
+      currentNode = null;   // guard against static access
       currentQ = q;
       addEntry("Q"+qNum, q);
       play(blipSFX);
@@ -387,15 +387,14 @@
     play(blipSFX);
     updateCounter();
   }
-
   window.onload = startGame;
 
   function submitAnswer(ans){
     addEntry("You", ans);
     history.push({ q: currentQ, a: ans.toLowerCase() });
 
-    // 1) STATIC Q1–Q9
-    if (qNum <= STATIC_DEPTH){
+    // 1) STATIC Q1–Q9, only if currentNode not null
+    if (qNum <= STATIC_DEPTH && currentNode){
       if (pendingGuess){
         if (ans.toLowerCase().startsWith("y")){ botWins(); return; }
         pendingGuess = false;
@@ -419,7 +418,7 @@
         play(blipSFX);
         return;
       }
-      // fall through
+      // next===null → fall through to dynamic
     }
 
     // 2) DYNAMIC GENERAL Q10–Q17
@@ -429,20 +428,20 @@
       return;
     }
 
-    // 3) DYNAMIC SPECIFIC Q18–Q19 (Yes/No remain)
+    // 3) DYNAMIC SPECIFIC Q18–Q19 (keep buttons)
     if (qNum < SPECIFIC_END){
       qNum++; updateCounter();
       askLLMGuess(false);
       return;
     }
 
-    // Hide Yes/No after Q19’s answer
+    // 4) AFTER Q19 answer, hide Yes/No buttons
     if (qNum === SPECIFIC_END){
       $("bot-buttons").classList.add("hidden");
       $("wrong-btn").classList.remove("hidden");
     }
 
-    // 4) FINAL GUESS Q20
+    // 5) FINAL GUESS Q20
     if (qNum < FINAL_Q){
       qNum++; updateCounter();
       askLLMGuess(true);
@@ -452,12 +451,12 @@
 
   function botWins(){
     $("bot-buttons").classList.add("hidden");
-    addEntry("JustinBot", "Haha! I win again! 😎");
+    addEntry("JustinBot","Haha! I win again! 😎");
     play(successSFX);
   }
   function botLoses(){
     $("bot-buttons").classList.add("hidden");
-    addEntry("JustinBot", "Dang, you got me. 😅 Thanks for playing!");
+    addEntry("JustinBot","Dang, you got me. 😅 Thanks for playing!");
     play(loseSFX);
   }
 </script>
