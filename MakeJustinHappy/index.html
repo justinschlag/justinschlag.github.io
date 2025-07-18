@@ -10,7 +10,7 @@
   <h1>Make Justin Happy</h1>
 
   <div id="justin-image-container">
-    <img id="justin-image" src="../images/justin-neutral.jpeg" alt="Justin Neutral">
+    <img id="justin-image" src="../images/neutral new.jpeg" alt="Justin Neutral">
     <div id="tear" class="tear" style="display: none;"></div>
   </div>
 
@@ -55,9 +55,36 @@
       const lower = message.toLowerCase();
       let mood = "neutral";
 
-      const happyWords = /\b(thank|thanks|great|awesome|glad|impressive|happy|happiness|cool|love|nice|funny|haha|lol|good job|beautiful|smart|amazing|yay|yes|yeah|yep|wonderful|fantastic|adorable|cute|sweet|success|proud|relieved|smile|laugh|laughing|enjoy|peaceful|calm|grateful|excited|fun|win|winning|accomplished|blessed|chill|lovely|sunshine|perfect|positive|wholesome|joy|joyful|ecstatic|vibes|vibing|grin|best day|bright|elated|content|delighted|glorious|highlight|sparkle|glee|euphoric|hyped|pumped|enthusiastic|smiling|rockstar|genius|talented|supportive|encouraging|inspired|inspiring|upbeat|sunny|beautiful day|good vibes|inner peace|motivated|lit|dope|fire|banger|chef’s kiss|top tier|excellent|adoring|sweetheart|golden|flawless|heartwarming|kudos|celebrate|celebrating|achievement|goals|living|dreaming|vacation|breakthrough|level up|positive energy|winning streak|good|nice weather|promotion|got accepted|i got in|new puppy|new job|wedding|engaged|baby born|reunion|new car|just got|passed|nailed it|killed it|i made it|good grade|on track|grinding|working hard|feeling good|great time|got this|big day|favorite|cool project|passion project|feeling proud|really proud|hyped up|new record|first place|got promoted|i’m back|made it through|healed|better now|peace of mind| loves | mommy| )\b/;
+  // Single happy words - safe for \b word-boundary matching
+const happyWords = /\b(thank|thanks|great|awesome|glad|impressive|happy|happiness|cool|love|nice|funny|haha|lol|beautiful|smart|amazing|yay|yes|yeah|yep|wonderful|fantastic|adorable|cute|sweet|success|proud|relieved|smile|laugh|laughing|enjoy|peaceful|calm|grateful|excited|fun|win|winning|accomplished|blessed|chill|lovely|sunshine|perfect|positive|wholesome|joy|joyful|ecstatic|vibes|vibing|grin|best|bright|elated|content|delighted|glorious|highlight|sparkle|glee|euphoric|hyped|pumped|enthusiastic|smiling|rockstar|genius|talented|supportive|encouraging|inspired|inspiring|upbeat|sunny|lit|dope|fire|banger|excellent|adoring|sweetheart|golden|flawless|heartwarming|kudos|celebrate|achievement|goals|living|dreaming|vacation|breakthrough|promotion|loves|mommy)\b/;
 
-      const sadWords = /\b(sad|mean|ugly|bad|hate|disappointed|disappointing|offensive|cringe|weird|hurt|suck|stupid|dumb|rude|ouch|poop|dead|died|passed away|funeral|loss|lost|lonely|alone|left out|anxious|anxiety|depressed|depression|cry|cried|cries|crying|tears|worried|afraid|scared|angry|mad|terrible|awful|miserable|sick|ill|pain|fail|failed|failure|crap|bs|garbage|worthless|hate myself|regret|sorry|broken|hopeless|dark|grief|mourning|burnt out|burned out|lost my|divorce|breakup|rejected|i miss|unloved|ignored|ghosted|abandoned|jobless|laid off|fired|bad grade|failed exam|failed test|got denied|bad news|hurt my|they left|heartbroken|shattered|woke up crying|can’t sleep|no motivation|struggling|burned|stressed|overwhelmed|panic|panicking|worst day|worried sick|emotional|feeling down|feeling low|messed up|ruined|i’m lost|ruined everything|nothing works|not okay|can’t handle|helpless|powerless|crying again|again? seriously?|wrong with me|why me|nobody cares|forgotten|disrespected|i hate life|feel empty|exhausted|no reason|getting worse|drained|mentally tired|physically tired|broke|cheated|lied|manipulated|gaslit|abused|toxic|screwed up|can’t do it|ashamed|i failed|lost hope|end it|nothing matters|pointless|suffering|wasting away|emotional damage|can’t focus|trouble sleeping|worrying|everything hurts|let down|blamed|lost faith|isolated|why bother|i’m done|giving up|heartache|painful|hurts too much|never good enough|can’t win|sucks)\b/;
+// Multi-word happy phrases - matched with simple includes()
+const happyPhrases = [
+  "good job", "really proud", "great time", "feeling good", "got this",
+  "big day", "cool project", "passion project", "new puppy", "new job",
+  "got promoted", "i got in", "got accepted", "just got", "made it through",
+  "peace of mind", "better now", "i’m back", "good grade", "on track",
+  "working hard", "hyped up", "first place", "new record", "beautiful day",
+  "good vibes", "inner peace", "top tier", "chef’s kiss", "sweet moment",
+  "positive energy", "winning streak"
+];
+
+// Single sad words - safe for \b word-boundary matching
+const sadWords = /\b(sad|mean|ugly|bad|hate|disappointed|disappointing|offensive|cringe|weird|hurt|suck|stupid|dumb|rude|ouch|poop|dead|died|lonely|alone|anxious|anxiety|depressed|depression|cry|cried|cries|crying|tears|worried|afraid|scared|angry|mad|terrible|awful|miserable|sick|ill|pain|fail|failed|failure|crap|bs|garbage|worthless|regret|sorry|broken|hopeless|dark|grief|mourning|burned|stressed|panic|overwhelmed|emotional|shattered|heartbroken|ignored|ghosted|abandoned|jobless|laid|fired|ashamed|broke|cheated|lied|manipulated|gaslit|abused|toxic|ruined|exhausted|pointless|suffering|isolated|lost|worrying|blamed|let|down|can't|hopeless|useless|crying|again|helpless|nobody|cares|forgotten|i'm|done|giving|up|worst|day|nothing|matters|not|okay|can't|win|sucks)\b/;
+
+// Multi-word sad phrases - matched with includes()
+const sadPhrases = [
+  "passed away", "funeral", "left out", "lost my", "divorce", "breakup",
+  "i miss", "bad grade", "failed test", "failed exam", "got denied",
+  "hurt my", "they left", "woke up crying", "can’t sleep", "no motivation",
+  "struggling", "burnt out", "worried sick", "feeling down", "feeling low",
+  "messed up", "ruined everything", "nothing works", "can’t handle",
+  "powerless", "crying again", "why me", "i hate life", "feel empty",
+  "getting worse", "mentally tired", "physically tired", "lost hope",
+  "end it", "wasting away", "emotional damage", "trouble sleeping",
+  "everything hurts", "lost faith", "why bother", "heartache", "hurts too much",
+  "never good enough", "can’t win"
+];
 
       if (happyWords.test(lower)) {
         mood = "happy";
@@ -68,13 +95,13 @@
       }
 
       if (mood === "happy") {
-        imageEl.src = "../images/justin-happy.jpeg";
+        imageEl.src = "../images/happy new.jpeg";
         imageEl.alt = "Justin Happy";
         status.textContent = "Justin is happy!";
         tear.style.display = 'none';
         launchConfetti();
       } else if (mood === "sad") {
-        imageEl.src = "../images/justin-sad.jpeg";
+        imageEl.src = "../images/sad new.jpeg";
         imageEl.alt = "Justin Sad";
         status.textContent = "Justin is sad.";
         tear.style.display = 'block';
@@ -82,7 +109,7 @@
         void tear.offsetWidth;
         tear.classList.add('tear');
       } else {
-        imageEl.src = "../images/justin-neutral.jpeg";
+        imageEl.src = "../images/neutral new.jpeg";
         imageEl.alt = "Justin Neutral";
         status.textContent = "Justin is neutral.";
         tear.style.display = 'none';
