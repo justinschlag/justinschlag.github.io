@@ -20,6 +20,7 @@ body {
   color: var(--text-dark);
 }
 
+/* Page title */
 h1 {
   text-align: center;
   margin: 2rem auto 1rem;
@@ -27,6 +28,7 @@ h1 {
   color: var(--garnet);
 }
 
+/* Container around JustinBot image */
 #justin-image-container {
   max-width: 300px;
   margin: 0 auto;
@@ -38,11 +40,18 @@ h1 {
   position: relative;
 }
 
+/* Preserve quality of all JustinBot images */
 #justin-image-container img {
   width: 100%;
+  height: 360px;
+  object-fit: cover;
+  object-position: center 40%; /* ← increase this to shift up = cut off top */
   border-radius: 12px;
+  image-rendering: auto;
 }
 
+
+/* Controls box (text input + button) */
 #controls {
   max-width: 500px;
   margin: 2rem auto;
@@ -57,6 +66,7 @@ h1 {
   box-shadow: 0 4px 16px var(--accent-shadow);
 }
 
+/* Text input */
 #user-input {
   width: 100%;
   padding: 0.75rem 1rem;
@@ -65,6 +75,7 @@ h1 {
   border-radius: 8px;
 }
 
+/* Submit button */
 #submit-btn {
   padding: 0.6rem 1.5rem;
   background: var(--garnet);
@@ -75,17 +86,19 @@ h1 {
   cursor: pointer;
   transition: background 0.3s;
 }
+
 #submit-btn:hover {
   background: #570008;
 }
 
+/* Status/response text */
 #status-text {
   font-size: 1.1rem;
   color: #444;
   text-align: center;
 }
 
-/* === Crop justin face emotion images === */
+/* === Removed forced cropping for better quality ===
 #justin-image[src*="justin-happy"],
 #justin-image[src*="justin-sad"],
 #justin-image[src*="justin-neutral"] {
@@ -93,8 +106,9 @@ h1 {
   object-fit: cover;
   object-position: center top 12%;
 }
+*/
 
-/* === Tear drop effect === */
+/* === Tear drop animation === */
 .tear {
   position: absolute;
   width: 14px;
@@ -118,6 +132,7 @@ h1 {
     opacity: 0;
   }
 }
+
 /* Back to Home button */
 .back-link {
   text-align: center;
