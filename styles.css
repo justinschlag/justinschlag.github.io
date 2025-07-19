@@ -9,6 +9,7 @@
   --accent-shadow: rgba(115, 0, 10, 0.15);
   --radius: 16px;
   --glass-blur: 8px;
+   --profile-img-size: 220px;
 }
 
 /* =================================
@@ -184,13 +185,27 @@ body::before {
   gap: 1rem;
   padding: 1.5rem;
 }
-.about-container img {
-  width: 160px;
-  height: 160px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid var(--garnet);
+
+:root {
+  --profile-img-size: 220px;  /* adjust as needed */
 }
+
+.about-container img {
+  width: 100%;
+  max-width: var(--profile-img-size);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: center 35%;  /* 👈 shows more of the shirt than 30% */
+  border-radius: 12px;          /* keeps it square with soft corners */
+  border: 4px solid var(--garnet);
+  box-shadow: 0 6px 20px rgba(115, 0, 10, 0.2);
+  transition: transform 0.3s ease;
+  image-rendering: auto;        /* browser default, best for photos */
+}
+.about-container img:hover {
+  transform: scale(1.03);
+}r
+
 .about-text {
   max-width: 600px;
   line-height: 1.7;
@@ -531,3 +546,50 @@ section h2 {
     flex-direction: column;
     align-items: center; }
   }
+
+
+/* =================================
+   HEADSHOT UNDER USC LOGO
+   ================================= */
+
+.header-headshot-wrapper {
+  height: 260px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-headshot {
+  max-height: 240px;
+  width: auto;
+  object-fit: cover;
+  object-position: center 40%;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  border: 4px solid var(--garnet);
+  image-rendering: auto;
+}
+
+/* =================================
+   Soldering Images
+   ================================= */
+
+.about-images {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.about-images img {
+  width: auto;
+  height: auto;
+  max-width: 160px;
+  border-radius: 10px;
+  border: 3px solid var(--garnet);
+  box-shadow: 0 4px 12px rgba(115, 0, 10, 0.2);
+  image-rendering: crisp-edges; /* try 'pixelated' or 'auto' if needed */
+  object-fit: contain;           /* prevents any cropping */
+}

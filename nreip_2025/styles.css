@@ -1,89 +1,123 @@
-/* ─────────────────────────────────────────────────────
-   NREIP Internship Page Overrides
-───────────────────────────────────────────────────── */
+/* NREIP Internship Page CSS – Refined and Beautiful */
 
-/* Hero-style Section Header */
-.section-header {
-    background-color: rgba(115, 0, 10, 0.85);
-    color: white;
-    text-align: center;
-    padding: 3.5rem 1.5rem;
-    margin-bottom: 2rem;
-    border-radius: var(--radius);
-    box-shadow: 0 4px 16px var(--accent-shadow);
-    backdrop-filter: blur(5px);
-  }
-  .section-header h1 {
-    font-size: 2.25rem;
-    margin-bottom: 0.5rem;
-  }
-  .section-header p {
-    font-size: 1.1rem;
-    opacity: 0.9;
-  }
-  
-  /* Project Content Card */
-  .project-content {
-    background: var(--card-bg);
-    padding: 2rem;
-    border-radius: var(--radius);
-    box-shadow: 0 4px 16px var(--accent-shadow);
-    backdrop-filter: blur(5px);
-    margin: 0 2rem 2rem;
-  }
-  .project-content h2 {
-    display: inline-block;
-    background: var(--card-bg);
-    color: var(--garnet);
-    padding: 0.5rem 1rem;
-    border-radius: var(--radius);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-    font-size: 1.6rem;
-  }
-  .project-content p,
-  .project-content ul {
-    color: #222;
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-  }
-  .project-content ul {
-    list-style: disc inside var(--garnet);
-    padding-left: 1rem;
-  }
-  .project-content li {
-    margin-bottom: 0.75rem;
-  }
-  
-  /* “Back to Home” Button */
-  .project-button {
-    display: inline-block;
-    margin-top: 2rem;
-    padding: 0.75rem 1.5rem;
-    background-color: var(--garnet);
-    color: #fff;
-    border-radius: var(--radius);
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 4px 16px var(--accent-shadow);
-    transition: background var(--transition), transform var(--transition);
-  }
-  .project-button:hover {
-    background-color: #570008;
-    transform: translateY(-2px);
-  }
-  
-  /* Responsive tweaks */
-  @media (max-width: 768px) {
-    .section-header,
-    .project-content {
-      margin: 1rem;
-      padding: 1.5rem;
-    }
-    .project-content {
-      margin-bottom: 1.5rem;
-    }
-  }
-  
+:root {
+  --garnet: #73000a;
+  --cream: #f7f3f0;
+  --white-translucent: rgba(255, 255, 255, 0.9);
+  --text-dark: #111;
+  --accent-shadow: rgba(115, 0, 10, 0.15);
+  --radius: 16px;
+  --transition: all 0.3s ease;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background:
+    linear-gradient(rgba(115, 0, 10, 0.06), rgba(115, 0, 10, 0.06)),
+    linear-gradient(rgba(253, 246, 240, 0.92), rgba(253, 246, 240, 0.92)),
+    url('../images/tailfeathers.png') no-repeat right center fixed;
+  background-color: var(--cream);
+  background-size: 80%;
+  background-blend-mode: multiply, lighten;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.usc-hero {
+  background-color: var(--garnet);
+  color: white;
+  text-align: center;
+  padding: 3rem 1rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.usc-hero h1 {
+  font-size: 2.75rem;
+  margin-bottom: 0.3rem;
+}
+
+.usc-hero p {
+  font-size: 1.25rem;
+  opacity: 0.9;
+}
+
+.logo-banner {
+  text-align: center;
+  margin: 2rem auto;
+}
+
+.logo-banner img {
+  width: 150px;
+  height: auto;
+  filter: drop-shadow(0 3px 8px rgba(0,0,0,0.2));
+}
+
+.usc-main {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+section {
+  background: var(--white-translucent);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: var(--radius);
+  box-shadow: 0 6px 18px var(--accent-shadow);
+  backdrop-filter: blur(8px);
+}
+
+section h2 {
+  color: var(--garnet);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--garnet);
+  display: inline-block;
+  padding-bottom: 0.2rem;
+}
+
+section p, section ul {
+  font-size: 1.05rem;
+  color: #222;
+}
+
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.image-gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.image-gallery img:hover {
+  transform: scale(1.05);
+}
+
+.back-link {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.back-link a {
+  color: white;
+  background-color: var(--garnet);
+  padding: 0.8rem 2rem;
+  text-decoration: none;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.back-link a:hover {
+  background-color: #5a0008;
+}

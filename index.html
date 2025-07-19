@@ -45,10 +45,16 @@
   <!-- HERO -->
   <header class="usc-hero">
     <div class="usc-header-text">
-      <h1>Justin Schlag (Website under construction)</h1>
+      <h1>Justin Schlag</h1>
+       <!-- ✅ NEW HEADSHOT LOCATION -->
+      <div class="hero-headshot-container">
+        <img src="images/Headshot NIWC.jpg" alt="Justin Schlag Headshot" class="hero-headshot" />
+      </div>
       <p>Computer Engineering • Honors College • USC </p>
     </div>
   </header>
+
+
 
   <!-- DESKTOP NAVIGATION -->
   <nav class="desktop-jump-nav">
@@ -72,55 +78,61 @@
       <img src="images/USC_1801.png" alt="USC 1801 Logo" />
     </div>
 
-    <!-- INTRO / ABOUT & JUSTINBOT -->
-    <section class="intro">
-      <div class="intro-headings">
-        <h2>About Me</h2>
-        <h2>Just Ask JustinBot</h2>
+<!-- INTRO / ABOUT & JUSTINBOT -->
+<section class="intro">
+  <div class="intro-headings">
+    <h2>About Me</h2>
+    <h2>Just Ask JustinBot</h2>
+  </div>
+
+  <div class="top-section">
+    <!-- ABOUT ME PANEL -->
+    <section class="about-container">
+      <div class="about-text">
+        <div class="about-images">
+  <img src="images/soldering.jpg" alt="Description 2" />
+  <img src="images/ETVS.jpg" alt="Description 1" />
+</div>
+
+        <p>
+          Hi! I’m Justin Schlag, a Computer Engineering student at the University of South Carolina
+          Honors College. I currently hold an active DoD Secret Security Clearance through my work
+          with NIWC Atlantic. I focus on computer vision, engineering work, and defense research
+          through hands-on development. I’m passionate about building impactful tools and am open to
+          new opportunities.
+        </p>
+        <a href="About Me/index.html" class="project-button">Learn More</a>
       </div>
-      <div class="top-section">
-        <!-- ABOUT ME PANEL -->
-        <section class="about-container">
-  <img src="images/Headshot NIWC.jpg" alt="Profile Picture">
-  <div class="about-text">
-    <p>
-      Hi! I’m Justin Schlag, a Computer Engineering student at the University of 
-      South Carolina Honors College. I currently hold an active DoD Secret Security
-      Clearance through my work with NIWC Atlantic. I focus on computer vision, engineering work, and defense research through hands-on development. I’m passionate
-      about building impactful tools and am open to any new opportunities.
-    </p>
-    <!-- Learn More button linking to your dedicated About Me page: -->
-    <a href="About Me/index.html" class="project-button">Learn More</a>
+    </section>
+
+    <!-- JUSTINBOT PANEL -->
+    <section class="chatbox-section">
+      <div class="chat-info">
+        <p class="justinbot-explainer">
+          Don’t want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained
+          by me to explain my projects, research, skills, and even personal experiences. You
+          can ask me anything!
+        </p>
+      </div>
+      <div class="chat-ui">
+        <form id="chat-form" class="chatbox-container">
+          <input type="text" id="user-input" placeholder="Ask me anything…" required />
+          <button type="submit">Send</button>
+        </form>
+        <div id="chat-response" class="chat-response">
+          <p class="placeholder">Try asking:</p>
+          <ul class="examples">
+            <li>“What kind of engineering work have you done?”</li>
+            <li>“Can you explain your Navy research project?”</li>
+            <li>“What’s your job as a Network Operator about?”</li>
+            <li>“How did you build JustinBot?”</li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </div>
 </section>
 
-        <!-- JUSTINBOT PANEL -->
-        <section class="chatbox-section">
-          <div class="chat-info">
-            <p class="justinbot-explainer">
-              Don’t want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained
-              by me to explain my projects, research, skills, and even personal experiences. You
-              can ask me anything!
-            </p>
-          </div>
-          <div class="chat-ui">
-            <form id="chat-form" class="chatbox-container">
-              <input type="text" id="user-input" placeholder="Ask me anything…" required />
-              <button type="submit">Send</button>
-            </form>
-            <div id="chat-response" class="chat-response">
-              <p class="placeholder">Try asking:</p>
-              <ul class="examples">
-                <li>“What kind of engineering work have you done?”</li>
-                <li>“Can you explain your Navy research project?”</li>
-                <li>“What’s your job as a Network Operator about?”</li>
-                <li>“How did you build JustinBot?”</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
 
   <!-- SKILLS & RESUME -->
 <section class="skills">
@@ -272,7 +284,7 @@
         </div>
         <div class="project">
           <a href="MakeJustinHappy/index.html">
-            <img src="images/neutral new.jpeg" alt="Make Justin Happy" />
+            <img src="images/smile index.jpeg" alt="Make Justin Happy" />
           </a>
           <h3>Make Justin Happy</h3>
           <p>
