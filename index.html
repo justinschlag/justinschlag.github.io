@@ -1,144 +1,110 @@
-<!--Before changes-->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- TITLE -->
   <title>Justin Schlag | Computer Engineering Student at USC</title>
-
-  <!-- META DESCRIPTION -->
-  <meta name="description" content="Personal website of Justin Schlag — USC Honors College student, computer engineering researcher, and developer of JustinBot. Explore projects, internships, and technical skills." />
-  <meta name="google-site-verification" content="RMAI2wUtea9xAi6wJcb5gfca_ASmkkwDdqFNAdJnXWI" />
-  <meta name="author" content="Justin Schlag" />
-  <meta name="keywords" content="Justin Schlag, USC, computer engineering, portfolio, JustinBot, NIWC, NREIP, SEAP, AI research, OpenCV, UofSC" />
-
-  <!-- FAVICON -->
+  <meta name="description" content="Personal website of Justin Schlag — USC Honors College student, computer engineering researcher, and developer of JustinBot." />
   <link rel="icon" href="images/JustinSchlag2.png" type="image/png" />
-
-  <!-- STYLES -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- JSON-LD STRUCTURED DATA FOR GOOGLE -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Justin Schlag",
-    "url": "https://justinschlag.github.io",
-    "sameAs": [
-      "https://www.linkedin.com/in/justinschlag",
-      "https://github.com/justinschlag"
-    ],
-    "jobTitle": "Computer Engineering Student",
-    "affiliation": {
-      "@type": "CollegeOrUniversity",
-      "name": "University of South Carolina"
-    },
-    "description": "USC Honors student and researcher in AI, computer vision, and defense tech. Creator of JustinBot."
-  }
-  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .full-screen-section {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      overflow-y: auto;
+      z-index: 9999;
+      display: none;
+      background-size: cover;
+      background-position: center;
+      padding: 2rem;
+    }
+    .full-screen-section.active { display: block; }
+    .full-screen-section .close-btn {
+      position: absolute;
+      top: 20px; right: 20px;
+      font-size: 2rem;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body class="gamecock-theme">
-  <!-- HERO -->
-  <header class="usc-hero">
-    <div class="usc-header-text">
-      <h1>Justin Schlag</h1>
-       <!-- ✅ NEW HEADSHOT LOCATION -->
+  <!-- Sticky Top Navigation -->
+<nav class="top-nav">
+  <a href="#intro" data-target="intro">About Me</a>
+  <a href="#projects" data-target="projects">Research & Projects</a>
+  <a href="#work" data-target="work">Work Experience</a>
+  <a href="#timeline" data-target="timeline">Career Timeline</a>
+</nav>
+
+<!-- Sticky Scroll-to-Top Button -->
+<div class="scroll-top-btn" id="scrollTopBtn">↑</div>
+
+  <section class="hero" id="hero">
+    <div class="hero-content">
       <div class="hero-headshot-container">
         <img src="images/Headshot NIWC.jpg" alt="Justin Schlag Headshot" class="hero-headshot" />
       </div>
-      <p>Computer Engineering • Honors College • USC </p>
+      <h1 class="hero-title">Justin Schlag</h1>
+      <p class="hero-subtitle">Computer Engineering • Honors College • USC</p>
+      <div class="hero-buttons">
+        <a href="#intro" data-target="intro" class="hero-btn">About Me</a>
+        <a href="#projects" data-target="projects" class="hero-btn">Research & Projects</a>
+        <a href="#work" data-target="work" class="hero-btn">Work Experience</a>
+        <a href="#timeline" data-target="timeline" class="hero-btn">Career Timeline</a>
+      </div>
     </div>
-  </header>
-
-
-
-  <!-- DESKTOP NAVIGATION -->
-  <nav class="desktop-jump-nav">
-    <a href="About Me/index.html">About Me</a>
-    <a href="#projects">Research & Projects</a>
-    <a href="#work">Work Experience</a>
-    <a href="#timeline">Career Timeline</a>
-  </nav>
-
-  <!-- MOBILE NAVIGATION -->
-  <nav class="mobile-jump-nav">
-    <a href="About Me/index.html">About Me</a>
-    <a href="#projects">Research & Projects</a>
-    <a href="#work">Work Experience</a>
-    <a href="#timeline">Career Timeline</a>
-  </nav>
-
+  </section>
+  
   <main class="usc-main">
-    <!-- LOGO BANNER -->
-    <div class="logo-banner">
-      <img src="images/USC_1801.png" alt="USC 1801 Logo" />
-    </div>
-
-<!-- INTRO / ABOUT & JUSTINBOT -->
-<section class="intro">
-  <div class="intro-headings">
-    <h2>About Me</h2>
-    <h2>Just Ask JustinBot</h2>
-  </div>
-
-  <div class="top-section">
-    <!-- ABOUT ME PANEL -->
-    <section class="about-container">
-      <div class="about-text">
-        <div class="about-images">
-  <img src="images/soldering.jpg" alt="Description 2" />
-  <img src="images/ETVS.jpg" alt="Description 1" />
-</div>
-
-        <p>
-          Hi! I’m Justin Schlag, a Computer Engineering student at the University of South Carolina
-          Honors College. I currently hold an active DoD Secret Security Clearance through my work
-          with NIWC Atlantic. I focus on computer vision, engineering work, and defense research
-          through hands-on development. I’m passionate about building impactful tools and am open to
-          new opportunities.
-        </p>
-        <a href="About Me/index.html" class="project-button">Learn More</a>
+    <!-- INTRO / ABOUT & JUSTINBOT -->
+    <section class="intro">
+      <h2>About Me & Just Ask JustinBot</h2>
+      <div class="top-section">
+        <section class="about-container">
+          <div class="about-text">
+            <div class="about-images">
+              <img src="images/soldering.jpg" alt="Description 2" />
+              <img src="images/ETVS.jpg" alt="Description 1" />
+            </div>
+            <p>Hi! I’m Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College...</p>
+            <a href="About Me/index.html" class="project-button">Learn More</a>
+          </div>
+        </section>
+        <section class="chatbox-section">
+          <div class="chat-info">
+            <p class="justinbot-explainer">Don’t want to scroll? Just ask <strong>JustinBot</strong>...</p>
+          </div>
+          <div class="chat-ui">
+            <form id="chat-form" class="chatbox-container">
+              <input type="text" id="user-input" placeholder="Ask me anything…" required />
+              <button type="submit">Send</button>
+            </form>
+            <div id="chat-response" class="chat-response">
+              <p class="placeholder">Try asking:</p>
+              <ul class="examples">
+                <li>“What kind of engineering work have you done?”</li>
+                <li>“Can you explain your Navy research project?”</li>
+                <li>“What’s your job as a Network Operator about?”</li>
+                <li>“How did you build JustinBot?”</li>
+              </ul>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
-    <!-- JUSTINBOT PANEL -->
-    <section class="chatbox-section">
-      <div class="chat-info">
-        <p class="justinbot-explainer">
-          Don’t want to scroll? Just ask <strong>JustinBot</strong>, an AI assistant trained
-          by me to explain my projects, research, skills, and even personal experiences. You
-          can ask me anything!
-        </p>
-      </div>
-      <div class="chat-ui">
-        <form id="chat-form" class="chatbox-container">
-          <input type="text" id="user-input" placeholder="Ask me anything…" required />
-          <button type="submit">Send</button>
-        </form>
-        <div id="chat-response" class="chat-response">
-          <p class="placeholder">Try asking:</p>
-          <ul class="examples">
-            <li>“What kind of engineering work have you done?”</li>
-            <li>“Can you explain your Navy research project?”</li>
-            <li>“What’s your job as a Network Operator about?”</li>
-            <li>“How did you build JustinBot?”</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </div>
-</section>
-
-
-  <!-- SKILLS & RESUME -->
-<section class="skills">
-  <h2>Skills & Resume</h2>
-  <p><strong>Resume:</strong> <a href="files/Resume 7.18.pdf" target="_blank">View Here</a></p>
+  
+      
+    <!-- SKILLS & RESUME -->
+    <section class="skills">
+      <h2>Skills & Resume</h2>
+      <p><strong>Resume:</strong> <a href="files/Resume 7.18.pdf" target="_blank">View Here</a></p>
   <div class="skills-grid">
 
     <div class="skill-card">
@@ -206,7 +172,8 @@
   </div>
 </section>
 
-
+      
+    
     <!-- WORK EXPERIENCE -->
     <section class="work-experience hidden-mobile" id="work">
       <h2>Work Experience</h2>
@@ -244,8 +211,11 @@
           <a href="nreip_2025/index.html" class="project-button">Learn More</a>
         </div>
       </div>
-    </section>
+  
+</section>
 
+
+    
     <!-- RESEARCH & PROJECTS -->
     <section class="project-section hidden-mobile" id="projects">
       <h2>Research & Projects</h2>
@@ -313,6 +283,7 @@
     </section>
 
 
+    
     <!-- CAREER TIMELINE -->
     <section class="timeline-section hidden-mobile" id="timeline">
       <h2>Career Timeline</h2>
@@ -392,83 +363,71 @@
       </div>
     </section>
 
-    <div class="back-link">
-      <a href="#">↑ Back to Top</a>
-    </div>
+
+    <div class="back-link"><a href="#">↑ Back to Top</a></div>
   </main>
 
-  <!-- FOOTER -->
   <footer class="footer-contact">
     <a href="https://www.linkedin.com/in/justinschlag" target="_blank">LinkedIn</a>
     <a href="mailto:jschlag@email.sc.edu">jschlag@email.sc.edu</a>
     <span>(843) 408-7027</span>
   </footer>
 
-  <!-- JustinBot Script -->
   <script>
-    const form = document.getElementById("chat-form");
-    const input = document.getElementById("user-input");
-    const responseDiv = document.getElementById("chat-response");
-    let firstMessage = true;
+    document.querySelectorAll('[data-section]').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const sectionClass = link.getAttribute('data-section');
+        const section = document.querySelector(`.${sectionClass}`);
+        if (!section) return;
+        const overlay = section.cloneNode(true);
+        overlay.classList.add('section-overlay', sectionClass, 'active');
+        const closeBtn = document.createElement('div');
+        closeBtn.textContent = '×';
+        closeBtn.classList.add('close-btn');
+        closeBtn.onclick = () => overlay.remove();
+        overlay.appendChild(closeBtn);
+        document.body.appendChild(overlay);
+      });
+    });
 
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('user-input');
+    const responseDiv = document.getElementById('chat-response');
+    let firstMessage = true;
     form.onsubmit = async e => {
       e.preventDefault();
       const question = input.value.trim();
       if (!question) return;
-
-      responseDiv.classList.add("filled");
+      responseDiv.classList.add('filled');
       responseDiv.innerHTML = firstMessage
-        ? `<div style="font-style: italic; color: gray;">JustinBot is sleeping... please allow up to thirty seconds while he wakes up 💤</div>`
-        : "Thinking...";
+        ? `<div class="sleeping-message">JustinBot is sleeping... please allow up to thirty seconds while he wakes up 💤</div>`
+        : 'Thinking...';
       firstMessage = false;
-
       try {
-        const res = await fetch("https://justin-bot-ujmo.onrender.com/ask", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        const res = await fetch('https://justin-bot-ujmo.onrender.com/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ question })
         });
         const data = await res.json();
-        responseDiv.innerHTML = `
-          <p><strong>You:</strong> ${question}</p>
-          <p><strong>JustinBot:</strong> ${data.answer}</p>
-        `;
-        input.value = "";
+        responseDiv.innerHTML = `<p><strong>You:</strong> ${question}</p><p><strong>JustinBot:</strong> ${data.answer}</p>`;
+        input.value = '';
       } catch {
-        responseDiv.innerHTML = "<p>Sorry, something went wrong.</p>";
+        responseDiv.innerHTML = '<p>Sorry, something went wrong.</p>';
       }
     };
-  </script>
 
-  <!-- Timeline Intersection Observer -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const items = document.querySelectorAll(".timeline-item");
+    document.addEventListener('DOMContentLoaded', () => {
+      const items = document.querySelectorAll('.timeline-item');
       const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add("show");
-        });
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
       }, { threshold: 0.2 });
       items.forEach(item => observer.observe(item));
     });
   </script>
-
-  <!-- Mobile Reveal Script -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      document.querySelectorAll(".mobile-jump-nav a").forEach(link => {
-        link.addEventListener("click", e => {
-          const targetId = link.getAttribute("href").slice(1);
-          const section = document.getElementById(targetId);
-          if (window.innerWidth <= 768 && section?.classList.contains("hidden-mobile")) {
-            e.preventDefault();
-            section.classList.remove("hidden-mobile");
-            setTimeout(() => section.scrollIntoView({ behavior: "smooth" }), 50);
-          }
-        });
-      });
-    });
-  </script>
+  <script src="script.js"></script>
+  
 </body>
 
 </html>

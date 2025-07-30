@@ -9,7 +9,7 @@
   --accent-shadow: rgba(115, 0, 10, 0.15);
   --radius: 16px;
   --glass-blur: 8px;
-   --profile-img-size: 220px;
+  --profile-img-size: 220px;
 }
 
 /* =================================
@@ -26,7 +26,6 @@ body {
 }
 
 body.gamecock-theme {
-  margin: 0;
   background:
     linear-gradient(rgba(115,0,10,0.06), rgba(115,0,10,0.06)),
     linear-gradient(rgba(253,246,240,0.92), rgba(253,246,240,0.92)),
@@ -46,21 +45,71 @@ body::before {
 /* =================================
    HERO SECTION
    ================================= */
-.usc-hero {
-  text-align: center;
-  padding: 4rem 2rem;
-  background-color: rgba(115,0,10,0.85);
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: url('images/your-background.jpg') center/cover no-repeat;
+  position: relative;
   color: white;
+  text-align: center;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.hero-content {
   position: relative;
   z-index: 1;
 }
-.usc-header-text h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
+.hero-headshot-container {
+  --profile-img-size: 260px;
+  width: var(--profile-img-size);
+  height: var(--profile-img-size);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 5px solid white;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
-.usc-header-text p {
-  font-size: 1.15rem;
-  opacity: 0.95;
+.hero-headshot {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  image-rendering: auto;
+}
+.hero-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+.hero-subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+}
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.hero-btn {
+  background: white;
+  color: black;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+}
+.hero-btn:hover {
+  background: #990000;
+  color: white;
 }
 
 /* =================================
@@ -87,22 +136,10 @@ body::before {
 .mobile-jump-nav a:hover {
   background: #570008;
 }
-
-/* hide both by default */
 .desktop-jump-nav,
-.mobile-jump-nav {
-  display: none;
-}
-
-/* show mobile nav on small screens */
-@media (max-width: 768px) {
-  .mobile-jump-nav { display: block; }
-}
-
-/* show desktop nav on larger screens */
-@media (min-width: 769px) {
-  .desktop-jump-nav { display: block; }
-}
+.mobile-jump-nav { display: none; }
+@media (max-width: 768px) { .mobile-jump-nav { display: block; } }
+@media (min-width: 769px) { .desktop-jump-nav { display: block; } }
 
 /* =================================
    MAIN LAYOUT
@@ -127,9 +164,7 @@ body::before {
   opacity: 0.95;
   transition: transform 0.3s;
 }
-.logo-banner img:hover {
-  transform: scale(1.05);
-}
+.logo-banner img:hover { transform: scale(1.05); }
 
 /* =================================
    INTRO / ABOUT & JUSTINBOT
@@ -166,8 +201,6 @@ body::before {
   gap: 2rem;
   align-items: start;
 }
-
-/* content panels base */
 .about-container,
 .chatbox-section,
 .chat-response {
@@ -176,8 +209,6 @@ body::before {
   border-radius: var(--radius);
   box-shadow: 0 4px 16px var(--accent-shadow);
 }
-
-/* ABOUT ME PANEL */
 .about-container {
   display: flex;
   flex-direction: column;
@@ -185,58 +216,34 @@ body::before {
   gap: 1rem;
   padding: 1.5rem;
 }
-
-:root {
-  --profile-img-size: 220px;  /* adjust as needed */
-}
-
 .about-container img {
   width: 100%;
   max-width: var(--profile-img-size);
   aspect-ratio: 1 / 1;
   object-fit: cover;
-  object-position: center 35%;  /* 👈 shows more of the shirt than 30% */
-  border-radius: 12px;          /* keeps it square with soft corners */
+  object-position: center 35%;
+  border-radius: 12px;
   border: 4px solid var(--garnet);
   box-shadow: 0 6px 20px rgba(115, 0, 10, 0.2);
   transition: transform 0.3s ease;
-  image-rendering: auto;        /* browser default, best for photos */
+  image-rendering: auto;
 }
-.about-container img:hover {
-  transform: scale(1.03);
-}r
-
+.about-container img:hover { transform: scale(1.03); }
 .about-text {
   max-width: 600px;
   line-height: 1.7;
   color: #222;
   text-align: center;
 }
-
-/* JUSTINBOT PANEL */
 .chatbox-section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 1.5rem;
 }
-.chat-info .justinbot-explainer {
-  margin: 0;
-  font-size: 1rem;
-  color: #222;
-}
-.chat-ui {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-.chatbox-container {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  width: 100%;
-  margin-top: 1rem;
-}
+.chat-info .justinbot-explainer { margin: 0; font-size: 1rem; color: #222; }
+.chat-ui { display: flex; flex-direction: column; gap: 0.75rem; }
+.chatbox-container { display: flex; gap: 0.5rem; flex-wrap: wrap; width: 100%; margin-top: 1rem; }
 #user-input {
   flex: 1 1 auto;
   min-width: 0;
@@ -255,9 +262,7 @@ body::before {
   cursor: pointer;
   transition: background 0.3s;
 }
-#chat-form button:hover {
-  background: #570008;
-}
+#chat-form button:hover { background: #570008; }
 .chat-response {
   margin: 1rem auto 0;
   padding: 1rem;
@@ -305,15 +310,9 @@ body::before {
 }
 .project h3,
 .work-card h3,
-.skill-card h4 {
-  color: var(--garnet);
-  margin-bottom: 0.75rem;
-}
+.skill-card h4 { color: var(--garnet); margin-bottom: 0.75rem; }
 .project p,
-.work-card p {
-  font-size: 1rem;
-  color: #222;
-}
+.work-card p { font-size: 1rem; color: #222; }
 .project-button {
   display: inline-block;
   margin-top: 0.75rem;
@@ -325,9 +324,7 @@ body::before {
   font-weight: 600;
   transition: background 0.3s;
 }
-.project-button:hover {
-  background: #570008;
-}
+.project-button:hover { background: #570008; }
 
 /* =================================
    BACK LINK & FOOTER
@@ -347,9 +344,7 @@ body::before {
   text-decoration: none;
   font-size: 1.05rem;
 }
-.back-link a:hover {
-  text-decoration: underline;
-}
+.back-link a:hover { text-decoration: underline; }
 .footer-contact {
   margin-top: 2rem;
   padding: 1rem 0;
@@ -363,9 +358,7 @@ body::before {
   color: var(--garnet);
   text-decoration: none;
 }
-.footer-contact a:hover {
-  text-decoration: underline;
-}
+.footer-contact a:hover { text-decoration: underline; }
 
 /* =================================
    SECTION HEADERS & ANIMATION
@@ -387,11 +380,8 @@ section h2 {
 /* =================================
    TIMELINE
    ================================= */
-.timeline-section {
-  padding: 4rem 2rem;
-}
+.timeline-section { padding: 4rem 2rem; }
 .timeline-section h2 {
-  display: inline-block;
   margin-bottom: 3rem;
   padding: 0.6rem 1.2rem;
   background: rgba(255,255,255,0.9);
@@ -429,17 +419,9 @@ section h2 {
   flex-direction: column;
   align-items: flex-start;
 }
-.timeline-item.left .timeline-bundle {
-  margin-right: auto;
-}
-.timeline-item.right .timeline-bundle {
-  margin-left: auto;
-}
-.timeline-date {
-  font-weight: bold;
-  color: var(--garnet);
-  margin-bottom: 0.5rem;
-}
+.timeline-item.left .timeline-bundle { margin-right: auto; }
+.timeline-item.right .timeline-bundle { margin-left: auto; }
+.timeline-date { font-weight: bold; color: var(--garnet); margin-bottom: 0.5rem; }
 .timeline-content {
   padding: 1rem;
   background: rgba(255,255,255,0.7);
@@ -453,11 +435,7 @@ section h2 {
   object-fit: cover;
   margin-bottom: 0.75rem;
 }
-.timeline-content p {
-  margin: 0;
-  font-style: italic;
-  color: #222;
-}
+.timeline-content p { margin: 0; font-style: italic; color: #222; }
 .timeline-stats {
   display: flex;
   flex-wrap: wrap;
@@ -486,38 +464,20 @@ section h2 {
   display: block;
   margin: 0 auto;
 }
-
 /* =================================
    RESPONSIVE (≤768px)
    ================================= */
 @media screen and (max-width: 768px) {
-  html, body {
-    margin: 0;
-    padding: 0;
-    font-size: 14px;
-    overflow-x: hidden;
-    background: white;
-    color: #222;
-    line-height: 1.5;
+  html, body { 
+    font-size: 14px; 
+    overflow-x: hidden; 
+    background: white; 
+    color: #222; 
+    line-height: 1.5; 
   }
-  .usc-hero {
-    padding: 2rem 1rem;
-  }
-  .usc-header-text h1 {
-    font-size: clamp(1.6rem, 6vw, 1.8rem);
-  }
-  .usc-header-text p {
-    font-size: clamp(0.9rem, 3.5vw, 1rem);
-  }
-  .usc-main {
-    padding: 1rem;
-  }
-  .intro-headings {
-    grid-template-columns: 1fr;
-  }
-  .intro-headings h2:last-child {
-    display: none;
-  }
+  .usc-main { padding: 1rem; }
+  .intro-headings { grid-template-columns: 1fr; }
+  .intro-headings h2:last-child { display: none; }
   .chatbox-section::before {
     content: 'Just Ask JustinBot';
     display: block;
@@ -544,52 +504,46 @@ section h2 {
     min-width: unset;
     display: flex;
     flex-direction: column;
-    align-items: center; }
+    align-items: center; 
   }
-
-
-/* =================================
-   HEADSHOT UNDER USC LOGO
-   ================================= */
-
-.header-headshot-wrapper {
-  height: 260px;
-  overflow: hidden;
+}
+/* Sticky Top Nav */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #73000a;
   display: flex;
   justify-content: center;
-  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+}
+.top-nav a {
+  color: white;
+  text-decoration: none;
+  font-size: 0.9rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+.top-nav a:hover {
+  background: rgba(255,255,255,0.2);
 }
 
-.hero-headshot {
-  max-height: 240px;
-  width: auto;
-  object-fit: cover;
-  object-position: center 40%;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-  border: 4px solid var(--garnet);
-  image-rendering: auto;
+/* Sticky Bottom Scroll-To-Top */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #73000a;
+  color: white;
+  font-size: 1.5rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s;
+  z-index: 1000;
 }
-
-/* =================================
-   Soldering Images
-   ================================= */
-
-.about-images {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
-.about-images img {
-  width: auto;
-  height: auto;
-  max-width: 160px;
-  border-radius: 10px;
-  border: 3px solid var(--garnet);
-  box-shadow: 0 4px 12px rgba(115, 0, 10, 0.2);
-  image-rendering: crisp-edges; /* try 'pixelated' or 'auto' if needed */
-  object-fit: contain;           /* prevents any cropping */
+.scroll-top-btn:hover {
+  background: #570008;
 }
