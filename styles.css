@@ -553,3 +553,101 @@ section h2 {
 .scroll-top-btn:hover {
   background: #570008;
 }
+/* =================================
+   FULL-SCREEN SECTIONS & SCROLL SNAP
+   ================================= */
+html, body {
+  height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}
+
+/* Default sections fit to content */
+section {
+  min-height: auto;
+  scroll-snap-align: start;
+}
+
+/* Only these sections fill the screen */
+.hero {
+  min-height: 100vh;
+}
+
+
+
+/* Center only simple sections */
+.hero,
+.work-experience,
+.project-section,
+.back-link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Timeline exception: fit to content */
+.timeline-section {
+  min-height: auto;
+  justify-content: flex-start;
+  scroll-snap-align: start;
+}
+
+
+/* Timeline exception: fit to content but still align to top */
+.timeline-section {
+  min-height: auto;
+  justify-content: flex-start;
+  scroll-snap-align: start;
+}
+/* Wrapper for both sections */
+.about-justinbot-wrapper {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap; /* allows stacking on mobile */
+  margin-bottom: 40px;
+}
+
+/* About section styling (you may already have some of this) */
+.about-container {
+  flex: 1 1 500px;
+  max-width: 600px;
+}
+
+/* JustinBot section styling */
+.justinbot-section {
+  flex: 1 1 400px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.justinbot-image-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.justinbot-image {
+  width: 220px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+/* Mobile stacking */
+@media (max-width: 768px) {
+  .about-justinbot-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-container,
+  .justinbot-section {
+    max-width: 100%;
+  }
+}

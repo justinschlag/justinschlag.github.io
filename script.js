@@ -1,17 +1,4 @@
 // =======================
-// Smooth Scroll for Navigation
-// =======================
-document.querySelectorAll('[data-target]').forEach(link => {
-  link.addEventListener('click', e => {
-    e.preventDefault();
-    const sectionId = link.getAttribute('href'); // like "#intro"
-    if (sectionId && sectionId.startsWith('#')) {
-      document.querySelector(sectionId).scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
-
-// =======================
 // Scroll-to-Top Button
 // =======================
 const scrollTopBtn = document.getElementById('scrollTopBtn');

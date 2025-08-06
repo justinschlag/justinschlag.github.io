@@ -36,11 +36,14 @@
 <body class="gamecock-theme">
   <!-- Sticky Top Navigation -->
 <nav class="top-nav">
-  <a href="#intro" data-target="intro">About Me</a>
+  <a href="#about" data-target="about">About Me</a>
+  <a href="#justinbot" data-target="justinbot">JustinBot</a>
   <a href="#projects" data-target="projects">Research & Projects</a>
   <a href="#work" data-target="work">Work Experience</a>
   <a href="#timeline" data-target="timeline">Career Timeline</a>
+  
 </nav>
+
 
 <!-- Sticky Scroll-to-Top Button -->
 <div class="scroll-top-btn" id="scrollTopBtn">↑</div>
@@ -52,57 +55,67 @@
       </div>
       <h1 class="hero-title">Justin Schlag</h1>
       <p class="hero-subtitle">Computer Engineering • Honors College • USC</p>
-      <div class="hero-buttons">
-        <a href="#intro" data-target="intro" class="hero-btn">About Me</a>
-        <a href="#projects" data-target="projects" class="hero-btn">Research & Projects</a>
-        <a href="#work" data-target="work" class="hero-btn">Work Experience</a>
-        <a href="#timeline" data-target="timeline" class="hero-btn">Career Timeline</a>
+<div class="hero-buttons">
+  <a href="#about" data-target="about" class="hero-btn">About Me</a>
+  <a href="#justinbot" data-target="justinbot" class="hero-btn">JustinBot</a>
+  <a href="#projects" data-target="projects" class="hero-btn">Research & Projects</a>
+  <a href="#work" data-target="work" class="hero-btn">Work Experience</a>
+  <a href="#timeline" data-target="timeline" class="hero-btn">Career Timeline</a>
+</div>
+    </div> <!-- closes hero-content -->
+  </section> <!-- closes hero -->
+
+<main class="usc-main">
+
+<!-- ABOUT & JUSTINBOT WRAPPER DELETE FOR STACKED -->
+<section id="about-justinbot" class="about-justinbot-wrapper">
+  
+  <!-- ABOUT ME -->
+  <section id="about" class="about-container">
+    <h2>About Me</h2>
+    <div class="about-text">
+      <div class="about-images">
+        <img src="images/soldering.jpg" alt="Justin soldering" />
+        <img src="images/ETVS.jpg" alt="Working on ETVS wiring" />
+      </div>
+      <p>Hi! I’m Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College. I’ve interned at NIWC Atlantic with a Secret security clearance, work as a network operator with USC’s Division of IT, and support undergraduate research under the Office of Naval Research. I’m passionate about engineering solutions and open to new opportunities.</p>
+      <a href="About Me/index.html" class="project-button">Learn More</a>
+    </div>
+  </section>
+
+  <!-- JUSTINBOT -->
+  <section id="justinbot" class="justinbot-section">
+    <h2>Just Ask JustinBot</h2>
+    <div class="justinbot-image-container">
+      <img src="images/justinbot.png" alt="JustinBot" class="justinbot-image" />
+    </div>
+    <div class="chatbox-section">
+      <div class="chat-info">
+        <p class="justinbot-explainer">Don’t want to scroll? Just ask <strong>JustinBot</strong>...</p>
+      </div>
+      <div class="chat-ui">
+        <form id="chat-form" class="chatbox-container">
+          <input type="text" id="user-input" placeholder="Ask me anything…" required />
+          <button type="submit">Send</button>
+        </form>
+        <div id="chat-response" class="chat-response">
+          <p class="placeholder">Try asking:</p>
+          <ul class="examples">
+            <li>“What kind of engineering work have you done?”</li>
+            <li>“Can you explain your Navy research project?”</li>
+            <li>“How did you build JustinBot?”</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
-  
-  <main class="usc-main">
-    <!-- INTRO / ABOUT & JUSTINBOT -->
-    <section class="intro">
-      <h2>About Me & Just Ask JustinBot</h2>
-      <div class="top-section">
-        <section class="about-container">
-          <div class="about-text">
-            <div class="about-images">
-              <img src="images/soldering.jpg" alt="Description 2" />
-              <img src="images/ETVS.jpg" alt="Description 1" />
-            </div>
-            <p>Hi! I’m Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College...</p>
-            <a href="About Me/index.html" class="project-button">Learn More</a>
-          </div>
-        </section>
-        <section class="chatbox-section">
-          <div class="chat-info">
-            <p class="justinbot-explainer">Don’t want to scroll? Just ask <strong>JustinBot</strong>...</p>
-          </div>
-          <div class="chat-ui">
-            <form id="chat-form" class="chatbox-container">
-              <input type="text" id="user-input" placeholder="Ask me anything…" required />
-              <button type="submit">Send</button>
-            </form>
-            <div id="chat-response" class="chat-response">
-              <p class="placeholder">Try asking:</p>
-              <ul class="examples">
-                <li>“What kind of engineering work have you done?”</li>
-                <li>“Can you explain your Navy research project?”</li>
-                <li>“What’s your job as a Network Operator about?”</li>
-                <li>“How did you build JustinBot?”</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </div>
-    </section>
+</section>
+
 
   
       
     <!-- SKILLS & RESUME -->
-    <section class="skills">
+ <section id="skills" class="skills">
       <h2>Skills & Resume</h2>
       <p><strong>Resume:</strong> <a href="files/Resume 7.18.pdf" target="_blank">View Here</a></p>
   <div class="skills-grid">
@@ -427,7 +440,13 @@
     });
   </script>
   <script src="script.js"></script>
-  
+  <script>
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
 </body>
 
 </html>
