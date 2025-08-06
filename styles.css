@@ -46,15 +46,15 @@ body::before {
    HERO SECTION
    ================================= */
 .hero {
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  background: url('images/your-background.jpg') center/cover no-repeat;
+  justify-content: center;  /* Vertical center */
+  align-items: center;      /* Horizontal center */
+  height: 100vh;
+  text-align: center;
+  background: url('images/linkedin\ background.jpg') center/cover no-repeat;
   position: relative;
   color: white;
-  text-align: center;
 }
 .hero::before {
   content: "";
@@ -65,23 +65,29 @@ body::before {
 .hero-content {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* adds breathing room */
 }
+
 .hero-headshot-container {
-  --profile-img-size: 260px;
-  width: var(--profile-img-size);
-  height: var(--profile-img-size);
+  width: auto;          /* Let image decide width */
+  max-width: 260px;     /* Limit max size */
   border-radius: 50%;
   overflow: hidden;
   border: 5px solid white;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
+
 .hero-headshot {
+  display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;         /* Keep original aspect ratio */
+  object-fit: cover;    /* Still centers within circle */
   object-position: center 30%;
-  image-rendering: auto;
 }
+
 .hero-title {
   font-size: 3rem;
   font-weight: bold;
