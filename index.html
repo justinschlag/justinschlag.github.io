@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Justin Schlag | Computer Engineering @ USC</title>
   <meta name="description" content="Personal site of Justin Schlag — USC Honors College Computer Engineering student, researcher, and creator of JustinBot." />
+
+  <!-- Social preview -->
   <meta property="og:title" content="Justin Schlag — Computer Engineering @ USC" />
   <meta property="og:description" content="Research, projects, and experience — plus JustinBot if you prefer to just ask." />
   <meta property="og:type" content="website" />
@@ -14,7 +16,7 @@
 </head>
 
 <body class="gamecock-theme">
-  <!-- Fixed Top Navigation -->
+  <!-- Sticky Top Navigation -->
   <header>
     <nav class="top-nav" aria-label="Primary">
       <a href="#about" data-target="about">About Me</a>
@@ -23,10 +25,6 @@
       <a href="#work" data-target="work">Work Experience</a>
       <a href="#timeline" data-target="timeline">Career Timeline</a>
     </nav>
-    <!-- Theme toggle sits fixed, top-right so nav stays centered -->
-    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
-    <!-- Scroll progress bar -->
-    <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
   </header>
 
   <!-- Scroll-to-Top Button -->
@@ -51,7 +49,7 @@
   </section>
 
   <main class="usc-main" id="main-content">
-    <!-- ABOUT + JUSTINBOT -->
+    <!-- ABOUT + JUSTINBOT (side-by-side on desktop, stacked on mobile) -->
     <section id="about-justinbot" class="about-justinbot-wrapper" aria-label="About and JustinBot">
       <!-- ABOUT -->
       <section id="about" class="about-container section">
@@ -186,15 +184,8 @@
     <!-- RESEARCH & PROJECTS -->
     <section class="project-section hidden-mobile section" id="projects">
       <h2>Research & Projects</h2>
-
-      <!-- NEW: quick filter -->
-      <div class="project-filter">
-        <label for="projectFilter" class="sr-only">Filter projects</label>
-        <input id="projectFilter" type="text" placeholder="Filter projects (e.g., vision, OpenCV, website)…" />
-      </div>
-
       <div class="project-grid">
-        <div class="project" data-tags="vision research segmentation unet sam2 opencv">
+        <div class="project">
           <a href="research/index.html">
             <img src="images/research.png" alt="Undergraduate Computer Vision Research" loading="lazy" />
           </a>
@@ -206,7 +197,7 @@
           <a href="research/index.html" class="project-button">Learn More</a>
         </div>
 
-        <div class="project" data-tags="openai chatbot web">
+        <div class="project">
           <a href="JustinBot/index.html">
             <img src="images/JustinBot.png" alt="JustinBot UI" loading="lazy" />
           </a>
@@ -217,7 +208,7 @@
           <a href="JustinBot/index.html" class="project-button">Learn More</a>
         </div>
 
-        <div class="project" data-tags="class site web design">
+        <div class="project">
           <a href="csce190/index.html">
             <img src="images/csce190.png" alt="CSCE 190 course site" loading="lazy" />
           </a>
@@ -226,7 +217,7 @@
           <a href="csce190/index.html" class="project-button">Learn More</a>
         </div>
 
-        <div class="project" data-tags="toy app frontend">
+        <div class="project">
           <a href="MakeJustinHappy/index.html">
             <img src="images/smile index.jpeg" alt="Make Justin Happy mini app" loading="lazy" />
           </a>
@@ -235,7 +226,7 @@
           <a href="MakeJustinHappy/index.html" class="project-button">Try It</a>
         </div>
 
-        <div class="project" data-tags="game ai guessing">
+        <div class="project">
           <a href="20Questions/index.html">
             <img src="images/20QuestionsJustinBot.webp" alt="20 Questions with JustinBot" loading="lazy" />
           </a>
@@ -324,43 +315,31 @@
 
   <footer class="footer-contact" aria-label="Contact">
     <a href="https://www.linkedin.com/in/justinschlag" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="mailto:jschlag@email.sc.edu" id="mailtoLink">jschlag@email.sc.edu</a>
-    <button id="copyEmailBtn" class="copy-btn" type="button" aria-label="Copy email">Copy Email</button>
-    <span id="yearSpan"></span>
+    <a href="mailto:jschlag@email.sc.edu">jschlag@email.sc.edu</a>
+    <span>(843) 408-7027</span>
   </footer>
 
-  <!-- Lightbox overlay -->
-  <div id="lightbox" class="lightbox" hidden>
-    <button class="lightbox-close" id="lightboxClose" aria-label="Close image">×</button>
-    <img id="lightboxImg" alt="" />
-  </div>
-
-  <!-- JS -->
+  <!-- JS (inlined to avoid external script dependency) -->
   <script>
-    // Page fade-in
-    document.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('page-loaded');
-    });
-
-    // Scroll-to-top show/hide + click
+    // Back-to-top show/hide + click
     const scrollTopBtn = document.getElementById('scrollTopBtn');
     const showTopAt = 300;
     const onScroll = () => {
-      if (window.scrollY > showTopAt) scrollTopBtn.classList.add('visible');
-      else scrollTopBtn.classList.remove('visible');
-      // progress
-      const doc = document.documentElement;
-      const max = doc.scrollHeight - doc.clientHeight;
-      const ratio = max > 0 ? (window.scrollY / max) : 0;
-      document.getElementById('scrollProgress').style.transform = `scaleX(${ratio})`;
+      if (window.scrollY > showTopAt) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
     };
     scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
 
     // Scrollspy (highlight active nav link)
     const sections = Array.from(document.querySelectorAll('main .section, .hero'));
     const navLinks = Array.from(document.querySelectorAll('.top-nav a'));
     const byId = id => navLinks.find(a => a.getAttribute('href') === '#' + id);
+
     const spy = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -372,6 +351,7 @@
         }
       });
     }, { root: null, threshold: 0.55 });
+
     sections.forEach(sec => spy.observe(sec));
 
     // Timeline entrance animation
@@ -416,118 +396,6 @@
         }
       });
     })();
-
-    // THEME: respect system, persist user choice
-    const themeToggle = document.getElementById('themeToggle');
-    const THEME_KEY = 'js-theme';
-    const root = document.body;
-    function applyTheme(t) {
-      if (t === 'dark') {
-        root.classList.add('theme-dark');
-        themeToggle.textContent = '☀️';
-        themeToggle.setAttribute('aria-label', 'Switch to light theme');
-      } else {
-        root.classList.remove('theme-dark');
-        themeToggle.textContent = '🌙';
-        themeToggle.setAttribute('aria-label', 'Switch to dark theme');
-      }
-    }
-    (function initTheme() {
-      const saved = localStorage.getItem(THEME_KEY);
-      if (saved) applyTheme(saved);
-      else {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark ? 'dark' : 'light');
-      }
-    })();
-    themeToggle.addEventListener('click', () => {
-      const next = root.classList.contains('theme-dark') ? 'light' : 'dark';
-      localStorage.setItem(THEME_KEY, next);
-      applyTheme(next);
-    });
-
-    // PROJECT FILTER
-    const projectFilter = document.getElementById('projectFilter');
-    if (projectFilter) {
-      const cards = Array.from(document.querySelectorAll('.project-grid .project'));
-      function filterProjects(q) {
-        const query = q.trim().toLowerCase();
-        cards.forEach(card => {
-          const text = (card.textContent + ' ' + (card.getAttribute('data-tags') || '')).toLowerCase();
-          card.style.display = text.includes(query) ? '' : 'none';
-        });
-      }
-      projectFilter.addEventListener('input', e => filterProjects(e.target.value));
-    }
-
-    // LIGHTBOX for images
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxClose = document.getElementById('lightboxClose');
-    function openLightbox(src, alt) {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt || '';
-      lightbox.removeAttribute('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeLightbox() {
-      lightbox.setAttribute('hidden', '');
-      lightboxImg.src = '';
-      document.body.style.overflow = '';
-    }
-    document.addEventListener('click', (e) => {
-      const target = e.target;
-      if (target.matches('.project img, .work-card img, .about-container img')) {
-        e.preventDefault();
-        openLightbox(target.src, target.alt);
-      } else if (target === lightbox) {
-        closeLightbox();
-      }
-    });
-    lightboxClose.addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && !lightbox.hasAttribute('hidden')) closeLightbox();
-    });
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
-        e.preventDefault();
-        const input = document.getElementById('user-input');
-        if (input) input.focus();
-      }
-    });
-    // g a/p/w/t to jump
-    let gPressed = false;
-    document.addEventListener('keydown', (e) => {
-      if (e.key.toLowerCase() === 'g') { gPressed = true; return; }
-      if (!gPressed) return;
-      const map = { a: '#about', p: '#projects', w: '#work', t: '#timeline' };
-      const id = map[e.key.toLowerCase()];
-      if (id) {
-        e.preventDefault();
-        document.querySelector(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      gPressed = false;
-    });
-
-    // Copy email
-    const copyBtn = document.getElementById('copyEmailBtn');
-    const mailto = document.getElementById('mailtoLink');
-    copyBtn?.addEventListener('click', async () => {
-      const email = mailto?.textContent?.trim() || '';
-      try {
-        await navigator.clipboard.writeText(email);
-        const original = copyBtn.textContent;
-        copyBtn.textContent = 'Copied!';
-        setTimeout(() => (copyBtn.textContent = original), 1200);
-      } catch (err) {}
-    });
-
-    // Footer year
-    document.getElementById('yearSpan').textContent = `© ${new Date().getFullYear()} Justin Schlag`;
-    // Initial call for scroll progress + top button state
-    onScroll();
   </script>
 </body>
 </html>
