@@ -2,303 +2,252 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Justin Schlag | Computer Engineering Student at USC</title>
-  <meta name="description" content="Personal website of Justin Schlag — USC Honors College student, computer engineering researcher, and developer of JustinBot." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Justin Schlag | Computer Engineering @ USC</title>
+  <meta name="description" content="Personal site of Justin Schlag — USC Honors College Computer Engineering student, researcher, and creator of JustinBot." />
+  <meta property="og:title" content="Justin Schlag — Computer Engineering @ USC" />
+  <meta property="og:description" content="Research, projects, and experience — plus JustinBot if you prefer to just ask." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/JustinSchlag2.png" />
   <link rel="icon" href="images/JustinSchlag2.png" type="image/png" />
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    html { scroll-behavior: smooth; }
-    .full-screen-section {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      overflow-y: auto;
-      z-index: 9999;
-      display: none;
-      background-size: cover;
-      background-position: center;
-      padding: 2rem;
-    }
-    .full-screen-section.active { display: block; }
-    .full-screen-section .close-btn {
-      position: absolute;
-      top: 20px; right: 20px;
-      font-size: 2rem;
-      background: rgba(0,0,0,0.5);
-      color: white;
-      padding: 5px 15px;
-      border-radius: 8px;
-      cursor: pointer;
-    }
-  </style>
 </head>
+
 <body class="gamecock-theme">
-  <!-- Sticky Top Navigation -->
-<nav class="top-nav">
-  <a href="#about" data-target="about">About Me</a>
-  <a href="#justinbot" data-target="justinbot">JustinBot</a>
-  <a href="#projects" data-target="projects">Research & Projects</a>
-  <a href="#work" data-target="work">Work Experience</a>
-  <a href="#timeline" data-target="timeline">Career Timeline</a>
-  
-</nav>
+  <!-- Fixed Top Navigation -->
+  <header>
+    <nav class="top-nav" aria-label="Primary">
+      <a href="#about" data-target="about">About Me</a>
+      <a href="#justinbot" data-target="justinbot">JustinBot</a>
+      <a href="#projects" data-target="projects">Research & Projects</a>
+      <a href="#work" data-target="work">Work Experience</a>
+      <a href="#timeline" data-target="timeline">Career Timeline</a>
+    </nav>
+    <!-- Theme toggle sits fixed, top-right so nav stays centered -->
+    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">🌙</button>
+    <!-- Scroll progress bar -->
+    <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+  </header>
 
+  <!-- Scroll-to-Top Button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
-<!-- Sticky Scroll-to-Top Button -->
-<div class="scroll-top-btn" id="scrollTopBtn">↑</div>
-
-  <section class="hero" id="hero">
+  <!-- HERO -->
+  <section class="hero" id="hero" aria-label="Intro">
     <div class="hero-content">
       <div class="hero-headshot-container">
-        <img src="images/Headshot NIWC.jpg" alt="Justin Schlag Headshot" class="hero-headshot" />
+        <img src="images/Headshot NIWC.jpg" alt="Headshot of Justin Schlag" class="hero-headshot" loading="eager" />
       </div>
       <h1 class="hero-title">Justin Schlag</h1>
       <p class="hero-subtitle">Computer Engineering • Honors College • USC</p>
-<div class="hero-buttons">
-  <a href="#about" data-target="about" class="hero-btn">About Me</a>
-  <a href="#justinbot" data-target="justinbot" class="hero-btn">JustinBot</a>
-  <a href="#projects" data-target="projects" class="hero-btn">Research & Projects</a>
-  <a href="#work" data-target="work" class="hero-btn">Work Experience</a>
-  <a href="#timeline" data-target="timeline" class="hero-btn">Career Timeline</a>
-</div>
-    </div> <!-- closes hero-content -->
-  </section> <!-- closes hero -->
-
-<main class="usc-main">
-
-<!-- ABOUT & JUSTINBOT WRAPPER DELETE FOR STACKED -->
-<section id="about-justinbot" class="about-justinbot-wrapper">
-  
-  <!-- ABOUT ME -->
-  <section id="about" class="about-container">
-    <h2>About Me</h2>
-    <div class="about-text">
-      <div class="about-images">
-        <img src="images/soldering.jpg" alt="Justin soldering" />
-        <img src="images/ETVS.jpg" alt="Working on ETVS wiring" />
+      <div class="hero-buttons" role="navigation" aria-label="Jump links">
+        <a href="#about" class="hero-btn">About Me</a>
+        <a href="#justinbot" class="hero-btn">JustinBot</a>
+        <a href="#projects" class="hero-btn">Research & Projects</a>
+        <a href="#work" class="hero-btn">Work Experience</a>
+        <a href="#timeline" class="hero-btn">Career Timeline</a>
       </div>
-      <p>Hi! I’m Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College. I’ve interned at NIWC Atlantic with a Secret security clearance, work as a network operator with USC’s Division of IT, and support undergraduate research under the Office of Naval Research. I’m passionate about engineering solutions and open to new opportunities.</p>
-      <a href="About Me/index.html" class="project-button">Learn More</a>
     </div>
   </section>
 
-  <!-- JUSTINBOT -->
-  <section id="justinbot" class="justinbot-section">
-    <h2>Just Ask JustinBot</h2>
-    <div class="justinbot-image-container">
-      <img src="images/justinbot.png" alt="JustinBot" class="justinbot-image" />
-    </div>
-    <div class="chatbox-section">
-      <div class="chat-info">
-        <p class="justinbot-explainer">Don’t want to scroll? Just ask <strong>JustinBot</strong>...</p>
-      </div>
-      <div class="chat-ui">
-        <form id="chat-form" class="chatbox-container">
-          <input type="text" id="user-input" placeholder="Ask me anything…" required />
-          <button type="submit">Send</button>
-        </form>
-        <div id="chat-response" class="chat-response">
-          <p class="placeholder">Try asking:</p>
-          <ul class="examples">
-            <li>“What kind of engineering work have you done?”</li>
-            <li>“Can you explain your Navy research project?”</li>
-            <li>“How did you build JustinBot?”</li>
+  <main class="usc-main" id="main-content">
+    <!-- ABOUT + JUSTINBOT -->
+    <section id="about-justinbot" class="about-justinbot-wrapper" aria-label="About and JustinBot">
+      <!-- ABOUT -->
+      <section id="about" class="about-container section">
+        <h2>About Me</h2>
+        <div class="about-text">
+          <div class="about-images">
+            <img src="images/soldering.jpg" alt="Justin soldering a board" loading="lazy" />
+            <img src="images/ETVS.jpg" alt="Working on ETVS wiring" loading="lazy" />
+          </div>
+          <p>
+            Hi! I’m Justin Schlag, a Computer Engineering student at the University of South Carolina Honors College.
+            I’ve interned at NIWC Atlantic with a Secret security clearance, work as a network operator with USC’s Division
+            of IT, and support undergraduate research under the Office of Naval Research. I’m passionate about engineering
+            solutions and open to new opportunities.
+          </p>
+          <a href="About Me/index.html" class="project-button">Learn More</a>
+        </div>
+      </section>
+
+      <!-- JUSTINBOT -->
+      <section id="justinbot" class="justinbot-section section">
+        <h2>Just Ask JustinBot</h2>
+        <div class="justinbot-image-container">
+          <img src="images/justinbot.png" alt="JustinBot logo" class="justinbot-image" loading="lazy" />
+        </div>
+        <div class="chatbox-section" aria-live="polite">
+          <div class="chat-info">
+            <p class="justinbot-explainer">Don’t want to scroll? Just ask <strong>JustinBot</strong>…</p>
+          </div>
+          <div class="chat-ui">
+            <form id="chat-form" class="chatbox-container" autocomplete="off">
+              <label class="sr-only" for="user-input">Ask JustinBot</label>
+              <input type="text" id="user-input" placeholder="Ask me anything…" required />
+              <button type="submit">Send</button>
+            </form>
+            <div id="chat-response" class="chat-response" aria-live="polite">
+              <p class="placeholder">Try asking:</p>
+              <ul class="examples">
+                <li>“What kind of engineering work have you done?”</li>
+                <li>“Can you explain your Navy research project?”</li>
+                <li>“How did you build JustinBot?”</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- SKILLS & RESUME -->
+    <section id="skills" class="skills section">
+      <h2>Skills & Resume</h2>
+      <p><strong>Resume:</strong> <a href="files/Resume 7.18.pdf" target="_blank" rel="noopener">View Here</a></p>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h4>Languages</h4>
+          <ul><li>Java</li><li>Python</li><li>JavaScript</li><li>HTML &amp; CSS</li></ul>
+        </div>
+
+        <div class="skill-card">
+          <h4>AI &amp; Research Tools</h4>
+          <ul><li>YOLO Object Detection</li><li>PyTorch</li><li>SAM2</li><li>OpenCV</li><li>MATLAB</li></ul>
+        </div>
+
+        <div class="skill-card">
+          <h4>Hardware &amp; Electronics</h4>
+          <ul>
+            <li>Soldering &amp; Wire Splicing</li><li>Heat Shrinking</li><li>Radio Tuning (CM300/350)</li>
+            <li>Transceiver Work</li><li>ETVS Rack Setup</li><li>Wiring &amp; Circuitry</li>
           </ul>
         </div>
+
+        <div class="skill-card">
+          <h4>System &amp; Network Tools</h4>
+          <ul>
+            <li>Unix/Linux Command Line</li><li>Secure Device Configuration</li>
+            <li>Basic Diagnostics (Switches, APs, Cabling)</li><li>PuTTY &amp; Terminal Networking</li>
+          </ul>
+        </div>
+
+        <div class="skill-card">
+          <h4>Software &amp; Platforms</h4>
+          <ul><li>VS Code</li><li>Git &amp; GitHub</li><li>PuTTY</li></ul>
+        </div>
+
+        <div class="skill-card">
+          <h4>Networking Hardware</h4>
+          <ul><li>Aruba Switches &amp; APs</li><li>Cisco Switches</li><li>NetAlly Tools</li><li>NetScout Devices</li></ul>
+        </div>
       </div>
-    </div>
-  </section>
-</section>
+    </section>
 
-
-  
-      
-    <!-- SKILLS & RESUME -->
- <section id="skills" class="skills">
-      <h2>Skills & Resume</h2>
-      <p><strong>Resume:</strong> <a href="files/Resume 7.18.pdf" target="_blank">View Here</a></p>
-  <div class="skills-grid">
-
-    <div class="skill-card">
-      <h4>Languages</h4>
-      <ul>
-        <li>Java</li>
-        <li>Python</li>
-        <li>JavaScript</li>
-        <li>HTML & CSS</li>
-      </ul>
-    </div>
-
-    <div class="skill-card">
-      <h4>AI & Research Tools</h4>
-      <ul>
-        <li>YOLO Object Detection</li>
-        <li>PyTorch</li>
-        <li>SAM2</li>
-        <li>OpenCV</li>
-        <li>MATLAB</li>
-      </ul>
-    </div>
-
-    <div class="skill-card">
-      <h4>Hardware & Electronics</h4>
-      <ul>
-        <li>Soldering & Wire Splicing</li>
-        <li>Heat Shrinking</li>
-        <li>Radio Tuning (CM300/350)</li>
-        <li>Transceiver Work</li>
-        <li>ETVS Rack Setup</li>
-        <li>Wiring & Circuitry</li>
-      </ul>
-    </div>
-
-    <div class="skill-card">
-      <h4>System & Network Tools</h4>
-      <ul>
-        <li>Unix/Linux Command Line</li>
-        <li>Secure Device Configuration</li>
-        <li>Basic Diagnostics (Switches, APs, Cabling)</li>
-        <li>PuTTY & Terminal-Based Networking</li>
-      </ul>
-    </div>
-
-    <div class="skill-card">
-      <h4>Software & Platforms</h4>
-      <ul>
-        <li>VS Code</li>
-        <li>Git & GitHub</li>
-        <li>PuTTY</li>
-      </ul>
-    </div>
-
-    <div class="skill-card">
-      <h4>Networking Hardware</h4>
-      <ul>
-        <li>Aruba Switches & APs</li>
-        <li>Cisco Switches</li>
-        <li>NetAlly Tools</li>
-        <li>NetScout Devices</li>
-      </ul>
-    </div>
-
-  </div>
-</section>
-
-      
-    
     <!-- WORK EXPERIENCE -->
-    <section class="work-experience hidden-mobile" id="work">
+    <section class="work-experience hidden-mobile section" id="work">
       <h2>Work Experience</h2>
       <div class="work-grid">
         <div class="work-card">
           <a href="network-operator/index.html">
-            <img src="images/Network-Operator.png" alt="Network Operator" />
+            <img src="images/Network-Operator.png" alt="Network Operator role thumbnail" loading="lazy" />
           </a>
-          <h3>Network Operator - USC DoIT</h3>
+          <h3>Network Operator — USC DoIT</h3>
           <p>
-            As a student employee in the Division of IT, I clear and process enterprise switches
-            (Aruba, Cisco, Juniper), manage RMA tracking, organize inventory stacks, and perform
-            AP diagnostics and cable fixes across campus environments.
+            Clear and process enterprise switches (Aruba, Cisco, Juniper), manage RMA tracking, organize inventory,
+            and perform AP diagnostics and cable fixes across campus environments.
           </p>
           <a href="network-operator/index.html" class="project-button">Learn More</a>
         </div>
+
         <div class="work-card">
           <a href="seap/index.html">
-            <img src="images/Seap_Niwc.png" alt="SEAP Internship" />
+            <img src="images/Seap_Niwc.png" alt="SEAP internship thumbnail" loading="lazy" />
           </a>
           <h3>SEAP Intern @ NIWC Atlantic</h3>
           <p>
-            During my SEAP internship, I supported Foreign Military Sales (FMS) and mobile app
-            development at NIWC Atlantic. I gained hands-on experience in defense contracting and
-            software development, contributing to projects that enhance military capabilities.
+            Supported Foreign Military Sales (FMS) and mobile app development at NIWC Atlantic, contributing to projects
+            that enhance military capabilities.
           </p>
           <a href="seap/index.html" class="project-button">Learn More</a>
         </div>
+
         <div class="work-card">
           <a href="nreip_2025/index.html">
-            <img src="images/NREIP.png" alt="NREIP Internship" />
+            <img src="images/NREIP.png" alt="NREIP internship thumbnail" loading="lazy" />
           </a>
           <h3>NREIP Intern @ NIWC Atlantic</h3>
           <p>Under construction</p>
           <a href="nreip_2025/index.html" class="project-button">Learn More</a>
         </div>
       </div>
-  
-</section>
+    </section>
 
-
-    
     <!-- RESEARCH & PROJECTS -->
-    <section class="project-section hidden-mobile" id="projects">
+    <section class="project-section hidden-mobile section" id="projects">
       <h2>Research & Projects</h2>
+
+      <!-- NEW: quick filter -->
+      <div class="project-filter">
+        <label for="projectFilter" class="sr-only">Filter projects</label>
+        <input id="projectFilter" type="text" placeholder="Filter projects (e.g., vision, OpenCV, website)…" />
+      </div>
+
       <div class="project-grid">
-        <div class="project">
+        <div class="project" data-tags="vision research segmentation unet sam2 opencv">
           <a href="research/index.html">
-            <img src="images/research.png" alt="Undergraduate Research" />
+            <img src="images/research.png" alt="Undergraduate Computer Vision Research" loading="lazy" />
           </a>
           <h3>Computer Vision Research</h3>
           <p>
-            Dive into my end-to-end raindrop segmentation pipeline: manual SAM2 labeling, horizon-based
-            sampling strategies, and U-Net training with performance benchmarks across diverse environments.
+            End-to-end raindrop segmentation: SAM2 labeling, horizon-based sampling, and U-Net training with
+            benchmarks across diverse environments.
           </p>
           <a href="research/index.html" class="project-button">Learn More</a>
         </div>
-        <div class="project">
+
+        <div class="project" data-tags="openai chatbot web">
           <a href="JustinBot/index.html">
-            <img src="images/JustinBot.png" alt="JustinBot" />
+            <img src="images/JustinBot.png" alt="JustinBot UI" loading="lazy" />
           </a>
           <h3>JustinBot Chat Assistant</h3>
           <p>
-            Interact with JustinBot, my AI assistant built on OpenAI’s GPT models and deployed via
-            Render. Ask about my work, coding projects, or academic journey.
+            My AI assistant, built on OpenAI models and deployed via Render. Ask about my work, projects, or academics.
           </p>
           <a href="JustinBot/index.html" class="project-button">Learn More</a>
         </div>
-        <div class="project">
+
+        <div class="project" data-tags="class site web design">
           <a href="csce190/index.html">
-            <img src="images/csce190.png" alt="CSCE 190" />
+            <img src="images/csce190.png" alt="CSCE 190 course site" loading="lazy" />
           </a>
           <h3>CSCE 190 Website</h3>
-          <p>
-            Review my CSCE 190 final site project: from brainstorming and wireframing to interactive
-            prototypes and production-ready builds.
-          </p>
+          <p>From brainstorming and wireframing to interactive prototypes and production-ready builds.</p>
           <a href="csce190/index.html" class="project-button">Learn More</a>
         </div>
-        <div class="project">
+
+        <div class="project" data-tags="toy app frontend">
           <a href="MakeJustinHappy/index.html">
-            <img src="images/smile index.jpeg" alt="Make Justin Happy" />
+            <img src="images/smile index.jpeg" alt="Make Justin Happy mini app" loading="lazy" />
           </a>
           <h3>Make Justin Happy</h3>
-          <p>
-            Make me Happy or Sad. This mood-sensing project changes my expression based on what you say.
-          </p>
+          <p>Say something nice or mean and watch the mood change.</p>
           <a href="MakeJustinHappy/index.html" class="project-button">Try It</a>
         </div>
-        
 
-
-  <div class="project">
+        <div class="project" data-tags="game ai guessing">
           <a href="20Questions/index.html">
-            <img src="images/20QuestionsJustinBot.webp" alt="20 Questions" />
+            <img src="images/20QuestionsJustinBot.webp" alt="20 Questions with JustinBot" loading="lazy" />
           </a>
-          <h3>20 Questions </h3>
-          <p>
-            Play 20 Questions with JustinBot! You can either guess what he’s thinking or let him guess
-            your object. A fun way to test his AI capabilities.
-          </p>
+          <h3>20 Questions</h3>
+          <p>Play 20 Questions with JustinBot — let him guess your object or try to stump him.</p>
           <a href="20Questions/index.html" class="project-button">Try It</a>
         </div>
-
-
       </div>
     </section>
 
-
-    
     <!-- CAREER TIMELINE -->
-    <section class="timeline-section hidden-mobile" id="timeline">
+    <section class="timeline-section hidden-mobile section" id="timeline" aria-label="Career Timeline">
       <h2>Career Timeline</h2>
       <div class="timeline">
         <div class="timeline-item right">
@@ -306,47 +255,42 @@
             <div class="timeline-date">Summer 2025</div>
             <div class="timeline-content">
               <a href="nreip_2025/index.html">
-                <img src="images/NREIP.png" alt="NREIP Internship" />
+                <img src="images/NREIP.png" alt="NREIP Internship card" loading="lazy" />
               </a>
-              <p>Held a Security clearance, working as an air traffic control engineer at NIWC Atlantic</p>
+              <p>Held a security clearance; Air Traffic Control engineering at NIWC Atlantic.</p>
             </div>
             <div class="timeline-stats">
               <span class="stat">✈︎ ATC</span>
-              <span class="stat">✈️</span>
               <span class="stat">📅 DoD</span>
             </div>
           </div>
         </div>
+
         <div class="timeline-item left">
           <div class="timeline-bundle">
             <div class="timeline-date">Apr 2025 – Present</div>
             <div class="timeline-content">
               <a href="network-operator/index.html">
-                <img src="images/Network-Operator.png" alt="Network Operator" />
+                <img src="images/Network-Operator.png" alt="Network Operator role" loading="lazy" />
               </a>
-              <p>
-                Clear & process Aruba, Cisco, and Juniper switches; manage RMA inventory; perform
-                campus-wide AP diagnostics.
-              </p>
+              <p>Process Aruba/Cisco/Juniper switches; RMA inventory; campus AP diagnostics.</p>
             </div>
             <div class="timeline-stats">
               <span class="stat">🧠 50+ switches</span>
               <span class="stat">🔌 AP servicing</span>
-              <span class="stat">📦 Inventory logistics</span>
+              <span class="stat">📦 Inventory</span>
             </div>
           </div>
         </div>
+
         <div class="timeline-item right">
           <div class="timeline-bundle">
             <div class="timeline-date">Aug 2024 – Present</div>
             <div class="timeline-content">
               <a href="research/index.html">
-                <img src="images/research.png" alt="Undergraduate Research" />
+                <img src="images/research.png" alt="Undergraduate Research" loading="lazy" />
               </a>
-              <p>
-                ONR-funded computer vision work at USC: raindrop segmentation pipeline, SAM2 labeling
-                tool, U-Net model training.
-              </p>
+              <p>ONR-funded CV work: SAM2 labeling tool and U-Net segmentation pipeline.</p>
             </div>
             <div class="timeline-stats">
               <span class="stat">🔍 Research</span>
@@ -355,98 +299,235 @@
             </div>
           </div>
         </div>
+
         <div class="timeline-item left">
           <div class="timeline-bundle">
             <div class="timeline-date">Summer 2024</div>
             <div class="timeline-content">
               <a href="seap/index.html">
-                <img src="images/Seap_Niwc.png" alt="SEAP Internship" />
+                <img src="images/Seap_Niwc.png" alt="SEAP Internship card" loading="lazy" />
               </a>
-              <p>
-                Supported Foreign Military Sales and mobile app development at NIWC Atlantic after
-                high school.
-              </p>
+              <p>Supported Foreign Military Sales and mobile app development at NIWC Atlantic.</p>
             </div>
             <div class="timeline-stats">
               <span class="stat">🪙 FMS</span>
-              <span class="stat">📱 Mobile App</span>
+              <span class="stat">📱 Mobile</span>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-
-    <div class="back-link"><a href="#">↑ Back to Top</a></div>
+    <!-- Back to top (anchor fallback) -->
+    <div class="back-link"><a href="#" aria-label="Back to top">↑ Back to Top</a></div>
   </main>
 
-  <footer class="footer-contact">
-    <a href="https://www.linkedin.com/in/justinschlag" target="_blank">LinkedIn</a>
-    <a href="mailto:jschlag@email.sc.edu">jschlag@email.sc.edu</a>
-    <span>(843) 408-7027</span>
+  <footer class="footer-contact" aria-label="Contact">
+    <a href="https://www.linkedin.com/in/justinschlag" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="mailto:jschlag@email.sc.edu" id="mailtoLink">jschlag@email.sc.edu</a>
+    <button id="copyEmailBtn" class="copy-btn" type="button" aria-label="Copy email">Copy Email</button>
+    <span id="yearSpan"></span>
   </footer>
 
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close image">×</button>
+    <img id="lightboxImg" alt="" />
+  </div>
+
+  <!-- JS -->
   <script>
-    document.querySelectorAll('[data-section]').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const sectionClass = link.getAttribute('data-section');
-        const section = document.querySelector(`.${sectionClass}`);
-        if (!section) return;
-        const overlay = section.cloneNode(true);
-        overlay.classList.add('section-overlay', sectionClass, 'active');
-        const closeBtn = document.createElement('div');
-        closeBtn.textContent = '×';
-        closeBtn.classList.add('close-btn');
-        closeBtn.onclick = () => overlay.remove();
-        overlay.appendChild(closeBtn);
-        document.body.appendChild(overlay);
-      });
+    // Page fade-in
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('page-loaded');
     });
 
-    const form = document.getElementById('chat-form');
-    const input = document.getElementById('user-input');
-    const responseDiv = document.getElementById('chat-response');
-    let firstMessage = true;
-    form.onsubmit = async e => {
-      e.preventDefault();
-      const question = input.value.trim();
-      if (!question) return;
-      responseDiv.classList.add('filled');
-      responseDiv.innerHTML = firstMessage
-        ? `<div class="sleeping-message">JustinBot is sleeping... please allow up to thirty seconds while he wakes up 💤</div>`
-        : 'Thinking...';
-      firstMessage = false;
-      try {
-        const res = await fetch('https://justin-bot-ujmo.onrender.com/ask', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question })
-        });
-        const data = await res.json();
-        responseDiv.innerHTML = `<p><strong>You:</strong> ${question}</p><p><strong>JustinBot:</strong> ${data.answer}</p>`;
-        input.value = '';
-      } catch {
-        responseDiv.innerHTML = '<p>Sorry, something went wrong.</p>';
-      }
+    // Scroll-to-top show/hide + click
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    const showTopAt = 300;
+    const onScroll = () => {
+      if (window.scrollY > showTopAt) scrollTopBtn.classList.add('visible');
+      else scrollTopBtn.classList.remove('visible');
+      // progress
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const ratio = max > 0 ? (window.scrollY / max) : 0;
+      document.getElementById('scrollProgress').style.transform = `scaleX(${ratio})`;
     };
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    document.addEventListener('scroll', onScroll, { passive: true });
 
+    // Scrollspy (highlight active nav link)
+    const sections = Array.from(document.querySelectorAll('main .section, .hero'));
+    const navLinks = Array.from(document.querySelectorAll('.top-nav a'));
+    const byId = id => navLinks.find(a => a.getAttribute('href') === '#' + id);
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          if (!id) return;
+          navLinks.forEach(a => a.classList.remove('active'));
+          const active = byId(id);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { root: null, threshold: 0.55 });
+    sections.forEach(sec => spy.observe(sec));
+
+    // Timeline entrance animation
     document.addEventListener('DOMContentLoaded', () => {
       const items = document.querySelectorAll('.timeline-item');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
       }, { threshold: 0.2 });
-      items.forEach(item => observer.observe(item));
+      items.forEach(item => io.observe(item));
     });
+
+    // JustinBot chat
+    (function () {
+      const form = document.getElementById('chat-form');
+      if (!form) return;
+      const input = document.getElementById('user-input');
+      const responseDiv = document.getElementById('chat-response');
+      let firstMessage = true;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const question = (input.value || '').trim();
+        if (!question) return;
+        responseDiv.classList.add('filled');
+        responseDiv.innerHTML = firstMessage
+          ? `<div class="sleeping-message">JustinBot is sleeping... please allow up to thirty seconds while he wakes up 💤</div>`
+          : 'Thinking…';
+        firstMessage = false;
+
+        try {
+          const res = await fetch('https://justin-bot-ujmo.onrender.com/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question })
+          });
+          const data = await res.json();
+          responseDiv.innerHTML =
+            `<p><strong>You:</strong> ${question}</p><p><strong>JustinBot:</strong> ${data.answer}</p>`;
+          input.value = '';
+        } catch (err) {
+          responseDiv.innerHTML = '<p>Sorry, something went wrong.</p>';
+        }
+      });
+    })();
+
+    // THEME: respect system, persist user choice
+    const themeToggle = document.getElementById('themeToggle');
+    const THEME_KEY = 'js-theme';
+    const root = document.body;
+    function applyTheme(t) {
+      if (t === 'dark') {
+        root.classList.add('theme-dark');
+        themeToggle.textContent = '☀️';
+        themeToggle.setAttribute('aria-label', 'Switch to light theme');
+      } else {
+        root.classList.remove('theme-dark');
+        themeToggle.textContent = '🌙';
+        themeToggle.setAttribute('aria-label', 'Switch to dark theme');
+      }
+    }
+    (function initTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved) applyTheme(saved);
+      else {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        applyTheme(prefersDark ? 'dark' : 'light');
+      }
+    })();
+    themeToggle.addEventListener('click', () => {
+      const next = root.classList.contains('theme-dark') ? 'light' : 'dark';
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    });
+
+    // PROJECT FILTER
+    const projectFilter = document.getElementById('projectFilter');
+    if (projectFilter) {
+      const cards = Array.from(document.querySelectorAll('.project-grid .project'));
+      function filterProjects(q) {
+        const query = q.trim().toLowerCase();
+        cards.forEach(card => {
+          const text = (card.textContent + ' ' + (card.getAttribute('data-tags') || '')).toLowerCase();
+          card.style.display = text.includes(query) ? '' : 'none';
+        });
+      }
+      projectFilter.addEventListener('input', e => filterProjects(e.target.value));
+    }
+
+    // LIGHTBOX for images
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+    function openLightbox(src, alt) {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || '';
+      lightbox.removeAttribute('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      lightbox.setAttribute('hidden', '');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('click', (e) => {
+      const target = e.target;
+      if (target.matches('.project img, .work-card img, .about-container img')) {
+        e.preventDefault();
+        openLightbox(target.src, target.alt);
+      } else if (target === lightbox) {
+        closeLightbox();
+      }
+    });
+    lightboxClose.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lightbox.hasAttribute('hidden')) closeLightbox();
+    });
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        const input = document.getElementById('user-input');
+        if (input) input.focus();
+      }
+    });
+    // g a/p/w/t to jump
+    let gPressed = false;
+    document.addEventListener('keydown', (e) => {
+      if (e.key.toLowerCase() === 'g') { gPressed = true; return; }
+      if (!gPressed) return;
+      const map = { a: '#about', p: '#projects', w: '#work', t: '#timeline' };
+      const id = map[e.key.toLowerCase()];
+      if (id) {
+        e.preventDefault();
+        document.querySelector(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      gPressed = false;
+    });
+
+    // Copy email
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const mailto = document.getElementById('mailtoLink');
+    copyBtn?.addEventListener('click', async () => {
+      const email = mailto?.textContent?.trim() || '';
+      try {
+        await navigator.clipboard.writeText(email);
+        const original = copyBtn.textContent;
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => (copyBtn.textContent = original), 1200);
+      } catch (err) {}
+    });
+
+    // Footer year
+    document.getElementById('yearSpan').textContent = `© ${new Date().getFullYear()} Justin Schlag`;
+    // Initial call for scroll progress + top button state
+    onScroll();
   </script>
-  <script src="script.js"></script>
-  <script>
-  const scrollTopBtn = document.getElementById('scrollTopBtn');
-  scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-</script>
-
 </body>
-
 </html>
