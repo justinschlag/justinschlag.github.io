@@ -8,175 +8,137 @@
   --text-dark: #1a1a1a;
   --border-dark: #330000;
   --bg-light: #fdf6f3;
+
+  --radius: 10px;
+  --shadow: 0 3px 0 var(--border-dark);
+  --shadow-inset: inset 0 3px 0 rgba(0,0,0,0.08);
 }
 
 body {
   font-family: 'Press Start 2P', monospace;
-  background-color: var(--bg-light);
+  background: var(--bg-light);
   color: var(--text-dark);
-  margin: 10px;
+  margin: 12px;
   text-align: center;
+  font-size: 14px; /* bigger default */
+  line-height: 1.6;
 }
 
 h1, h2 {
-  color: var(--garnet);
-  font-size: 1rem;
-  margin-bottom: 12px;
-}
-
-#chat-box {
-  background-color: #fff;
-  border: 3px solid var(--garnet-dark);
-  padding: 12px;
-  height: 300px;
-  overflow-y: auto;
-  margin: 0 auto 16px auto;
-  width: 95%;
-  max-width: 600px;
-  font-size: 0.6rem;
-  line-height: 1.4;
-  color: var(--text-dark);
-  text-align: left;
-}
-
-#chat-box p {
-  margin: 6px 0;
-}
-
-button {
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.6rem;
-  background-color: var(--garnet);
-  color: var(--text-light);
-  padding: 8px 12px;
-  margin: 4px;
-  border: 2px solid var(--border-dark);
-  cursor: pointer;
+  color: var(--garnet);
+  font-size: 1.6rem; /* nice and bold */
+  line-height: 1.4;
+  margin: 0 0 16px;
   text-transform: uppercase;
 }
 
-button:hover {
-  background-color: var(--garnet-dark);
+#chat-box {
+  background: #fff;
+  border: 3px solid var(--garnet-dark);
+  border-radius: var(--radius);
+  padding: 18px;
+  height: 400px;
+  overflow-y: auto;
+  margin: 0 auto 20px auto;
+  width: 96%;
+  max-width: 760px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.85rem; /* retro but readable */
+  line-height: 1.7;
+  text-align: left;
+  box-shadow: var(--shadow-inset);
+}
+
+#chat-box p {
+  margin: 8px 0 10px;
+}
+
+/* Scrollbar for vibe */
+#chat-box::-webkit-scrollbar { width: 10px; }
+#chat-box::-webkit-scrollbar-track { background: #f6e8e8; }
+#chat-box::-webkit-scrollbar-thumb {
+  background: var(--garnet);
+  border: 2px solid #f6e8e8;
+  border-radius: 8px;
+}
+
+button,
+.nav-link {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.9rem;
+  background: var(--garnet);
+  color: var(--text-light);
+  padding: 12px 18px;
+  margin: 6px;
+  border: 2px solid var(--border-dark);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-transform: uppercase;
+  box-shadow: var(--shadow);
+  transition: transform .05s ease, filter .15s ease;
+}
+
+button:hover,
+.nav-link:hover {
+  background: var(--garnet-dark);
   color: var(--accent);
 }
 
-button:disabled {
-  background-color: #ccc;
-  color: #888;
-  cursor: not-allowed;
+button:active,
+.nav-link:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--border-dark);
 }
 
 #question-counter {
-  text-align: center;
-  margin-bottom: 10px;
-  font-size: 0.6rem;
+  margin: 14px 0;
+  font-size: 0.9rem;
 }
 
-#back-home {
-  position: fixed;
-  bottom: 12px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
+#guess-instruction {
+  font-size: 0.9rem;
+  color: #000;
+  margin-top: 1rem;
+  line-height: 1.5;
+}
+
+#user-question {
+  width: 60%;
+  min-width: 260px;
+  height: 48px;
+  padding: 12px;
+  font-size: 0.9rem;
+  font-family: 'Press Start 2P', monospace;
+  margin-bottom: 14px;
+  border: 2px solid var(--border-dark);
+  border-radius: var(--radius);
 }
 
 #back-home a {
   font-family: 'Press Start 2P', monospace;
-  font-size: 0.6rem;
-  text-decoration: none;
-  background-color: var(--garnet-dark);
-  color: var(--text-light);
-  padding: 6px 12px;
-  border: 2px solid var(--border-dark);
-}
-
-#back-home a:hover {
-  background-color: var(--accent);
-  color: var(--text-dark);
-}
-
-#music-toggle {
-  position: fixed;
-  top: 14px;
-  right: 14px;
-  z-index: 1000;
+  font-size: 0.9rem;
+  padding: 12px 16px;
 }
 
 #music-toggle button {
-  background-color: transparent;
-  font-size: 1.2rem;
-  border: none;
+  font-size: 1.6rem; /* bigger icon */
   color: var(--garnet-dark);
+  background: transparent;
+  border: none;
   cursor: pointer;
 }
 
-#input-area {
-  margin-top: 10px;
+@media (max-width: 768px) {
+  body { font-size: 13px; }
+  #chat-box { height: 340px; font-size: 0.8rem; }
+  button, .nav-link { font-size: 0.8rem; padding: 10px 14px; }
+  h1, h2 { font-size: 1.3rem; }
 }
 
-#user-question {
-  width: 30%;             /* narrower than before */
-  height: 40px;           /* taller for better UX */
-  padding: 10px;
-  font-size: 10px;
-  font-family: 'Press Start 2P', monospace;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-}
-
-
-#give-up-container {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.nav-link {
-  display: inline-block;
-  font-family: 'Press Start 2P', monospace;
-  font-size: 0.6rem;
-  background-color: var(--garnet);
-  color: var(--text-light);
-  padding: 8px 12px;
-  margin: 4px;
-  border: 2px solid var(--border-dark);
-  text-decoration: none;
-  text-align: center;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-
-.nav-link:hover {
-  background-color: var(--garnet-dark);
-  color: var(--accent);
-}
-
-/* Responsive Enhancements */
 @media (max-width: 480px) {
-  #chat-box {
-    height: 250px;
-    font-size: 0.55rem;
-  }
-
-  #user-question {
-    width: 90%;
-    font-size: 0.55rem;
-  }
-
-  button, .nav-link {
-    font-size: 0.55rem;
-    padding: 6px 10px;
-  }
-
-  h1, h2 {
-    font-size: 0.9rem;
-  }
-}
-.hidden {
-  display: none;
-}
-#guess-instruction {
-  font-size: 0.72em;       /* makes the text 80% of normal size */
-  color: #000000;            /* optional: soften the color */
-  margin-top: 1rem;       /* adjust spacing if needed */
-  line-height: 1.2;       /* tighten up the line spacing */
+  body { font-size: 12px; }
+  #chat-box { height: 300px; font-size: 0.75rem; }
+  button, .nav-link { font-size: 0.75rem; padding: 8px 12px; }
+  h1, h2 { font-size: 1.1rem; }
 }
