@@ -12,27 +12,34 @@
   --glass-blur: 8px;
   --profile-img-size: 220px;
 
-  /* Layout */
-  --content-max: 1200px;
+  /* NAV HEIGHTS (single source of truth) */
+  --nav-h-desktop: 64px;
+  --nav-h-mobile: 50px;
 
-  /* Fixed nav height (adjust if you change padding/line-height) */
-  --nav-h: 56px;
+  /* Desktop scale */
+  --fs-body: 16px;
+  --fs-h2: 28px;
+  --fs-h3: 18px;
+  --fs-nav: 15px;
+  --fs-btn: 15px;
+
+  /* Mobile scale (applied in media queries) */
+  --fs-body-m: 13px;
+  --fs-h2-m: 16px;
+  --fs-h3-m: 14px;
+  --fs-nav-m: 12.5px;
+  --fs-btn-m: 12.5px;
 }
 
 html {
   scroll-behavior: smooth;
   font-family: 'Segoe UI', Tahoma, sans-serif;
   color: var(--text-dark);
-  -webkit-text-size-adjust: 100%;
-  text-size-adjust: 100%;
+  font-size: var(--fs-body);
 }
-
 body {
   margin: 0;
   background-color: #fdf6f0;
-
-  /* Offset content so it doesn't slide under the fixed ribbon */
-  padding-top: calc(var(--nav-h) + env(safe-area-inset-top, 0px));
 }
 
 /* Subtle themed background */
@@ -44,7 +51,6 @@ body.gamecock-theme {
   background-blend-mode: multiply, lighten;
   background-color: #fdf6f0;
 }
-
 body::before {
   content: "";
   position: fixed;
@@ -53,79 +59,54 @@ body::before {
   z-index: -1;
 }
 
-/* Make in-page anchors clear the fixed ribbon */
-section { scroll-margin-top: calc(var(--nav-h) + 16px); }
+/* Anchor offset (desktop); updated for mobile in media query */
+section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
 
 /* =================================
-   NAVIGATION (Red Ribbon)
+   NAVIGATION (fixed red ribbon)
    ================================= */
 .top-nav {
   position: fixed;
-  top: env(safe-area-inset-top, 0px);
-  left: 0; right: 0;
-  z-index: 1000;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.25rem;
-
-  min-height: var(--nav-h);
-  padding: 0.5rem clamp(12px, 2vw, 24px);
-
-  background: rgba(115,0,10,0.9);
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h-desktop);
+  display: flex; align-items: center; justify-content: center; gap: 0.25rem;
+  padding: 0 0.6rem;
+  background: rgba(115,0,10,0.93);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(255,255,255,0.12);
-
-  /* Mobile: allow horizontal scroll if items wrap */
-  overflow-x: auto;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-  -webkit-overflow-scrolling: touch;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  z-index: 1000;
 }
-.top-nav::-webkit-scrollbar { display: none; }
-
 .top-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.98rem;
-  padding: 0.5rem 0.85rem;
-  border-radius: 10px;
-  transition: background 0.2s, transform 0.2s, color 0.2s;
-  scroll-snap-align: center;
-  white-space: nowrap;
-  line-height: 1;
+  color: #fff; text-decoration: none; font-size: var(--fs-nav);
+  padding: 0.45rem 0.8rem; border-radius: 8px; transition: background 0.2s, transform 0.2s;
 }
 .top-nav a:hover { background: rgba(255,255,255,0.18); }
-.top-nav a.active { background: rgba(255,255,255,0.28); transform: translateY(-1px); }
+.top-nav a.active {
+  background: rgba(255,255,255,0.22);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.06) inset;
+}
 
 /* =================================
    HERO
    ================================= */
+/* The hero fills the viewport *visually* even with a fixed nav:
+   min-height is viewport minus nav height; padding-top = nav height,
+   so the overall block still equals ~100vh and there’s no white gap. */
 .hero {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - var(--nav-h));
-  text-align: center;
-  background: url('images/linkedin\ background.jpg') center/cover no-repeat;
   position: relative;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  min-height: calc(100vh - var(--nav-h-desktop));
+  padding-top: var(--nav-h-desktop);
+  text-align: center;
+  background: url('images/linkedin background.jpg') center/cover no-repeat;
   color: #fff;
-  padding: 2rem 1rem;
 }
 .hero::before {
-  content: "";
-  position: absolute; inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5);
 }
-.hero-content {
-  position: relative;
-  z-index: 1;
-  display: flex; flex-direction: column; align-items: center; gap: 1rem;
-  animation: fadeIn .5s ease both;
-}
+.hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
 .hero-headshot-container {
   max-width: 260px;
   border-radius: 50%;
@@ -136,17 +117,39 @@ section { scroll-margin-top: calc(var(--nav-h) + 16px); }
 .hero-headshot { display:block; width:100%; height:auto; object-fit:cover; object-position:center 30%; }
 .hero-title { font-size: clamp(2.2rem, 3vw + 1rem, 3.25rem); margin: 10px 0; }
 .hero-subtitle { font-size: clamp(1.1rem, 1vw + 0.6rem, 1.5rem); margin-bottom: 30px; }
-.hero-buttons { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+.hero-buttons { display:flex; gap:15px; flex-wrap:wrap; justify-content:center; }
 .hero-btn {
   background: #fff; color: #000; text-decoration:none; padding: 10px 20px;
   border-radius: 30px; font-weight: 700; transition: background 0.25s, color 0.25s, transform 0.2s;
+  font-size: var(--fs-btn);
 }
 .hero-btn:hover { background: var(--garnet); color: #fff; transform: translateY(-1px); }
 
 /* =================================
+   BACK TO TOP
+   ================================= */
+.scroll-top-btn {
+  position: fixed; bottom: 20px; right: 20px;
+  background: var(--garnet); color: #fff; font-size: 1.4rem;
+  padding: 0.5rem 0.8rem; border-radius: 50%; cursor: pointer; z-index: 1000;
+  transition: opacity 0.2s, transform 0.2s, background 0.2s;
+  opacity: 0; pointer-events: none; transform: translateY(8px);
+}
+.scroll-top-btn:hover { background: var(--garnet-600); }
+.scroll-top-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+/* =================================
    MAIN LAYOUT
    ================================= */
-.usc-main { max-width: var(--content-max); margin: 2rem auto; padding: 0 2rem; }
+.usc-main { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+
+.logo-banner {
+  max-width: 300px; margin: 0 auto 2rem; padding: 1.5rem;
+  background: rgba(255,255,255,0.85); border-radius: var(--radius);
+  box-shadow: 0 4px 16px var(--accent-shadow); backdrop-filter: blur(5px); text-align: center;
+}
+.logo-banner img { max-width: 200px; opacity: 0.95; transition: transform 0.3s; }
+.logo-banner img:hover { transform: scale(1.05); }
 
 /* =================================
    ABOUT & JUSTINBOT
@@ -166,7 +169,6 @@ section { scroll-margin-top: calc(var(--nav-h) + 16px); }
   border-radius: var(--radius);
   box-shadow: 0 4px 16px var(--accent-shadow);
 }
-
 .about-container { display:flex; flex-direction:column; align-items:center; gap:1rem; padding:1.5rem; }
 .about-container img {
   width: 100%; max-width: var(--profile-img-size); aspect-ratio: 1/1; object-fit: cover; object-position: center 35%;
@@ -184,14 +186,15 @@ section { scroll-margin-top: calc(var(--nav-h) + 16px); }
 .chat-ui { display:flex; flex-direction:column; gap:0.75rem; }
 .chatbox-container { display:flex; gap:0.5rem; flex-wrap:wrap; width:100%; margin-top:1rem; }
 #user-input {
-  flex: 1 1 auto; min-width: 0; font-size: 1rem; padding: 0.7rem 0.75rem;
-  border: 1px solid rgba(115,0,10,0.3); border-radius: 10px;
+  flex: 1 1 auto; min-width: 0; font-size: 1rem; padding: 0.6rem;
+  border: 1px solid rgba(115,0,10,0.3); border-radius: 8px;
 }
 #chat-form button {
-  flex: 0 0 auto; padding: 0.7rem 1.1rem; background: var(--garnet);
-  border: none; border-radius: 10px; color: #fff; cursor: pointer; transition: background 0.2s, transform 0.2s;
+  flex: 0 0 auto; padding: 0.6rem 1.2rem; background: var(--garnet);
+  border: none; border-radius: 8px; color: #fff; cursor: pointer; transition: background 0.2s;
+  font-size: var(--fs-btn);
 }
-#chat-form button:hover { background: var(--garnet-600); transform: translateY(-1px); }
+#chat-form button:hover { background: var(--garnet-600); }
 .chat-response { margin: 1rem auto 0; padding: 1rem; min-height: 120px; max-width: 560px; }
 
 /* =================================
@@ -207,24 +210,23 @@ section { scroll-margin-top: calc(var(--nav-h) + 16px); }
   border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: 0 4px 16px var(--accent-shadow);
-  transition: transform 0.2s, border-left 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, border-left 0.2s;
   border-left: 5px solid transparent;
 }
 .skill-card:hover, .project:hover, .work-card:hover {
   transform: translateY(-6px);
   border-left: 5px solid var(--garnet);
-  box-shadow: 0 6px 22px rgba(0,0,0,0.15);
 }
 .project img, .work-card img {
   width: 100%; height: 180px; object-fit: contain;
   background: #eee; padding: 0.5rem; border-radius: 12px; margin-bottom: 1rem;
 }
-.project h3, .work-card h3, .skill-card h4 { color: var(--garnet); margin-bottom: 0.75rem; }
+.project h3, .work-card h3, .skill-card h4 { color: var(--garnet); margin-bottom: 0.75rem; font-size: var(--fs-h3); }
 .project p, .work-card p { font-size: 1rem; color: #222; }
 .project-button {
   display:inline-block; margin-top:0.75rem; padding:0.6rem 1.2rem;
-  background: var(--garnet); color:#fff; border-radius: 10px; text-decoration:none; font-weight:600;
-  transition: background 0.2s, transform 0.2s;
+  background: var(--garnet); color:#fff; border-radius: 8px; text-decoration:none; font-weight:600;
+  transition: background 0.2s, transform 0.2s; font-size: var(--fs-btn);
 }
 .project-button:hover { background: var(--garnet-600); transform: translateY(-1px); }
 
@@ -235,11 +237,12 @@ section h2 {
   display:inline-block; margin-bottom:1.5rem; padding:0.75rem 1.5rem;
   background: rgba(255,255,255,0.9); color: var(--garnet);
   border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  font-size: var(--fs-h2);
 }
 @keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
 
 /* =================================
-   TIMELINE
+   TIMELINE (desktop)
    ================================= */
 .timeline-section { padding: 4rem 2rem; }
 .timeline-section h2 { margin-bottom: 3rem; }
@@ -250,10 +253,7 @@ section h2 {
   content: ''; position: absolute; top: 0; left: 50%; width: 4px; height: 100%;
   background: var(--garnet); transform: translateX(-50%); z-index: 0;
 }
-.timeline-item {
-  display:flex; justify-content:center; margin:3rem 0; position:relative; z-index:1;
-  opacity:0; transform: translateY(12px); transition: opacity .4s, transform .4s;
-}
+.timeline-item { display:flex; justify-content:center; margin:3rem 0; position:relative; z-index:1; opacity:0; transform: translateY(12px); transition: opacity .4s, transform .4s; }
 .timeline-item.show { opacity:1; transform: none; }
 .timeline-bundle { width: 45%; display:flex; flex-direction:column; align-items:flex-start; }
 .timeline-item.left .timeline-bundle { margin-right:auto; }
@@ -269,7 +269,7 @@ section h2 {
 .stat { padding:0.4rem 0.9rem; background: var(--garnet); color:#fff; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
 
 /* =================================
-   FOOTER / UTILITIES
+   FOOTER
    ================================= */
 .back-link {
   margin: 3rem auto 1rem; max-width: fit-content; padding: 1rem 2rem;
@@ -278,7 +278,6 @@ section h2 {
 }
 .back-link a { color: var(--garnet); font-weight: 700; text-decoration: none; font-size: 1.05rem; }
 .back-link a:hover { text-decoration: underline; }
-
 .footer-contact {
   margin-top: 2rem; padding: 1rem 0; text-align: center;
   background: rgba(255,255,255,0.85); backdrop-filter: blur(5px);
@@ -287,109 +286,157 @@ section h2 {
 .footer-contact a { margin: 0 1rem; color: var(--garnet); text-decoration: none; }
 .footer-contact a:hover { text-decoration: underline; }
 
-/* Scroll-to-top button */
-.scroll-top-btn {
-  position: fixed; bottom: max(20px, env(safe-area-inset-bottom, 0px)); right: 20px;
-  background: var(--garnet); color: #fff; font-size: 1.4rem;
-  padding: 0.6rem 0.9rem; border-radius: 50%; cursor: pointer; z-index: 1000;
-  transition: opacity 0.2s, transform 0.2s, background 0.2s;
-  opacity: 0; pointer-events: none; transform: translateY(8px);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-}
-.scroll-top-btn:hover { background: var(--garnet-600); }
-.scroll-top-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-
-/* Accessibility helpers */
+/* =================================
+   UTILITIES
+   ================================= */
+.hidden-mobile { display: block; }
 .sr-only {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
 /* =================================
-   REDUCED MOTION
+   MOBILE POLISH (<= 768px)
    ================================= */
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}
-
-/* =================================
-   RESPONSIVE TWEAKS
-   ================================= */
-
-/* Medium screens: loosen timeline width slightly */
-@media (max-width: 992px) {
-  .timeline-bundle { width: 52%; }
-}
-
-/* Mobile-first optimizations */
 @media (max-width: 768px) {
-  /* Larger nav height for wrapping links */
-  :root { --nav-h: 64px; }
-
   html, body {
-    font-size: 15px;
-    line-height: 1.5;
+    font-size: var(--fs-body-m);
     overflow-x: hidden;
-    background: #fff; color: #222;
+    background: #fff;
+    color: #222;
+    line-height: 1.5;
   }
 
-  /* Ribbon: slightly denser padding; keep scrollable */
+  /* Fixed red ribbon, slim + horizontally scrollable tabs */
   .top-nav {
-    gap: 0.35rem;
-    padding: 0.5rem 8px;
+    height: var(--nav-h-mobile);
+    padding: 0 0.5rem;
+    gap: 0.25rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none;
   }
+  .top-nav::-webkit-scrollbar { display: none; }
   .top-nav a {
-    padding: 0.6rem 0.9rem;  /* bigger tap targets */
-    font-size: 1rem;
-    border-radius: 12px;
+    font-size: var(--fs-nav-m);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
   }
+  .top-nav a.active {
+    background: rgba(255,255,255,0.18);
+    box-shadow: none;
+    transform: none;
+    border-bottom: 2px solid rgba(255,255,255,0.9);
+  }
+
+  /* Mobile anchor offset */
+  section { scroll-margin-top: calc(var(--nav-h-mobile) + 10px); }
+
+  /* Hero: condensed; height logic mirrors desktop */
+  .hero {
+    min-height: calc(100vh - var(--nav-h-mobile));
+    padding-top: var(--nav-h-mobile);
+  }
+  .hero-headshot-container { max-width: 160px; border-width: 4px; }
+  .hero-title { font-size: 1.45rem; margin: 6px 0; }
+  .hero-subtitle { font-size: 0.9rem; margin-bottom: 16px; }
+  .hero-buttons { display: none; }
 
   .usc-main { padding: 0 1rem; margin: 1.25rem auto; }
 
-  /* Stack About/JustinBot cleanly */
+  /* About & JustinBot stack tighter */
   .hidden-mobile { display: none !important; }
-  .about-justinbot-wrapper { flex-direction: column; align-items: center; gap: 24px; }
-  .about-container, .justinbot-section { max-width: 100%; }
-  .justinbot-image { width: 190px; }
-  #user-input, #chat-form button { font-size: 1rem; }
-
-  /* Cards & grids */
-  .skills-grid, .project-grid, .work-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+  .about-justinbot-wrapper {
+    gap: 16px; margin-bottom: 22px; flex-direction: column; align-items: stretch;
   }
-  .project img, .work-card img { height: 160px; }
+  .about-container, .justinbot-section { max-width: 100%; padding: 1rem; }
+  .about-container img { max-width: 160px; border-width: 3px; }
 
-  /* Timeline becomes one column on the left */
-  .timeline { padding: 0 0 0 1rem; }
-  .timeline::before { left: 8px; transform: none; }
-  .timeline-bundle { width: 100%; padding-left: 24px; }
-  .timeline-item { margin: 2rem 0; }
+  .chatbox-section { padding: 1rem; gap: 0.75rem; }
+  #user-input { font-size: 0.9rem; padding: 0.55rem; }
+  #chat-form button { font-size: var(--fs-btn-m); padding: 0.55rem 0.9rem; }
 
-  /* Hero spacing */
-  .hero { padding: 1.25rem 1rem; min-height: calc(92vh - var(--nav-h)); }
-  .hero-title { font-size: clamp(2rem, 5vw + 1rem, 2.6rem); }
-  .hero-subtitle { font-size: clamp(1rem, 1.5vw + .7rem, 1.25rem); margin-bottom: 20px; }
-  .hero-buttons { gap: 10px; }
-  .hero-btn { padding: 9px 16px; }
-
-  /* Footer buttons easier to tap */
-  .footer-contact a {
-    display: inline-block;
-    padding: 8px 10px;
+  /* Sections: smaller headers & less vertical rhythm */
+  section h2 {
+    font-size: var(--fs-h2-m);
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.85rem;
+    border-radius: 10px;
   }
+
+  /* Grids: denser spacing */
+  .skills-grid, .project-grid, .work-grid { gap: 12px; margin-bottom: 24px; }
+
+  /* Projects: 2-up scan */
+  .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .project { padding: 0.9rem; }
+  .project img { height: 120px; object-fit: cover; background: #f1f1f1; }
+  .project h3 { font-size: var(--fs-h3-m); margin-bottom: 0.5rem; }
+  .project p { font-size: 0.92rem; line-height: 1.45; }
+  .project-button { font-size: var(--fs-btn-m); padding: 0.5rem 0.8rem; }
+
+  /* Work: compact one-column with punchier thumbnails */
+  .work-grid { grid-template-columns: 1fr; }
+  .work-card { padding: 1rem; box-shadow: 0 2px 8px rgba(115,0,10,0.10); }
+  .work-card img { height: 140px; object-fit: cover; background: #f3f3f3; }
+  .work-card h3 { font-size: var(--fs-h3-m); margin-bottom: 0.4rem; }
+  .work-card p { font-size: 0.95rem; line-height: 1.45; }
+
+  /* Skills: chip-like tiles */
+  .skills-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .skill-card { padding: 0.9rem; }
+  .skill-card h4 { font-size: var(--fs-h3-m); margin-bottom: 0.5rem; }
+  .skill-card ul { padding-left: 1rem; margin: 0.25rem 0 0; }
+  .skill-card li { font-size: 0.92rem; line-height: 1.5; }
+
+  /* Timeline: single-rail list */
+  .timeline-section { padding: 1.5rem 0.5rem; }
+  .timeline { max-width: 680px; padding: 0 0.5rem; }
+  .timeline::before { left: 20px; transform: none; width: 3px; }
+  .timeline-item {
+    margin: 1.25rem 0; opacity: 1; transform: none; justify-content: flex-start;
+  }
+  .timeline-bundle {
+    width: 100%; display: grid; grid-template-columns: 56px 1fr; column-gap: 12px; align-items: start;
+  }
+  .timeline-item.left .timeline-bundle,
+  .timeline-item.right .timeline-bundle { margin: 0; }
+  .timeline-date { grid-column: 2; font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .timeline-content { grid-column: 2; padding: 0.75rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .timeline-content img { height: 110px; object-fit: cover; }
+  .timeline-stats { grid-column: 2; gap: 6px; margin-top: 0.6rem; }
+  .stat { padding: 0.28rem 0.6rem; font-size: 0.8rem; }
+
+  /* Back to top & footer */
+  .back-link { margin: 1.25rem auto 0.75rem; padding: 0.6rem 1.2rem; }
+  .back-link a { font-size: 0.95rem; }
+  .footer-contact { padding: 0.75rem 0; }
+  .footer-contact a { margin: 0 0.6rem; }
 }
 
-/* Backdrop-filter fallback (older browsers) */
-@supports not ((backdrop-filter: blur(2px)) or (-webkit-backdrop-filter: blur(2px))) {
-  .top-nav { background: var(--garnet); }
-  .about-container,
-  .chatbox-section,
-  .chat-response,
-  .skill-card, .project, .work-card,
-  .timeline-content,
-  .back-link,
-  .footer-contact {
-    background: #ffffff;
-  }
+/* =================================
+   SMALL PHONES (<= 576px)
+   ================================= */
+@media (max-width: 576px) {
+  .top-nav { height: var(--nav-h-mobile); padding: 0 0.45rem; }
+  .top-nav a { font-size: 12px; padding: 0.35rem 0.55rem; }
+  section { scroll-margin-top: calc(var(--nav-h-mobile) + 10px); }
+
+  .hero { min-height: calc(100vh - var(--nav-h-mobile)); padding-top: var(--nav-h-mobile); }
+  .hero-headshot-container { max-width: 140px; }
+  .hero-title { font-size: 1.3rem; }
+  .hero-subtitle { font-size: 0.85rem; }
+
+  .project img { height: 110px; }
+  .work-card img { height: 130px; }
+  .skill-card li { font-size: 0.9rem; }
+
+  .timeline::before { left: 16px; }
+  .timeline-bundle { grid-template-columns: 50px 1fr; }
+  .timeline-content img { height: 100px; }
+}
+
+/* Prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
