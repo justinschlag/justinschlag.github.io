@@ -103,7 +103,7 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
   padding-top: var(--nav-h-desktop);
   text-align: center;
   background: url('images/linkedin background.jpg') center/cover no-repeat;
-  background-position: center -70%; /* desktop crop preference */
+  background-position: center -60%; /* desktop crop preference */
   color: #fff;
 }
 .hero::before { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); }
