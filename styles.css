@@ -101,6 +101,7 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
   padding-top: var(--nav-h-desktop);
   text-align: center;
   background: url('images/linkedin background.jpg') center/cover no-repeat;
+  background-position: center -70%;  /* adjust % up/down */
   color: #fff;
 }
 .hero::before {
@@ -439,4 +440,41 @@ section h2 {
 /* Prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media (max-width: 768px) {
+  .hero {
+    background-position: center 20%; /* re-center for mobile */
+  }
+}
+@media (max-width: 768px) {
+  /* Slimmer top ribbon */
+  .top-nav {
+    height: 44px; /* slightly shorter than var(--nav-h-mobile) */
+    padding: 0 0.4rem;
+    background: var(--garnet); /* solid on mobile */
+  }
+  .top-nav a {
+    font-size: 12px;
+    line-height: 1;       /* prevents tall links */
+    padding: 0.35rem 0.55rem;
+  }
+
+  /* Adjust hero to match new nav height */
+  .hero {
+    min-height: calc(100vh - 44px);
+    padding-top: 44px;
+    background-position: center 20%; /* keep your smokestack visible */
+  }
+
+  /* Mobile anchor offset should also use 44px */
+  section { scroll-margin-top: calc(44px + 8px); }
+}
+
+@media (max-width: 576px) {
+  .top-nav { height: 40px; }
+  .hero {
+    min-height: calc(100vh - 40px);
+    padding-top: 40px;
+  }
+  section { scroll-margin-top: calc(40px + 6px); }
 }
