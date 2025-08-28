@@ -104,6 +104,8 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
   text-align: center;
   background: url('images/linkedin background.jpg') center/cover no-repeat;
   background-position: center -30%; /* desktop crop preference */
+  margin-top: -var(--nav-h-desktop);   /* pull hero up under the nav */
+  padding-top: calc(var(--nav-h-desktop) * 2); /* keep content spaced correctly */
   color: #fff;
 }
 .hero::before { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); }
