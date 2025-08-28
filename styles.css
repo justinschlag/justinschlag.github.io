@@ -12,9 +12,8 @@
   --glass-blur: 8px;
   --profile-img-size: 220px;
 
-  /* NAV HEIGHTS (single source of truth) */
+  /* NAV HEIGHTS (desktop only here; mobile computed via safe-area) */
   --nav-h-desktop: 64px;
-  --nav-h-mobile: 50px;
 
   /* Desktop scale */
   --fs-body: 16px;
@@ -23,12 +22,15 @@
   --fs-nav: 15px;
   --fs-btn: 15px;
 
-  /* Mobile scale (applied in media queries) */
+  /* Mobile scale (used in media queries) */
   --fs-body-m: 13px;
   --fs-h2-m: 16px;
   --fs-h3-m: 14px;
   --fs-nav-m: 12.5px;
   --fs-btn-m: 12.5px;
+
+  /* Safe area (iOS) */
+  --safe-top: env(safe-area-inset-top, 0px);
 }
 
 html {
@@ -37,6 +39,7 @@ html {
   color: var(--text-dark);
   font-size: var(--fs-body);
 }
+
 body {
   margin: 0;
   background-color: #fdf6f0;
@@ -51,6 +54,7 @@ body.gamecock-theme {
   background-blend-mode: multiply, lighten;
   background-color: #fdf6f0;
 }
+
 body::before {
   content: "";
   position: fixed;
@@ -59,7 +63,7 @@ body::before {
   z-index: -1;
 }
 
-/* Anchor offset (desktop); updated for mobile in media query */
+/* Anchor offset (desktop); mobile overrides later */
 section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
 
 /* =================================
@@ -91,9 +95,7 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
 /* =================================
    HERO
    ================================= */
-/* The hero fills the viewport *visually* even with a fixed nav:
-   min-height is viewport minus nav height; padding-top = nav height,
-   so the overall block still equals ~100vh and there’s no white gap. */
+/* Desktop fills viewport visually with fixed nav; no white gap */
 .hero {
   position: relative;
   display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -101,12 +103,10 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
   padding-top: var(--nav-h-desktop);
   text-align: center;
   background: url('images/linkedin background.jpg') center/cover no-repeat;
-  background-position: center -70%;  /* adjust % up/down */
+  background-position: center -70%; /* desktop crop preference */
   color: #fff;
 }
-.hero::before {
-  content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5);
-}
+.hero::before { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); }
 .hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
 .hero-headshot-container {
   max-width: 260px;
@@ -297,7 +297,7 @@ section h2 {
 }
 
 /* =================================
-   MOBILE POLISH (<= 768px)
+   MOBILE (<= 768px) — consolidated
    ================================= */
 @media (max-width: 768px) {
   html, body {
@@ -308,19 +308,27 @@ section h2 {
     line-height: 1.5;
   }
 
-  /* Fixed red ribbon, slim + horizontally scrollable tabs */
+  /* Fixed red ribbon: safe-area aware, tight spacing, horizontal scroll */
   .top-nav {
-    height: var(--nav-h-mobile);
-    padding: 0 0.5rem;
-    gap: 0.25rem;
+    /* Base bar 44px + notch */
+    height: calc(44px + var(--safe-top));
+    padding-top: var(--safe-top);
+    padding-left: 6px;
+    padding-right: 6px;
+    gap: 0.15rem;
+    box-sizing: border-box;
     overflow-x: auto;
     white-space: nowrap;
     scrollbar-width: none;
+    background: var(--garnet);
   }
   .top-nav::-webkit-scrollbar { display: none; }
   .top-nav a {
-    font-size: var(--fs-nav-m);
-    padding: 0.4rem 0.6rem;
+    font-size: 11.25px;
+    line-height: 1;
+    padding: 0.32rem 0.42rem;
+    letter-spacing: -0.15px;
+    word-spacing: -1px;
     border-radius: 6px;
   }
   .top-nav a.active {
@@ -330,17 +338,18 @@ section h2 {
     border-bottom: 2px solid rgba(255,255,255,0.9);
   }
 
-  /* Mobile anchor offset */
-  section { scroll-margin-top: calc(var(--nav-h-mobile) + 10px); }
+  /* Mobile anchor offset = bar height + a little breathing room */
+  section { scroll-margin-top: calc(44px + var(--safe-top) + 8px); }
 
-  /* Hero: condensed; height logic mirrors desktop */
+  /* Hero under fixed nav; mobile crop & larger face/title */
   .hero {
-    min-height: calc(100vh - var(--nav-h-mobile));
-    padding-top: var(--nav-h-mobile);
+    min-height: calc(100vh - (44px + var(--safe-top)));
+    padding-top: calc(44px + var(--safe-top));
+    background-position: center 18%;
   }
-  .hero-headshot-container { max-width: 160px; border-width: 4px; }
-  .hero-title { font-size: 1.45rem; margin: 6px 0; }
-  .hero-subtitle { font-size: 0.9rem; margin-bottom: 16px; }
+  .hero-headshot-container { max-width: 200px; border-width: 4px; }
+  .hero-title { font-size: clamp(1.85rem, 5vw + 0.6rem, 2.35rem); margin: 6px 0; }
+  .hero-subtitle { font-size: 1rem; margin-bottom: 16px; }
   .hero-buttons { display: none; }
 
   .usc-main { padding: 0 1rem; margin: 1.25rem auto; }
@@ -357,7 +366,7 @@ section h2 {
   #user-input { font-size: 0.9rem; padding: 0.55rem; }
   #chat-form button { font-size: var(--fs-btn-m); padding: 0.55rem 0.9rem; }
 
-  /* Sections: smaller headers & less vertical rhythm */
+  /* Sections: smaller headers & tighter rhythm */
   section h2 {
     font-size: var(--fs-h2-m);
     margin-bottom: 1rem;
@@ -376,12 +385,12 @@ section h2 {
   .project p { font-size: 0.92rem; line-height: 1.45; }
   .project-button { font-size: var(--fs-btn-m); padding: 0.5rem 0.8rem; }
 
-  /* Work: compact one-column with punchier thumbnails */
-  .work-grid { grid-template-columns: 1fr; }
-  .work-card { padding: 1rem; box-shadow: 0 2px 8px rgba(115,0,10,0.10); }
-  .work-card img { height: 140px; object-fit: cover; background: #f3f3f3; }
-  .work-card h3 { font-size: var(--fs-h3-m); margin-bottom: 0.4rem; }
-  .work-card p { font-size: 0.95rem; line-height: 1.45; }
+  /* Work Experience: 2 columns on mobile */
+  .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .work-card { padding: 0.8rem; box-shadow: 0 2px 8px rgba(115,0,10,0.10); }
+  .work-card img { height: 110px; object-fit: cover; background: #f3f3f3; }
+  .work-card h3 { font-size: 0.98rem; margin-bottom: 0.4rem; }
+  .work-card p  { font-size: 0.88rem; line-height: 1.35; }
 
   /* Skills: chip-like tiles */
   .skills-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
@@ -390,16 +399,12 @@ section h2 {
   .skill-card ul { padding-left: 1rem; margin: 0.25rem 0 0; }
   .skill-card li { font-size: 0.92rem; line-height: 1.5; }
 
-  /* Timeline: single-rail list */
+  /* Timeline: single rail list */
   .timeline-section { padding: 1.5rem 0.5rem; }
   .timeline { max-width: 680px; padding: 0 0.5rem; }
   .timeline::before { left: 20px; transform: none; width: 3px; }
-  .timeline-item {
-    margin: 1.25rem 0; opacity: 1; transform: none; justify-content: flex-start;
-  }
-  .timeline-bundle {
-    width: 100%; display: grid; grid-template-columns: 56px 1fr; column-gap: 12px; align-items: start;
-  }
+  .timeline-item { margin: 1.25rem 0; opacity: 1; transform: none; justify-content: flex-start; }
+  .timeline-bundle { width: 100%; display: grid; grid-template-columns: 56px 1fr; column-gap: 12px; align-items: start; }
   .timeline-item.left .timeline-bundle,
   .timeline-item.right .timeline-bundle { margin: 0; }
   .timeline-date { grid-column: 2; font-size: 0.9rem; margin-bottom: 0.25rem; }
@@ -416,21 +421,34 @@ section h2 {
 }
 
 /* =================================
+   NARROW PHONES (<= 640px)
+   ================================= */
+@media (max-width: 640px) {
+  .top-nav a {
+    font-size: 10.75px;
+    padding: 0.30rem 0.38rem;
+    letter-spacing: -0.2px;
+  }
+}
+
+/* =================================
    SMALL PHONES (<= 576px)
    ================================= */
 @media (max-width: 576px) {
-  .top-nav { height: var(--nav-h-mobile); padding: 0 0.45rem; }
-  .top-nav a { font-size: 12px; padding: 0.35rem 0.55rem; }
-  section { scroll-margin-top: calc(var(--nav-h-mobile) + 10px); }
-
-  .hero { min-height: calc(100vh - var(--nav-h-mobile)); padding-top: var(--nav-h-mobile); }
-  .hero-headshot-container { max-width: 140px; }
-  .hero-title { font-size: 1.3rem; }
-  .hero-subtitle { font-size: 0.85rem; }
+  /* Shorter bar; keep layout aligned */
+  .top-nav { height: calc(38px + var(--safe-top)); padding-top: var(--safe-top); }
+  section { scroll-margin-top: calc(38px + var(--safe-top) + 6px); }
+  .hero {
+    min-height: calc(100vh - (38px + var(--safe-top)));
+    padding-top: calc(38px + var(--safe-top));
+    background-position: center 22%;
+  }
+  .top-nav a { font-size: 10.25px; padding: 0.28rem 0.36rem; }
+  .hero-headshot-container { max-width: 180px; }
+  .hero-title { font-size: clamp(1.75rem, 6vw + 0.5rem, 2.1rem); }
 
   .project img { height: 110px; }
-  .work-card img { height: 130px; }
-  .skill-card li { font-size: 0.9rem; }
+  .work-card img { height: 100px; }
 
   .timeline::before { left: 16px; }
   .timeline-bundle { grid-template-columns: 50px 1fr; }
@@ -440,77 +458,4 @@ section h2 {
 /* Prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-}
-
-/* ======= MOBILE TUNE-UPS (append at end; desktop unchanged) ======= */
-@media (max-width: 768px) {
-  /* --- Red ribbon: account for iPhone notch & tighten bar --- */
-  .top-nav {
-    /* total height = 44px + safe area */
-    height: calc(44px + constant(safe-area-inset-top));
-    height: calc(44px + env(safe-area-inset-top));
-    padding-top: constant(safe-area-inset-top);
-    padding-top: env(safe-area-inset-top);
-    padding-left: 8px;
-    padding-right: 8px;
-    box-sizing: border-box;
-    background: var(--garnet);
-  }
-  .top-nav a {
-    font-size: 12px;
-    line-height: 1;
-    padding: 0.38rem 0.55rem;
-  }
-
-  /* --- Hero: bigger headshot & title; align under the fixed nav --- */
-  .hero {
-    min-height: calc(100vh - (44px + constant(safe-area-inset-top)));
-    min-height: calc(100vh - (44px + env(safe-area-inset-top)));
-    padding-top: calc(44px + constant(safe-area-inset-top));
-    padding-top: calc(44px + env(safe-area-inset-top)));
-    background-position: center 18%; /* keep the smokestack visible */
-  }
-  .hero-headshot-container { max-width: 200px; }  /* was ~160px */
-  .hero-title { font-size: clamp(1.85rem, 5vw + 0.6rem, 2.35rem); }
-  .hero-subtitle { font-size: 1rem; }
-
-  /* --- Work Experience: 2 columns like Projects --- */
-  .work-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .work-card { padding: 0.8rem; }
-  .work-card img { height: 110px; object-fit: cover; }
-  .work-card h3 { font-size: 0.98rem; }
-  .work-card p  { font-size: 0.88rem; line-height: 1.35; }
-
-  /* Anchor offset matches the bar’s total height */
-  section {
-    scroll-margin-top: calc(44px + constant(safe-area-inset-top) + 8px);
-    scroll-margin-top: calc(44px + env(safe-area-inset-top) + 8px);
-  }
-}
-
-@media (max-width: 576px) {
-  /* Slightly slimmer bar on very small phones */
-  .top-nav {
-    height: calc(40px + constant(safe-area-inset-top));
-    height: calc(40px + env(safe-area-inset-top));
-    padding-top: constant(safe-area-inset-top);
-    padding-top: env(safe-area-inset-top);
-  }
-  .top-nav a { font-size: 11.5px; padding: 0.34rem 0.5rem; }
-
-  .hero {
-    min-height: calc(100vh - (40px + constant(safe-area-inset-top)));
-    min-height: calc(100vh - (40px + env(safe-area-inset-top)));
-    padding-top: calc(40px + constant(safe-area-inset-top));
-    padding-top: calc(40px + env(safe-area-inset-top));
-    background-position: center 20%;
-  }
-  .hero-headshot-container { max-width: 180px; }
-  .hero-title { font-size: clamp(1.75rem, 6vw + 0.5rem, 2.1rem); }
-
-  .work-card img { height: 100px; }
-  section {
-    scroll-margin-top: calc(40px + constant(safe-area-inset-top) + 6px);
-    scroll-margin-top: calc(40px + env(safe-area-inset-top) + 6px);
-  }
 }
