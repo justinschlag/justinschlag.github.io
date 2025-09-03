@@ -1,36 +1,43 @@
-/* =================================
-   ROOT & GLOBALS
-   ================================= */
+/* ==========================================================================
+   ROOT, THEME, & GLOBALS
+   ========================================================================== */
 :root {
+  /* Brand & theme */
   --garnet: #73000a;
   --garnet-600: #570008;
   --gray: #f9fafb;
-  --card-bg: rgba(255, 255, 255, 0.25);
   --text-dark: #111;
   --accent-shadow: rgba(115, 0, 10, 0.15);
-  --radius: 16px;
-  --glass-blur: 8px;
-  --profile-img-size: 220px;
 
-  /* NAV HEIGHTS (desktop only here; mobile computed via safe-area) */
+  /* Surfaces */
+  --card-bg: rgba(255, 255, 255, 0.25);
+  --glass-blur: 8px;
+  --radius: 16px;
+
+  /* Layout & components */
+  --profile-img-size: 220px;
   --nav-h-desktop: 64px;
 
-  /* Desktop scale */
+  /* Typography scale (desktop) */
   --fs-body: 16px;
   --fs-h2: 28px;
   --fs-h3: 18px;
   --fs-nav: 15px;
   --fs-btn: 15px;
 
-  /* Mobile scale (used in media queries) */
+  /* Typography scale (mobile) */
   --fs-body-m: 13px;
   --fs-h2-m: 16px;
   --fs-h3-m: 14px;
   --fs-nav-m: 12.5px;
   --fs-btn-m: 12.5px;
 
-  /* Safe area (iOS) */
+  /* Safe area (iOS notch) */
   --safe-top: env(safe-area-inset-top, 0px);
+
+  /* Section-specific transparencies */
+  --skills-garnet-alpha: 0.76; /* tweak 0.70–0.90 to taste */
+  --work-garnet-alpha: 0.74;   /* falls back independently from skills */
 }
 
 html {
@@ -43,18 +50,22 @@ html {
 body {
   margin: 0;
   background-color: #fdf6f0;
+  padding-top: var(--nav-h-desktop); /* Push content below fixed nav (desktop) */
 }
 
-/* Subtle themed background */
+/* Subtle themed background (tailfeathers) */
 body.gamecock-theme {
   background:
     linear-gradient(rgba(115,0,10,0.06), rgba(115,0,10,0.06)),
     linear-gradient(rgba(253,246,240,0.92), rgba(253,246,240,0.92)),
-    url('images/tailfeathers.png') no-repeat fixed 65% center;
+    url('images/tailfeathers.png') no-repeat fixed;
+  background-position-x: 110%;
+  background-position-y: center;
   background-blend-mode: multiply, lighten;
   background-color: #fdf6f0;
 }
 
+/* Soft top fade so the page doesn't start harshly under the nav */
 body::before {
   content: "";
   position: fixed;
@@ -63,12 +74,13 @@ body::before {
   z-index: -1;
 }
 
-/* Anchor offset (desktop); mobile overrides later */
+/* Default anchor offset so sections don't hide under the fixed nav */
 section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
 
-/* =================================
-   NAVIGATION (fixed red ribbon)
-   ================================= */
+
+/* ==========================================================================
+   FIXED TOP NAV (Garnet Ribbon)
+   ========================================================================== */
 .top-nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -78,7 +90,7 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
   background: rgba(115,0,10,0.93);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 0; /* remove thin seam */
   z-index: 1000;
 }
 .top-nav a {
@@ -92,24 +104,27 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
   box-shadow: 0 2px 0 rgba(0,0,0,0.06) inset;
 }
 
-/* =================================
-   HERO
-   ================================= */
-/* Desktop fills viewport visually with fixed nav; no white gap */
+
+/* ==========================================================================
+   HERO (Landing Banner)
+   ========================================================================== */
 .hero {
   position: relative;
   display: flex; flex-direction: column; justify-content: center; align-items: center;
   min-height: calc(100vh - var(--nav-h-desktop));
-  padding-top: var(--nav-h-desktop);
+  padding-top: 0; /* body already pads for the nav */
+  margin-top: 0;
   text-align: center;
   background: url('images/linkedin background.jpg') center/cover no-repeat;
-  background-position: center -50%; /* desktop crop preference */
-  margin-top: -var(--nav-h-desktop);   /* pull hero up under the nav */
-  padding-top: calc(var(--nav-h-desktop) * 2); /* keep content spaced correctly */
   color: #fff;
 }
-.hero::before { content: ""; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.5); }
+.hero::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.5); /* darken image for legible text */
+}
 .hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+
 .hero-headshot-container {
   max-width: 260px;
   border-radius: 50%;
@@ -128,9 +143,10 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
 }
 .hero-btn:hover { background: var(--garnet); color: #fff; transform: translateY(-1px); }
 
-/* =================================
-   BACK TO TOP
-   ================================= */
+
+/* ==========================================================================
+   SCROLL-TO-TOP BUTTON
+   ========================================================================== */
 .scroll-top-btn {
   position: fixed; bottom: 20px; right: 20px;
   background: var(--garnet); color: #fff; font-size: 1.4rem;
@@ -141,22 +157,16 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
 .scroll-top-btn:hover { background: var(--garnet-600); }
 .scroll-top-btn.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
-/* =================================
-   MAIN LAYOUT
-   ================================= */
+
+/* ==========================================================================
+   MAIN LAYOUT CONTAINER
+   ========================================================================== */
 .usc-main { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
 
-.logo-banner {
-  max-width: 300px; margin: 0 auto 2rem; padding: 1.5rem;
-  background: rgba(255,255,255,0.85); border-radius: var(--radius);
-  box-shadow: 0 4px 16px var(--accent-shadow); backdrop-filter: blur(5px); text-align: center;
-}
-.logo-banner img { max-width: 200px; opacity: 0.95; transition: transform 0.3s; }
-.logo-banner img:hover { transform: scale(1.05); }
 
-/* =================================
-   ABOUT & JUSTINBOT
-   ================================= */
+/* ==========================================================================
+   ABOUT & JUSTINBOT PANEL STYLES
+   ========================================================================== */
 .about-justinbot-wrapper {
   display: flex; gap: 40px; align-items: flex-start; justify-content: center; flex-wrap: wrap;
   margin-bottom: 40px;
@@ -200,9 +210,10 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
 #chat-form button:hover { background: var(--garnet-600); }
 .chat-response { margin: 1rem auto 0; padding: 1rem; min-height: 120px; max-width: 560px; }
 
-/* =================================
-   GRIDS: SKILLS / PROJECTS / WORK
-   ================================= */
+
+/* ==========================================================================
+   CARD GRIDS (Skills / Projects / Work)
+   ========================================================================== */
 .skills-grid, .project-grid, .work-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
   gap: 2rem; margin-bottom: 3rem;
@@ -233,20 +244,23 @@ section { scroll-margin-top: calc(var(--nav-h-desktop) + 12px); }
 }
 .project-button:hover { background: var(--garnet-600); transform: translateY(-1px); }
 
-/* =================================
-   SECTION HEADERS & ANIMATION
-   ================================= */
+
+/* ==========================================================================
+   SECTION HEADERS & SIMPLE ANIMATION
+   ========================================================================== */
 section h2 {
   display:inline-block; margin-bottom:1.5rem; padding:0.75rem 1.5rem;
   background: rgba(255,255,255,0.9); color: var(--garnet);
   border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   font-size: var(--fs-h2);
 }
+/* (fadeIn reserved for potential future use) */
 @keyframes fadeIn { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
 
-/* =================================
-   TIMELINE (desktop)
-   ================================= */
+
+/* ==========================================================================
+   TIMELINE
+   ========================================================================== */
 .timeline-section { padding: 4rem 2rem; }
 .timeline-section h2 { margin-bottom: 3rem; }
 .timeline {
@@ -256,7 +270,10 @@ section h2 {
   content: ''; position: absolute; top: 0; left: 50%; width: 4px; height: 100%;
   background: var(--garnet); transform: translateX(-50%); z-index: 0;
 }
-.timeline-item { display:flex; justify-content:center; margin:3rem 0; position:relative; z-index:1; opacity:0; transform: translateY(12px); transition: opacity .4s, transform .4s; }
+.timeline-item {
+  display:flex; justify-content:center; margin:3rem 0; position:relative; z-index:1;
+  opacity:0; transform: translateY(12px); transition: opacity .4s, transform .4s;
+}
 .timeline-item.show { opacity:1; transform: none; }
 .timeline-bundle { width: 45%; display:flex; flex-direction:column; align-items:flex-start; }
 .timeline-item.left .timeline-bundle { margin-right:auto; }
@@ -271,9 +288,10 @@ section h2 {
 .timeline-stats { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.75rem; }
 .stat { padding:0.4rem 0.9rem; background: var(--garnet); color:#fff; border-radius:999px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
 
-/* =================================
-   FOOTER
-   ================================= */
+
+/* ==========================================================================
+   FOOTER & UTILITIES
+   ========================================================================== */
 .back-link {
   margin: 3rem auto 1rem; max-width: fit-content; padding: 1rem 2rem;
   background: rgba(255,255,255,0.85); backdrop-filter: blur(5px); border-radius: var(--radius);
@@ -281,6 +299,7 @@ section h2 {
 }
 .back-link a { color: var(--garnet); font-weight: 700; text-decoration: none; font-size: 1.05rem; }
 .back-link a:hover { text-decoration: underline; }
+
 .footer-contact {
   margin-top: 2rem; padding: 1rem 0; text-align: center;
   background: rgba(255,255,255,0.85); backdrop-filter: blur(5px);
@@ -289,18 +308,81 @@ section h2 {
 .footer-contact a { margin: 0 1rem; color: var(--garnet); text-decoration: none; }
 .footer-contact a:hover { text-decoration: underline; }
 
-/* =================================
-   UTILITIES
-   ================================= */
 .hidden-mobile { display: block; }
 .sr-only {
   position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
 }
 
-/* =================================
-   MOBILE (<= 768px) — consolidated
-   ================================= */
+
+/* ==========================================================================
+   MINI-HERO SECTIONS (Full-bleed, semi-transparent Garnet)
+   - Skills & Resume
+   - Work Experience
+   ========================================================================== */
+
+/* ---- Skills ---- */
+#skills {
+  position: relative;
+  isolation: isolate;                /* confine the background to this section */
+  padding-block: 3.25rem;
+  scroll-margin-top: 0 !important;   /* land flush under the fixed nav */
+  min-height: calc(100svh - var(--nav-h-desktop)); /* fill viewport below nav */
+}
+#skills::before {
+  content:"";
+  position:absolute; inset:0;
+  background: rgba(115,0,10,var(--skills-garnet-alpha));
+  z-index:-1;
+  /* bleed to viewport edges even though content is centered in .usc-main */
+  box-shadow: 0 0 0 100vmax rgba(115,0,10,var(--skills-garnet-alpha));
+  clip-path: inset(0 -100vmax);
+}
+/* White heading + legible inline resume link */
+#skills h2 { background: transparent; box-shadow: none; color:#fff; }
+#skills > .resume-inline { color:#fff; }
+#skills > .resume-inline a {
+  background:#fff; color: var(--garnet);
+  padding: .5rem .9rem; border-radius:8px; text-decoration:none; font-weight:700;
+}
+#skills > .resume-inline a:hover { background:#f3f3f3; }
+/* Cards stay bright for contrast */
+#skills .skill-card { background: rgba(255,255,255,0.95); color: var(--text-dark); }
+#skills .skill-card h4 { color: var(--garnet); }
+/* 3 columns on desktop to get a 3+3 stack */
+@media (min-width: 992px) {
+  #skills .skills-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* Slightly tighter spacing within the dark field */
+#skills .skills-grid { gap: 1.5rem; }
+
+/* ---- Work ---- */
+#work {
+  position: relative;
+  isolation: isolate;
+  padding-block: 3.25rem;
+  scroll-margin-top: 0 !important;
+  min-height: calc(100svh - var(--nav-h-desktop));
+}
+#work::before {
+  content:"";
+  position:absolute; inset:0;
+  background: rgba(115,0,10, var(--work-garnet-alpha));
+  z-index:-1;
+  box-shadow: 0 0 0 100vmax rgba(115,0,10, var(--work-garnet-alpha));
+  clip-path: inset(0 -100vmax);
+}
+/* Title contrast & legible cards on dark background */
+#work h2 { background: transparent; box-shadow: none; color:#fff; }
+#work .work-card { background: rgba(255,255,255,0.95); color: var(--text-dark); }
+#work .work-card h3 { color: var(--garnet); }
+/* Slightly tighter grid for this dense section */
+#work .work-grid { gap: 1.5rem; }
+
+
+/* ==========================================================================
+   RESPONSIVE (Mobile & Small Screens)
+   ========================================================================== */
 @media (max-width: 768px) {
   html, body {
     font-size: var(--fs-body-m);
@@ -310,18 +392,13 @@ section h2 {
     line-height: 1.5;
   }
 
-  /* Fixed red ribbon: safe-area aware, tight spacing, horizontal scroll */
+  /* Fixed red ribbon: safe-area aware, horizontal scroll if needed */
   .top-nav {
-    /* Base bar 44px + notch */
     height: calc(44px + var(--safe-top));
     padding-top: var(--safe-top);
-    padding-left: 6px;
-    padding-right: 6px;
-    gap: 0.15rem;
-    box-sizing: border-box;
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none;
+    padding-left: 6px; padding-right: 6px;
+    gap: 0.15rem; box-sizing: border-box;
+    overflow-x: auto; white-space: nowrap; scrollbar-width: none;
     background: var(--garnet);
   }
   .top-nav::-webkit-scrollbar { display: none; }
@@ -344,6 +421,7 @@ section h2 {
   section { scroll-margin-top: calc(44px + var(--safe-top) + 8px); }
 
   /* Hero under fixed nav; mobile crop & larger face/title */
+  body { padding-top: calc(44px + var(--safe-top)); }
   .hero {
     min-height: calc(100vh - (44px + var(--safe-top)));
     padding-top: calc(44px + var(--safe-top));
@@ -401,7 +479,7 @@ section h2 {
   .skill-card ul { padding-left: 1rem; margin: 0.25rem 0 0; }
   .skill-card li { font-size: 0.92rem; line-height: 1.5; }
 
-  /* Timeline: single rail list */
+  /* Timeline collapses to single rail list */
   .timeline-section { padding: 1.5rem 0.5rem; }
   .timeline { max-width: 680px; padding: 0 0.5rem; }
   .timeline::before { left: 20px; transform: none; width: 3px; }
@@ -415,16 +493,11 @@ section h2 {
   .timeline-stats { grid-column: 2; gap: 6px; margin-top: 0.6rem; }
   .stat { padding: 0.28rem 0.6rem; font-size: 0.8rem; }
 
-  /* Back to top & footer */
-  .back-link { margin: 1.25rem auto 0.75rem; padding: 0.6rem 1.2rem; }
-  .back-link a { font-size: 0.95rem; }
-  .footer-contact { padding: 0.75rem 0; }
-  .footer-contact a { margin: 0 0.6rem; }
+  /* Mini-hero sections: adjust to mobile ribbon height for full viewport fill */
+  #skills { min-height: calc(100svh - (44px + var(--safe-top))); }
+  #work   { min-height: calc(100svh - (44px + var(--safe-top))); }
 }
 
-/* =================================
-   NARROW PHONES (<= 640px)
-   ================================= */
 @media (max-width: 640px) {
   .top-nav a {
     font-size: 10.75px;
@@ -433,13 +506,10 @@ section h2 {
   }
 }
 
-/* =================================
-   SMALL PHONES (<= 576px)
-   ================================= */
 @media (max-width: 576px) {
-  /* Shorter bar; keep layout aligned */
+  /* Shorter bar on very small phones; keep layout aligned */
   .top-nav { height: calc(38px + var(--safe-top)); padding-top: var(--safe-top); }
-  section { scroll-margin-top: calc(38px + var(--safe-top) + 6px); }
+  section   { scroll-margin-top: calc(38px + var(--safe-top) + 6px); }
   .hero {
     min-height: calc(100vh - (38px + var(--safe-top)));
     padding-top: calc(38px + var(--safe-top));
@@ -455,9 +525,13 @@ section h2 {
   .timeline::before { left: 16px; }
   .timeline-bundle { grid-template-columns: 50px 1fr; }
   .timeline-content img { height: 100px; }
+
+  /* Mini-hero sections: adjust to smaller bar height */
+  #skills { min-height: calc(100svh - (38px + var(--safe-top))); }
+  #work   { min-height: calc(100svh - (38px + var(--safe-top))); }
 }
 
-/* Prefer reduced motion */
+/* Prefer reduced motion users */
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
