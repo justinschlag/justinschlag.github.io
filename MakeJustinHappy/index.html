@@ -56,7 +56,7 @@
       let mood = "neutral";
 
   // Single happy words - safe for \b word-boundary matching
-const happyWords = /\b(thank|thanks|great|awesome|glad|impressive|happy|happiness|cool|love|nice|funny|haha|lol|beautiful|smart|amazing|yay|yes|yeah|yep|wonderful|fantastic|adorable|cute|sweet|success|proud|relieved|smile|laugh|laughing|enjoy|peaceful|calm|grateful|excited|fun|win|winning|accomplished|blessed|chill|lovely|sunshine|perfect|positive|wholesome|joy|joyful|ecstatic|vibes|vibing|good|best|bright|elated|content|delighted|glorious|highlight|sparkle|glee|euphoric|hyped|pumped|enthusiastic|smiling|rockstar|genius|talented|supportive|encouraging|inspired|inspiring|upbeat|sunny|lit|dope|fire|banger|excellent|adoring|sweetheart|golden|flawless|heartwarming|kudos|celebrate|achievement|goals|living|dreaming|vacation|wow|promotion|loves|mommy)\b/;
+const happyWords = /\b(thank|thanks|great|awesome|glad|impressive|happy|happiness|cool|love|nice|funny|haha|lol|beautiful|smart|amazing|yay|yes|yeah|yep|wonderful|fantastic|adorable|cute|sweet|success|proud|relieved|smile|laugh|laughing|enjoy|peaceful|calm|grateful|excited|fun|win|winning|accomplished|blessed|chill|lovely|sunshine|perfect|positive|wholesome|joy|joyful|ecstatic|vibes|vibing|good|best|bright|elated|content|delighted|glorious|highlight|sparkle|glee|euphoric|hyped|pumped|enthusiastic|smiling|rockstar|genius|talented|supportive|encouraging|inspired|inspiring|upbeat|sunny|lit|dope|fire|banger|excellent|adoring|sweetheart|golden|flawless|heartwarming|kudos|celebrate|achievement|goals|living|dreaming|vacation|wow|promotion|loves|mommy|handsome|yay|madeleine)\b/;
 
 // Multi-word happy phrases - matched with simple includes()
 const happyPhrases = [
@@ -70,7 +70,7 @@ const happyPhrases = [
 ];
 
 // Single sad words - safe for \b word-boundary matching
-const sadWords = /\b(sad|mean|ugly|bad|hate|disappointed|disappointing|offensive|cringe|weird|hurt|suck|stupid|dumb|rude|ouch|poop|dead|died|lonely|alone|anxious|anxiety|depressed|depression|cry|cried|cries|crying|tears|worried|afraid|scared|angry|mad|terrible|awful|miserable|sick|ill|pain|fail|failed|failure|crap|bs|garbage|worthless|regret|sorry|broken|hopeless|dark|grief|mourning|burned|stressed|panic|overwhelmed|emotional|shattered|heartbroken|ignored|ghosted|abandoned|jobless|laid|fired|ashamed|broke|cheated|lied|manipulated|gaslit|abused|toxic|ruined|exhausted|pointless|suffering|isolated|lost|worrying|blamed|let|down|can't|hopeless|useless|crying|again|helpless|nobody|cares|forgotten|i'm|done|giving|up|worst|day|nothing|matters|not|okay|can't|win|sucks)\b/;
+const sadWords = /\b(sad|mean|ugly|bad|hate|disappointed|disappointing|offensive|cringe|weird|hurt|suck|stupid|dumb|rude|ouch|poop|dead|died|lonely|alone|anxious|anxiety|depressed|depression|cry|cried|cries|crying|tears|worried|afraid|scared|angry|mad|terrible|awful|miserable|sick|ill|pain|fail|failed|failure|crap|bs|garbage|worthless|regret|sorry|broken|hopeless|dark|grief|mourning|burned|stressed|panic|overwhelmed|emotional|shattered|heartbroken|ignored|ghosted|abandoned|jobless|laid|fired|ashamed|broke|cheated|lied|manipulated|gaslit|abused|toxic|ruined|exhausted|pointless|suffering|isolated|lost|worrying|blamed|let|down|can't|hopeless|useless|crying|again|helpless|nobody|forgotten|done|giving|up|worst|day|nothing|matters|not|okay|can't|idiot|fuck|rude|ouch|poop|dead|died|lonely|)\b/;
 
 // Multi-word sad phrases - matched with includes()
 const sadPhrases = [
