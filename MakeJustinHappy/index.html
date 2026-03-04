@@ -32,63 +32,119 @@
       confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
     }
 
-    async function askJustinBotMood(message) {
-      const res = await fetch('https://justin-bot-ujmo.onrender.com/ask', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: `What mood should this text trigger if it were said to me: happy, sad, or neutral? Just answer with one word: happy, sad, or neutral. "${message}"` })
-      });
-      const { answer } = await res.json();
-      const a = answer.toLowerCase();
-      if (a.includes("happy")) return "happy";
-      if (a.includes("sad")) return "sad";
-      if (a.includes("neutral")) return "neutral";
-      return "neutral";
+    function normalizeText(s) {
+      return (s || "")
+        .toLowerCase()
+        .replace(/[“”]/g, '"')
+        .replace(/[’]/g, "'")
+        .trim();
+    }
 
+    function includesAnyPhrase(text, phrases) {
+      for (const p of phrases) {
+        if (text.includes(p)) return true;
+      }
+      return false;
+    }
+
+    // IMPORTANT FIX #1:
+    // Your sadWords regex had a trailing "|" before the closing paren: "...|lonely|)\b"
+    // That creates an EMPTY alternative which matches basically anywhere => EVERYTHING becomes "sad" (including "hi").
+    // This list is cleaned and also removes super-broad triggers like lone "not".
+    const happyWords = /\b(thank|thanks|great|awesome|glad|impressive|happy|happiness|cool|love|nice|funny|haha|lol|beautiful|smart|amazing|yay|yes|yeah|yep|wonderful|fantastic|adorable|cute|sweet|success|proud|relieved|smile|laugh|laughing|enjoy|peaceful|calm|grateful|excited|fun|win|winning|accomplished|blessed|chill|lovely|sunshine|perfect|positive|wholesome|joy|joyful|ecstatic|vibes|vibing|good|best|bright|elated|content|delighted|glorious|highlight|sparkle|glee|euphoric|hyped|pumped|enthusiastic|smiling|rockstar|genius|talented|supportive|encouraging|inspired|inspiring|upbeat|sunny|lit|dope|fire|banger|excellent|adoring|sweetheart|golden|flawless|heartwarming|kudos|celebrate|achievement|goals|vacation|wow|promotion|loves|handsome|madeleine)\b/;
+
+    const happyPhrases = [
+      "good job", "really proud", "great time", "feeling good", "got this",
+      "big day", "cool project", "passion project", "new puppy", "new job",
+      "got promoted", "i got in", "got accepted", "made it through",
+      "peace of mind", "better now", "i’m back", "i'm back", "good grade",
+      "on track", "working hard", "hyped up", "first place", "new record",
+      "beautiful day", "good vibes", "inner peace", "top tier", "chef’s kiss",
+      "chef's kiss", "sweet moment", "positive energy", "winning streak"
+    ];
+
+    const sadWords = /\b(sad|mean|ugly|bad|hate|disappointed|disappointing|offensive|cringe|weird|hurt|sucks?|stupid|dumb|rude|ouch|dead|died|lonely|alone|anxious|anxiety|depressed|depression|cry|cried|cries|crying|tears|worried|afraid|scared|angry|mad|terrible|awful|miserable|sick|ill|pain|fail|failed|failure|crap|garbage|worthless|regret|sorry|broken|hopeless|dark|grief|mourning|burned|stressed|panic|overwhelmed|emotional|shattered|heartbroken|ignored|ghosted|abandoned|jobless|laid\s*off|fired|ashamed|broke|cheated|lied|manipulated|gaslit|abused|toxic|ruined|exhausted|pointless|suffering|isolated|lost|worrying|blamed|let\s*down|helpless|nobody|forgotten|giving\s*up|worst)\b/;
+
+    const sadPhrases = [
+      "passed away", "funeral", "left out", "lost my", "divorce", "breakup",
+      "i miss", "bad grade", "failed test", "failed exam", "got denied",
+      "hurt my", "they left", "woke up crying", "can't sleep", "can’t sleep",
+      "no motivation", "struggling", "burnt out", "worried sick", "feeling down",
+      "feeling low", "messed up", "ruined everything", "nothing works",
+      "can't handle", "can’t handle", "powerless", "crying again", "why me",
+      "i hate life", "feel empty", "getting worse", "mentally tired",
+      "physically tired", "lost hope", "end it", "wasting away",
+      "emotional damage", "trouble sleeping", "everything hurts", "lost faith",
+      "why bother", "heartache", "hurts too much", "never good enough",
+      "can't win", "can’t win", "not okay", "not okay."
+    ];
+
+    // IMPORTANT FIX #2:
+    // Treat tiny greetings / simple requests as neutral (or happy if you want).
+    // This prevents the AI fallback from doing something weird.
+    const greetingRegex = /^(hi|hey|hello|yo|sup|what's up|whats up|hiya|howdy|good morning|good afternoon|good evening)\b[!.?\s]*$/i;
+
+    function extractMoodWord(answerText) {
+      const t = normalizeText(answerText);
+      // Grab the first occurrence of a valid mood word, even if the bot rambles.
+      if (/\bhappy\b/.test(t)) return "happy";
+      if (/\bsad\b/.test(t)) return "sad";
+      if (/\bneutral\b/.test(t)) return "neutral";
+      return "neutral";
+    }
+
+    async function askJustinBotMood(message) {
+      // Timeout so the UI doesn't hang forever
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      try {
+        const res = await fetch('https://justin-bot-ujmo.onrender.com/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          signal: controller.signal,
+          body: JSON.stringify({
+            question:
+              `You are a strict mood classifier for a tiny web app.
+Return ONLY ONE WORD: happy, sad, or neutral.
+
+Rules:
+- Greetings like "hi", "hey", "hello" => neutral.
+- If it's unclear/ambiguous => neutral.
+- "sad" ONLY for clearly negative/hurtful/distressing text.
+- "happy" for clearly positive/compliments/celebrations.
+- Otherwise neutral.
+
+Text: ${message}`
+          })
+        });
+
+        const data = await res.json();
+        return extractMoodWord(data?.answer || "");
+      } catch (err) {
+        // If anything fails (network/timeout), default to neutral (never sad).
+        return "neutral";
+      } finally {
+        clearTimeout(timeoutId);
+      }
     }
 
     async function evaluateMood() {
-      const message = input.value.trim();
+      const rawMessage = input.value;
+      const message = rawMessage.trim();
       if (!message) return;
+
       status.textContent = "Hmmmmmmmm......";
 
-      const lower = message.toLowerCase();
+      const lower = normalizeText(message);
       let mood = "neutral";
 
-  // Single happy words - safe for \b word-boundary matching
-const happyWords = /\b(thank|thanks|great|awesome|glad|impressive|happy|happiness|cool|love|nice|funny|haha|lol|beautiful|smart|amazing|yay|yes|yeah|yep|wonderful|fantastic|adorable|cute|sweet|success|proud|relieved|smile|laugh|laughing|enjoy|peaceful|calm|grateful|excited|fun|win|winning|accomplished|blessed|chill|lovely|sunshine|perfect|positive|wholesome|joy|joyful|ecstatic|vibes|vibing|good|best|bright|elated|content|delighted|glorious|highlight|sparkle|glee|euphoric|hyped|pumped|enthusiastic|smiling|rockstar|genius|talented|supportive|encouraging|inspired|inspiring|upbeat|sunny|lit|dope|fire|banger|excellent|adoring|sweetheart|golden|flawless|heartwarming|kudos|celebrate|achievement|goals|living|dreaming|vacation|wow|promotion|loves|mommy|handsome|yay|madeleine)\b/;
-
-// Multi-word happy phrases - matched with simple includes()
-const happyPhrases = [
-  "good job", "really proud", "great time", "feeling good", "got this",
-  "big day", "cool project", "passion project", "new puppy", "new job",
-  "got promoted", "i got in", "got accepted", "just got", "made it through",
-  "peace of mind", "better now", "i’m back", "good grade", "on track",
-  "working hard", "hyped up", "first place", "new record", "beautiful day",
-  "good vibes", "inner peace", "top tier", "chef’s kiss", "sweet moment",
-  "positive energy", "winning streak"
-];
-
-// Single sad words - safe for \b word-boundary matching
-const sadWords = /\b(sad|mean|ugly|bad|hate|disappointed|disappointing|offensive|cringe|weird|hurt|suck|stupid|dumb|rude|ouch|poop|dead|died|lonely|alone|anxious|anxiety|depressed|depression|cry|cried|cries|crying|tears|worried|afraid|scared|angry|mad|terrible|awful|miserable|sick|ill|pain|fail|failed|failure|crap|bs|garbage|worthless|regret|sorry|broken|hopeless|dark|grief|mourning|burned|stressed|panic|overwhelmed|emotional|shattered|heartbroken|ignored|ghosted|abandoned|jobless|laid|fired|ashamed|broke|cheated|lied|manipulated|gaslit|abused|toxic|ruined|exhausted|pointless|suffering|isolated|lost|worrying|blamed|let|down|can't|hopeless|useless|crying|again|helpless|nobody|forgotten|done|giving|up|worst|day|nothing|matters|not|okay|can't|idiot|fuck|rude|ouch|poop|dead|died|lonely|)\b/;
-
-// Multi-word sad phrases - matched with includes()
-const sadPhrases = [
-  "passed away", "funeral", "left out", "lost my", "divorce", "breakup",
-  "i miss", "bad grade", "failed test", "failed exam", "got denied",
-  "hurt my", "they left", "woke up crying", "can’t sleep", "no motivation",
-  "struggling", "burnt out", "worried sick", "feeling down", "feeling low",
-  "messed up", "ruined everything", "nothing works", "can’t handle",
-  "powerless", "crying again", "why me", "i hate life", "feel empty",
-  "getting worse", "mentally tired", "physically tired", "lost hope",
-  "end it", "wasting away", "emotional damage", "trouble sleeping",
-  "everything hurts", "lost faith", "why bother", "heartache", "hurts too much",
-  "never good enough", "can’t win"
-];
-
-      if (happyWords.test(lower)) {
+      // Quick neutral for greetings / tiny inputs
+      if (greetingRegex.test(message) || lower.length <= 2) {
+        mood = "neutral";
+      } else if (happyWords.test(lower) || includesAnyPhrase(lower, happyPhrases)) {
         mood = "happy";
-      } else if (sadWords.test(lower)) {
+      } else if (sadWords.test(lower) || includesAnyPhrase(lower, sadPhrases)) {
         mood = "sad";
       } else {
         mood = await askJustinBotMood(message);
